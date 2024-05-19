@@ -2,6 +2,7 @@
 #include <time.h> //Librería oficial de C que tiene la función random.
 #include <string.h>
 #include <stdio.h> //Librería oficial de C necesaria apra utilizar la estructura FILE y sus respectivas funciones, entre otras utilidades.
+#include "estructuraUsuario.h"
 
 int main()
 {

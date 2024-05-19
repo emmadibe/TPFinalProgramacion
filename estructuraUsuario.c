@@ -1,44 +1,15 @@
-#include <stdlib.h>
-#include <time.h> //Librería oficial de C que tiene la función random.
-#include <string.h>
-#include <stdio.h> 
-
-int crearUsuario(char archivo[]);
-
-typedef struct estructuraUsuario
-{
-
-    char nombre[30];
-
-    int edad;
-
-    int rol; // 2: adm;  1: usuario. La clave para ser anmi es la de LOST: 4815162342.
-
-    int pass;
-
-    char genero; //f, m, x.
-
-}usuario;
-
-int main()
-{
-
-    int pruebita = 0;
-
-    pruebita = crearUsuario("pruebita.bid");
-
-}
+#include "estructuraUsuario.h"
 
 int crearUsuario(char archivo[])
 {
+
+    int pass2 = 0;
 
     usuario u; //Declaramos una variable de tipo usuario.
 
     FILE *archi; //Declaramos un puntero a la estructura FILE.
 
     archi = fopen(archivo, "ab");
-
-    int pass2 = 0;
 
     if(archi == NULL){
 
@@ -54,7 +25,7 @@ int crearUsuario(char archivo[])
         fflush(stdin);
         gets(u.nombre);
 
-    }while(u.nombre < 6 && u.nombre > 30);
+    }while(strlen(u.nombre) < 6 && strlen(u.nombre) > 30);
 
     do{
 
@@ -77,18 +48,20 @@ int crearUsuario(char archivo[])
         printf("Si usted conoce la key para ser administrador, escribala; sino, presione 1.\n");
         scanf("%d", &u.rol);
 
-        if(u.rol == 4815162342){
+        if(u.rol == 4815){
 
             u.rol = 2;
 
         }
 
-    }while(u.rol != 4815162342 || u.rol != 1);
+    }while(u.rol != 2 || u.rol != 1);
 
     puts("-----------------------\n");
 
     fwrite(&u, sizeof(usuario), 1, archi);
 
     fclose(archi); //Cierro el archivo. Fundamental para que los datos escritos en el buffer se guarden en el archivo ubicado en memoria secundaria.
+
+    return 0;
 
 }
