@@ -54,7 +54,7 @@ int crearUsuario(char archivo[])
 
         }
 
-    }while(u.rol != 2 || u.rol != 1);
+    }while(u.rol != 2 && u.rol != 1);
 
     puts("-----------------------\n");
 

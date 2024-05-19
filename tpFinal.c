@@ -9,6 +9,8 @@ int main()
 
     int menu = 0;
 
+    int crearNuevoUsuario = 0;
+
     do{
 
         do{
@@ -30,6 +32,18 @@ int main()
         case 1:
             
             puts("CREAR UN USUARIO\n");
+
+            crearNuevoUsuario = crearUsuario("pruebita.bid");
+
+            if(crearNuevoUsuario == 0){
+
+                printf("Usuario creado correctamente!\n");
+
+            }else{
+
+                printf("Error.\n");
+
+            }
 
             break;
         
