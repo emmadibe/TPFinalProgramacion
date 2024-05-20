@@ -14,10 +14,11 @@ typedef struct
 
     int rol; // 2: adm;  1: usuario. La clave para ser anmi es 4815.
 
-    int pass;
+    char pass[30];
 
     char genero; //f, m, x.
 
 }usuario;
 
 int crearUsuario(char archivo[]);
+void verUsuarios (char archivo[]);

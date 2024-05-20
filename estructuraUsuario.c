@@ -3,7 +3,11 @@
 int crearUsuario(char archivo[])
 {
 
-    int pass2 = 0;
+    char pass2[30];
+
+    int longCadena = 0;
+
+    int compararCadenas = 0;
 
     usuario u; //Declaramos una variable de tipo usuario.
 
@@ -25,23 +29,40 @@ int crearUsuario(char archivo[])
         fflush(stdin);
         gets(u.nombre);
 
-    }while(strlen(u.nombre) < 6 && strlen(u.nombre) > 30);
+        longCadena = strlen(u.nombre);
+
+    }while(longCadena < 6 || longCadena > 30);
 
     do{
 
         printf("Ingrese una edad del 1 al 100: \n");
         scanf("%d", &u.edad);
 
-    }while(u.edad < 1 && u.edad > 100 );
+    }while(u.edad < 1 || u.edad > 100 );
 
     do{
 
-        printf("Ingrese password: \n");
-        scanf("%d", &u.pass);
-        printf("Confirmar pass: \n");
-        scanf("%d", &pass2);
+        do{
 
-    }while(u.pass != pass2);
+            printf("Ingrese password: \n");
+            gets(u.pass);
+            longCadena = strlen(u.pass);
+
+        }while(longCadena < 5); //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
+
+        printf("Confirmar pass: \n");
+        gets(pass2);
+
+        compararCadenas = strcmp(u.pass, pass2);
+
+    }while(compararCadenas != 0);
+
+    do{
+
+        printf("Inrgese su genero: f, m o x\n");
+        u.genero = getch();
+
+    }while(u.genero != 'f' && u.genero != 'm' && u.genero != 'x');
 
     do{
 
@@ -63,5 +84,30 @@ int crearUsuario(char archivo[])
     fclose(archi); //Cierro el archivo. Fundamental para que los datos escritos en el buffer se guarden en el archivo ubicado en memoria secundaria.
 
     return 0;
+
+}
+
+void verUsuarios (char archivo[])
+{
+
+    FILE *archi;
+    usuario u;
+    archi = fopen(archivo, "rb");
+    int i = 0;
+    if(archi != NULL){
+
+        while(fread(&u, sizeof(usuario), 1, archi) > 0){
+
+            printf("Registro N %d\n", i);
+            puts("-----------\n");
+            printf("Nombre y apellido: %s\n", u.nombre);
+            printf("Edad: %d\n", u.edad);
+            printf("Genero: %c\n", u.genero);
+            printf("Rol: %d\n", u.rol);
+            puts("---------------\n");
+
+        }
+
+    }
 
 }
