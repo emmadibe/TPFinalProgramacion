@@ -8,7 +8,11 @@
 typedef struct 
 {
 
+    int id; //Debe ser autoincremental.s
+
     char nombre[30];
+
+    char email[30];
 
     int edad;
 
@@ -22,3 +26,4 @@ typedef struct
 
 int crearUsuario(char archivo[]);
 void verUsuarios (char archivo[]);
+int comprobarEmail(char email[]);

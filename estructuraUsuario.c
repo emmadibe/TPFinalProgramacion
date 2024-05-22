@@ -9,6 +9,8 @@ int crearUsuario(char archivo[])
 
     int compararCadenas = 0;
 
+    int verificaEmail;
+
     usuario u; //Declaramos una variable de tipo usuario.
 
     FILE *archi; //Declaramos un puntero a la estructura FILE.
@@ -39,6 +41,24 @@ int crearUsuario(char archivo[])
         scanf("%d", &u.edad);
 
     }while(u.edad < 1 || u.edad > 100 );
+
+    do{
+
+        printf("Ingrese su email: \n");
+        fflush(stdin);
+        gets(u.email);
+
+        verificaEmail = comprobarEmail(u.email);
+
+        printf("%d", verificaEmail);
+
+        if(verificaEmail != 0){
+
+            puts("UN EMAIL DEBE TENER UN ARROBA!\n");
+
+        }
+
+    }while(verificaEmail != 0);
 
     do{
 
@@ -109,5 +129,30 @@ void verUsuarios (char archivo[])
         }
 
     }
+
+}
+
+int comprobarEmail(char email[])
+{
+
+    char caracter;
+
+    int i = 0;
+
+    int flag = 1;
+
+    while(email[i] != '\0' && flag == 1){
+
+        if (email[i] == 64){ //64 es el @ en ASCII.
+
+            flag = 0;
+
+        }
+
+        i++;
+
+    }
+
+    return flag;
 
 }
