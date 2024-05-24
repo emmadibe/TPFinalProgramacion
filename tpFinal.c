@@ -26,6 +26,8 @@ int main()
 
     int logueo = -198;
 
+    validosUsuario = archivoToArregloUsuario("usuario.bid", a, validosUsuario, 100);
+
     do{
 
         do{
@@ -66,16 +68,7 @@ int main()
 
             puts("LOGUEARTE\n");
 
-            cantElementos = cantElementosArchivo("usuario.bid", sizeof(usuario));
-
-            printf("La cantidad de elementos en mi archivo son: %d\n", cantElementos);
-
             validosUsuario = archivoToArregloUsuario("usuario.bid", a, validosUsuario, 100);
-
-            printf("Validos del arreglo: %d\n", validosUsuario);
-
-            imprimirArrayUsuario(a, validosUsuario);
-
 
             do{
 
@@ -95,7 +88,7 @@ int main()
 
                 }else if (logueo == -1){
 
-                    puts("CONTRASENIA INCORRECTA!\n");
+                    puts("ALGUNO DE LOS DATOS INGRESADOS NO SON CORRECTOS!\n");
 
                 }else{
 
@@ -107,16 +100,30 @@ int main()
                     do{
 
                         printf("Seleccionar una opcion, %s.\n", a[logueo].nombre);
-                        printf("1) Agregar un libro.\n 0) Cerrar sesion.\n");
+                        printf("0) Salir.\n 1) Ir a seccion LIBROS.\n 2) Ir a seccion COMENTARIOS.\n 3) Editar mi perfil.\n");
                         if(a[logueo].rol == 2){
 
-                            printf("5) para ver lista de usuarios.\n");
+                            printf("4) para ver lista de usuarios.\n");
+                            printf("5) para editar usuarios.\n");
+                            printf("6) para eliminar a un usuario.\n");
 
                         }
 
                         scanf("%d", &menuPrincipal);
 
-                        if(menuPrincipal == 5){
+                        if(menuPrincipal == 1){
+
+                            puts("SECCION LIBROS\n");
+
+                        }else if(menuPrincipal == 2){
+
+                            puts("SECCION COMENTARIOS\n");
+
+                        }else if(menuPrincipal == 3){
+
+                            puts("EDITAR PERFIL.\n");
+
+                        }else if(menuPrincipal == 4){
 
                             if(a[logueo].rol != 2 ){ //Solo los admins (rol == 2) deben poder ver, editar y eliminar usuarios.
 
@@ -130,9 +137,39 @@ int main()
 
                             }
 
+                        }else if(menuPrincipal == 5){
+
+                            if(a[logueo].rol != 2){
+
+                                puts("PROHIBIDO!\n");
+
+                            }else{
+
+                                puts("EDITAR UN USUARIO\n");
+
+                            }
+
+                        }else if(menuPrincipal == 6){
+
+                            if(a[logueo].rol != 2){
+
+                                puts("PROHIBIDO!\n");
+
+                            }else{
+
+                                puts("ELIMINAR UN USUARIO.\n");
+
+                            }
+
                         }
 
-                    }while(menuPrincipal != 0); //Si el usuario selecciona 0, cierra sesión, volviendo al menú de incio.
+                        if(menuPrincipal < 0 || menuPrincipal > 6){
+
+                            puts("DEBES INGRESAR UN VALOR ENTRE 0 Y 6!!!!\n");
+
+                        }
+
+                    }while( menuPrincipal != 0); //Si el usuario selecciona 0, cierra sesión, volviendo al menú de incio (DESLOGUEO).
 
                     ////////////////////////////////////////////////////////////////
 

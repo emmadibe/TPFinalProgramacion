@@ -12,6 +12,12 @@ int crearUsuario(char archivo[])
 
     int verificaEmail;
 
+    int dia = 0, mes = 0, anio = 0;
+
+    char diaStr[20];
+    char mesStr[20];
+    char anioStr[20];
+
     usuario u; //Declaramos una variable de tipo usuario.
 
     FILE *archi; //Declaramos un puntero a la estructura FILE.
@@ -55,9 +61,13 @@ int crearUsuario(char archivo[])
 
         printf("%d", verificaEmail);
 
-        if(verificaEmail != 0){
+        if(verificaEmail == 1){
 
-            puts("UN EMAIL DEBE TENER UN ARROBA!\n");
+            puts("UN EMAIL DEBE TENER UN ARROBA Y TERMINAR EN .COM!\n");
+
+        }else if(verificaEmail == -9){
+
+            puts("EL EMAIL YA EXISTEª ELIJA OTRO.\n");
 
         }
 
@@ -86,6 +96,34 @@ int crearUsuario(char archivo[])
         u.genero = getch();
 
     }while(u.genero != 'f' && u.genero != 'm' && u.genero != 'x');
+
+    do{
+
+        printf("Ingresar el dia de nacimiento.\n");
+        scanf("%d", &dia);
+
+    }while( dia < 1 || dia > 31);
+
+    do{
+
+        printf("Ingrese mes de nacimiento\n");
+        scanf("%d", &mes);
+
+    }while( mes < 1 || mes > 12);
+
+    do{
+
+        printf("Ingrese el anio de nacimiento\n");
+        scanf("%d", &anio);
+
+    }while(anio < 1940 || anio > 2024);
+
+    //Ahora convertiremos las fechas de int a string con la función itoa():
+    sprintf(diaStr, "%d", dia); //Paso de int a str.
+    sprintf(mesStr, "%d", mes);
+    sprintf(anioStr, "%d", anio);
+
+    sprintf(u.fechaNacimiento, "%s %s %s %s %s", diaStr, "|", mesStr, "|", anioStr); // COn la función sprintf puedo agregar varios string a un string. Por eso, me sirve esta función y no strcpy().
 
     do{
 
@@ -127,6 +165,7 @@ void verUsuarios (char archivo[])
             printf("Nombre y apellido: %s\n", u.nombre);
             printf("Edad: %d\n", u.edad);
             printf("Genero: %c\n", u.genero);
+            printf("Fecha de nacimiento: %s\n", u.fechaNacimiento);
             printf("Rol: %d\n", u.rol);
             puts("---------------\n");
 
@@ -139,17 +178,27 @@ void verUsuarios (char archivo[])
 int comprobarEmail(char email[])
 {
 
-    char caracter;
-
     int i = 0;
 
     int flag = 1;
 
     while(email[i] != '\0' && flag == 1){
 
-        if (email[i] == 64){ //64 es el @ en ASCII.
+        if (email[i] == 64){ //Compruebo que el mail tenga un arroba. 64 es el @ en ASCII.
 
-            flag = 0;
+            if(tienePuntoCom(email) == 0){ //Ya comprobado que haya un arroba, compruebo que tenga ".com".
+
+                if(existeEmail(email) == 0){ //Solo falta comprobar que el email no exista. 
+
+                    flag = 0; //Y, así, si el email ingresado pasa los tres test, flag valdrá 0.
+
+                }else{
+
+                    flag = -9;
+
+                }
+
+            }
 
         }
 
@@ -158,6 +207,57 @@ int comprobarEmail(char email[])
     }
 
     return flag;
+
+}
+
+int existeEmail(char email[])
+{
+
+    usuario a[100];
+
+    int i = 0;
+
+    int control = 0;
+
+    int v = archivoToArregloUsuario("usuario.bid", a, 0, 100);
+
+    while(i < v && control == 0){ //Si control deja de valer 0, no tiene sentido seguir recorriendo el bucle; pues, ya sé que el mail existe.
+
+        if(strcmpi(a[i].email, email) == 0){
+
+            control = 1;
+
+        }
+
+        i++;
+
+    }
+
+    return control;
+
+}
+
+int tienePuntoCom(char email[])
+{
+
+    int longitud = strlen(email);
+
+    int i = 0;
+
+    int j = longitud - 4;
+
+    char aux[10];
+
+    while(j <= longitud){
+
+        aux[i] = email[j];
+
+        i++;
+        j++;
+
+    }
+
+    return strcmpi(aux, ".com");
 
 }
 
@@ -204,6 +304,7 @@ void imprimirArrayUsuario(usuario a[], int v)
         printf("Rol: %d\n", a[i].rol);
         printf("Contrasenia: %s\n", a[i].pass);
         printf("Genero: %c\n", a[i].genero);
+        printf("Fecha de nacimiento: %s\n", a[i].fechaNacimiento);
 
         puts("----------------------------\n");
 
