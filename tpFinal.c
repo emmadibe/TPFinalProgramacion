@@ -2,76 +2,92 @@
 #include <time.h> //Librería oficial de C que tiene la función random.
 #include <string.h>
 #include <stdio.h> //Librería oficial de C necesaria apra utilizar la estructura FILE y sus respectivas funciones, entre otras utilidades.
+#include <conio.h> //Libreria oficial para utilizar la funcion getch
 #include "estructuraUsuario.h"
 #include "funcionesGenerales.h"
+
+
+int opcionesMenuLogueo();
+void menuLogueo();
+int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado);
+void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado);
+int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado);
+void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado);
+
 
 int main()
 {
 
-    int menuInicio = 0;
+    menuLogueo();
 
-    int menuPrincipal = 0;
+}
 
+int opcionesMenuLogueo()
+{
+    int eleccion;
+
+    system("color 75");
+    printf("----------------------------------------------\n");
+    printf("          BIENVENIDO A BOOKNOOK!\n");
+    printf("----------------------------------------------\n");
+    printf("\n 1-  Crear usuario nuevo");
+    printf("\n 2-  Iniciar sesion");
+    printf("\n 3-  No quiero estar aqui, adios!");
+
+    printf("\n\n Ingresa una opcion:  ");
+    scanf("%d", &eleccion);
+
+    return eleccion;
+}
+
+void menuLogueo()
+{
     int crearNuevoUsuario = 0;
 
     usuario a[100];
-
-    int cantElementos = 0;
-
     int validosUsuario = 0;
 
     char email[50];
-
     char pass[50];
 
     int logueo = -198;
 
     validosUsuario = archivoToArregloUsuario("usuario.bid", a, validosUsuario, 100);
 
-    do{
+    char control;
+    int opcionMenu;
 
-        do{
+    do
+    {
+        opcionMenu = opcionesMenuLogueo();
+        system("cls");
 
-            if(menuInicio > 2 || menuInicio < 0){
-
-                puts("DEBES INGRESAR UN VALOR ENTRE 0 y 2!\n"); //El cartel solo salta si menuInicio vale más que 2 0 menor a 0. O sea, si el usuario se equivocó.
-
-            }
-
-            puts("BIENVENIDO!\n ELEGIR LA OPCION: \n 1)Crear un usuario.\n 2)Iniciar sesión.\n 0) Salir.\n");
-
-            scanf("%d", &menuInicio);
-
-        }while(menuInicio < 0 || menuInicio > 2);
-
-        switch (menuInicio)
+        switch(opcionMenu)
         {
-        case 1: //////////////////////////CREAR UN USUARIO
-            
-            puts("CREAR UN USUARIO\n");
+        case 1:
+
+            puts("CREAR UN NUEVO USUARIO\n");
 
             crearNuevoUsuario = crearUsuario("usuario.bid");
 
-            if(crearNuevoUsuario == 0){
-
+            if(crearNuevoUsuario == 0)
+            {
                 printf("Usuario creado correctamente!\n");
-
-            }else{
-
+            }
+            else
+            {
                 printf("Error.\n");
-
             }
 
             break;
-        
-        case 2: //////////////////////LOGUEARNOS
+        case 2:
 
             puts("LOGUEARTE\n");
 
             validosUsuario = archivoToArregloUsuario("usuario.bid", a, validosUsuario, 100);
 
-            do{
-
+            do
+            {
                 printf("INGRESE SU EMAIL: \n");
                 fflush(stdin);
                 gets(email);
@@ -82,120 +98,193 @@ int main()
 
                 logueo = buscarUsuario(a, validosUsuario, email, pass);
 
-                if(logueo == -2){
-
+                if(logueo == -2)
+                {
                     puts("USUARIO INCORRECTO!\n");
-
-                }else if (logueo == -1){
-
+                }
+                else if (logueo == -1)
+                {
                     puts("ALGUNO DE LOS DATOS INGRESADOS NO SON CORRECTOS!\n");
+                }
+                else
+                {
+                    printf("HOLA DE NUEVO, %s!\n", a[logueo].nombre ); //Es que la función logueo, de encontrar una coincidencia, me retorna la posicion del usuario.
 
-                }else{
-
-                    printf("LOGUEADO, %s!\n", a[logueo].nombre ); //Es que la función logueo, de encontrar una coincidencia, me retorna la posicion del usuario.
-
-
-                    //////////////// ESTE ES EL MENÚ PRINCIPAL/////////////////////////////////////////////////
-
-                    do{
-
-                        printf("Seleccionar una opcion, %s.\n", a[logueo].nombre);
-                        printf("0) Salir.\n 1) Ir a seccion LIBROS.\n 2) Ir a seccion COMENTARIOS.\n 3) Editar mi perfil.\n");
-                        if(a[logueo].rol == 2){
-
-                            printf("4) para ver lista de usuarios.\n");
-                            printf("5) para editar usuarios.\n");
-                            printf("6) para eliminar a un usuario.\n");
-
-                        }
-
-                        scanf("%d", &menuPrincipal);
-
-                        if(menuPrincipal == 1){
-
-                            puts("SECCION LIBROS\n");
-
-                        }else if(menuPrincipal == 2){
-
-                            puts("SECCION COMENTARIOS\n");
-
-                        }else if(menuPrincipal == 3){
-
-                            puts("EDITAR PERFIL.\n");
-
-                        }else if(menuPrincipal == 4){
-
-                            if(a[logueo].rol != 2 ){ //Solo los admins (rol == 2) deben poder ver, editar y eliminar usuarios.
-
-                                puts("PROHIBIDO!\n");
-
-                            }else{
-
-                                printf("Claro, admin %s. Esta es la lista de usuarios!\n", a[logueo]. nombre);
-
-                                imprimirArrayUsuario(a, validosUsuario);
-
-                            }
-
-                        }else if(menuPrincipal == 5){
-
-                            if(a[logueo].rol != 2){
-
-                                puts("PROHIBIDO!\n");
-
-                            }else{
-
-                                puts("EDITAR UN USUARIO\n");
-
-                            }
-
-                        }else if(menuPrincipal == 6){
-
-                            if(a[logueo].rol != 2){
-
-                                puts("PROHIBIDO!\n");
-
-                            }else{
-
-                                puts("ELIMINAR UN USUARIO.\n");
-
-                            }
-
-                        }
-
-                        if(menuPrincipal < 0 || menuPrincipal > 6){
-
-                            puts("DEBES INGRESAR UN VALOR ENTRE 0 Y 6!!!!\n");
-
-                        }
-
-                    }while( menuPrincipal != 0); //Si el usuario selecciona 0, cierra sesión, volviendo al menú de incio (DESLOGUEO).
-
-                    ////////////////////////////////////////////////////////////////
-
+                    if(a[logueo].rol == 2 ) //Solo los admins (rol == 2) deben poder ver, editar y eliminar usuarios.
+                    {
+                        menuAdmins(a, logueo);
+                    }
+                    else
+                    {
+                        menuUsuarios(a, logueo);
+                    }
                 }
 
             }while(logueo == -1 || logueo == -2);
 
             break;
+        case 3:      // opción del usuario arrepentido
 
-        case 0:
-
-            puts("ADIOS!\n");
-
-            return 0;
-
-                break;
-
-        default:
-
-            return 0;
+            printf("Ya te vas? Volve pronto!\n\n");
 
             break;
-        }   
+        default:
+            system("color 74");
+            printf("\nOPCION INVALIDA\n");
+        }
 
-    }while(menuInicio != 0);
+        printf("\n");
+        system("PAUSE");
+        system("cls");
 
+        system("color 75");
+        printf("\nQuieres continuar? Presione ESC para cerrar el programa o cualquier tecla para volver al menu de logueo\n");
+        fflush(stdin);
+        control = getch();
+        system("cls");
+
+    }
+    while(control != 27);
+}
+
+int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado)
+{
+    int eleccion;
+
+    system("color 75");
+    printf("----------------------------------------------\n");
+    printf("        MENU PRINCIPAL ADMINISTRADORES \n");
+    printf("----------------------------------------------\n");
+    printf("\n 1-  Ir a SECCION LIBROS");
+    printf("\n 2-  Ir a SECCION COMENTARIOS");
+    printf("\n 3-  Editar mi perfil");
+    printf("\n 4-  Ver lista de usuarios");
+    printf("\n 5-  Editar usuarios");
+    printf("\n 6-  Eliminar un usuario");
+    printf("\n 7-  Cerrar sesion");
+
+    printf("\n\n Ingresa una opcion:  ");
+    scanf("%d", &eleccion);
+
+    return eleccion;
+}
+
+void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado)
+{
+    char control;
+    int opcionMenu;
+
+    do
+    {
+        opcionMenu = opcionesMenuAdmin(arregloUsuarios, usuarioLogueado);
+        system("cls");
+
+        switch(opcionMenu)
+        {
+        case 1: //Ir a SECCION LIBROS
+
+            break;
+        case 2: //Ir a SECCION COMENTARIOS
+
+            break;
+        case 3: //Editar mi perfil
+
+            break;
+        case 4: //Ver lista de usuarios
+
+            break;
+        case 5: //Editar usuarios
+
+            break;
+        case 6: //Eliminar un usuario
+
+            break;
+        case 7: //Cierre de sesion
+
+            printf("Hasta luego admin!");
+
+            break;
+
+        default:
+            system("color 74");
+            printf("\nOPCION INVALIDA\n");
+        }
+
+        printf("\n");
+        system("PAUSE");
+        system("cls");
+
+        system("color 75");
+        printf("\nQuieres continuar? Presione ESC para confirmar el cierre de sesion o cualquier tecla para volver al menu de administrador\n");
+        fflush(stdin);
+        control = getch();
+        system("cls");
+    }
+    while(control != 27);
+}
+
+int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado)
+{
+    int eleccion;
+
+    system("color 75");
+    printf("----------------------------------------------\n");
+    printf("              MENU PRINCIPAL  \n");
+    printf("----------------------------------------------\n");
+    printf("\n 1-  Ir a SECCION LIBROS");
+    printf("\n 2-  Ir a SECCION COMENTARIOS");
+    printf("\n 3-  Editar mi perfil");
+    printf("\n 4-  Cerrar sesion");
+
+    printf("\n\n Ingresa una opcion:  ");
+    scanf("%d", &eleccion);
+
+    return eleccion;
+}
+
+void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado)
+{
+    char control;
+    int opcionMenu;
+
+    do
+    {
+        opcionMenu = opcionesMenuUsuario(arregloUsuarios, usuarioLogueado);
+        system("cls");
+
+        switch(opcionMenu)
+        {
+        case 1: //Ir a SECCION LIBROS
+
+            break;
+        case 2: //Ir a SECCION COMENTARIOS
+
+            break;
+        case 3: //Editar mi perfil
+
+            break;
+        case 4: //Cierre de sesion
+
+            printf("Hasta luego!");
+
+            break;
+
+        default:
+            system("color 74");
+            printf("\nOPCION INVALIDA\n");
+        }
+
+        printf("\n");
+        system("PAUSE");
+        system("cls");
+
+        system("color 75");
+        printf("\nQuieres continuar? Presione ESC para confirmar el cierre de sesion o cualquier tecla para volver al menu de administrador\n");
+        fflush(stdin);
+        control = getch();
+        system("cls");
+    }
+    while(control != 27);
 }
 
 

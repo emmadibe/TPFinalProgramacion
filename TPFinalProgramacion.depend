@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1716592136 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
+
+1716592136 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
+
+1716592136 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
+	"estructuraUsuario.h"
+	"funcionesGenerales.h"
+
+1716592136 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+
+1716592136 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.h
+
+1716592136 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+

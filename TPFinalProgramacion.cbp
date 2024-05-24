@@ -31,6 +31,25 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="estructuraComentarios.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="estructuraComentarios.h" />
+		<Unit filename="estructuraLibros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="estructuraLibros.h" />
+		<Unit filename="estructuraUsuario.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="estructuraUsuario.h" />
+		<Unit filename="funcionesGenerales.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="funcionesGenerales.h" />
+		<Unit filename="tpFinal.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
