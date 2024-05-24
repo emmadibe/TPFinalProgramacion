@@ -27,3 +27,6 @@ typedef struct
 int crearUsuario(char archivo[]);
 void verUsuarios (char archivo[]);
 int comprobarEmail(char email[]);
+int archivoToArregloUsuario(char nombrearchivo[], usuario a[], int v, int dim);
+void imprimirArrayUsuario(usuario a[], int v);
+int buscarUsuario(usuario a[], int v, char email[], char pass[]);
