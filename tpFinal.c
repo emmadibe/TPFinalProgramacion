@@ -5,6 +5,7 @@
 #include <conio.h> //Libreria oficial para utilizar la funcion getch
 #include "estructuraUsuario.h"
 #include "funcionesGenerales.h"
+#include "estructuraLibros.h"
 
 
 int opcionesMenuLogueo();
@@ -18,7 +19,28 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado);
 int main()
 {
 
-    menuLogueo();
+/* ----------------------------      ZONA TESTEOS     -------------------------------- */
+//
+//    stLibro listalibros[100];
+//    int vlistalibros = 0;
+
+    cargaLibroArchivo("listaLibros.bid");
+
+
+//    vlistalibros = cargaArregloLibros(listalibros, vlistalibros, 100);
+//    muestraArregloLibrosAdmin(listalibros, vlistalibros);
+
+
+
+
+
+
+
+/* ------------------------------------------------------------------------------------ */
+
+
+
+  //  menuLogueo();
 
 }
 
@@ -173,6 +195,8 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado)
 {
     char control;
     int opcionMenu;
+    int validosUsuarios = 0;
+    usuario u[50];
 
     do
     {
@@ -191,6 +215,9 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado)
 
             break;
         case 4: //Ver lista de usuarios
+
+            validosUsuarios = archivoToArregloUsuario("usuario.bid", u, validosUsuarios, 50);
+            imprimirArrayUsuario(u, validosUsuarios);
 
             break;
         case 5: //Editar usuarios

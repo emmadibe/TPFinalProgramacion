@@ -28,7 +28,7 @@ int crearUsuario(char archivo[])
 
         return -1; //Retorno -1 si hubo un error al abrir/crear el archivo.
 
-    } 
+    }
 
     u.id = cantElementosArchivo("usuario.bid", sizeof(usuario)) + 1;
 
@@ -188,7 +188,7 @@ int comprobarEmail(char email[])
 
             if(tienePuntoCom(email) == 0){ //Ya comprobado que haya un arroba, compruebo que tenga ".com".
 
-                if(existeEmail(email) == 0){ //Solo falta comprobar que el email no exista. 
+                if(existeEmail(email) == 0){ //Solo falta comprobar que el email no exista.
 
                     flag = 0; //Y, así, si el email ingresado pasa los tres test, flag valdrá 0.
 
@@ -264,7 +264,7 @@ int tienePuntoCom(char email[])
 
 //ArchivoToArray.
 //La función archivoToArregloUsuario tiene como objetivo leer los datos de un arhivo binario y almacenarlos en un array llamado a a partir de la posición v.
-int archivoToArregloUsuario(char nombrearchivo[], usuario a[], int v, int dim)//Parámetros: nombre del archivo, un array de tipo usuario, válidos y la dimensión del array. 
+int archivoToArregloUsuario(char nombrearchivo[], usuario a[], int v, int dim)//Parámetros: nombre del archivo, un array de tipo usuario, válidos y la dimensión del array.
 {
 
     int cant = cantElementosArchivo(nombrearchivo, sizeof(usuario)); //Obtengo la cantidad de elementos que tiene mi archivo.
