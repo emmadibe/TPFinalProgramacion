@@ -2,7 +2,7 @@
 #include <time.h> //Librería oficial de C que tiene la función random.
 #include <string.h>
 #include <stdio.h> 
-
+#include <stddef.h>
 //Contar cantidad de elemento en el archivo
 //La función cantElementosArchivo cuenta la cantidad de elementos en un archivo binario.
 
