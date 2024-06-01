@@ -24,7 +24,8 @@ int crearUsuario(char archivo[])
 
     archi = fopen(archivo, "ab");
 
-    if(archi == NULL){
+    if(archi == NULL)
+    {
 
         return -1; //Retorno -1 si hubo un error al abrir/crear el archivo.
 
@@ -34,89 +35,110 @@ int crearUsuario(char archivo[])
 
     puts("----------------\n");
 
-    do{
+    do
+    {
 
-        printf("Ingrese nombre y apellido entre 6 y 30 caracteres: \n");
+        printf("\nIngrese nombre y apellido entre 6 y 30 caracteres: \n");
         fflush(stdin);
         gets(u.nombre);
 
         longCadena = strlen(u.nombre);
 
-    }while(longCadena < 6 || longCadena > 30);
+    }
+    while(longCadena < 6 || longCadena > 30);
 
-    do{
+    do
+    {
 
-        printf("Ingrese una edad del 1 al 100: \n");
+        printf("\nIngrese una edad del 1 al 100: \n");
         scanf("%d", &u.edad);
 
-    }while(u.edad < 1 || u.edad > 100 );
+    }
+    while(u.edad < 1 || u.edad > 100 );
 
-    do{
+    do
+    {
 
-        printf("Ingrese su email: \n");
+        printf("\nIngrese su email: \n");
         fflush(stdin);
         gets(u.email);
 
         verificaEmail = comprobarEmail(u.email);
 
-        printf("%d", verificaEmail);
+        //printf("%d", verificaEmail);  //Control de funcion
 
-        if(verificaEmail == 1){
+        if(verificaEmail == 1)
+        {
 
             puts("UN EMAIL DEBE TENER UN ARROBA Y TERMINAR EN .COM!\n");
 
-        }else if(verificaEmail == -9){
+        }
+        else if(verificaEmail == -9)
+        {
 
             puts("EL EMAIL YA EXISTEª ELIJA OTRO.\n");
 
         }
 
-    }while(verificaEmail != 0);
+    }
+    while(verificaEmail != 0);
 
-    do{
+    do
+    {
 
-        do{
+        do
+        {
 
-            printf("Ingrese password: \n");
+            printf("\nIngrese password: \n");
             gets(u.pass);
             longCadena = strlen(u.pass);
 
-        }while(longCadena < 5); //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
+        }
+        while(longCadena < 5);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
 
-        printf("Confirmar pass: \n");
+        printf("\nConfirmar pass: \n");
         gets(pass2);
 
         compararCadenas = strcmp(u.pass, pass2);
 
-    }while(compararCadenas != 0);
+    }
+    while(compararCadenas != 0);
 
-    do{
+    do
+    {
 
-        printf("Inrgese su genero: f, m o x\n");
-        u.genero = getch();
+        printf("\nIngrese su genero: f, m o x\n");
+        u.genero = getche();
 
-    }while(u.genero != 'f' && u.genero != 'm' && u.genero != 'x');
+    }
+    while(u.genero != 'f' && u.genero != 'm' && u.genero != 'x');
 
-    do{
+    do
+    {
 
-        printf("Ingresar el dia de nacimiento.\n");
+        printf("\nIngresar el dia de nacimiento.\n");
         scanf("%d", &dia);
 
-    }while( dia < 1 || dia > 31);
+    }
+    while( dia < 1 || dia > 31);
 
-    do{
+    do
+    {
 
-        printf("Ingrese mes de nacimiento\n");
+        printf("\nIngrese mes de nacimiento\n");
         scanf("%d", &mes);
 
-    }while( mes < 1 || mes > 12);
+    }
+    while( mes < 1 || mes > 12);
 
-    do{
+    do
+    {
 
-        printf("Ingrese el anio de nacimiento\n");
+        printf("\nIngrese el anio de nacimiento\n");
         scanf("%d", &anio);
 
-    }while(anio < 1940 || anio > 2024);
+    }
+    while(anio < 1940 || anio > 2024);
 
     //Ahora convertiremos las fechas de int a string con la función itoa():
     sprintf(diaStr, "%d", dia); //Paso de int a str.
@@ -125,18 +147,21 @@ int crearUsuario(char archivo[])
 
     sprintf(u.fechaNacimiento, "%s %s %s %s %s", diaStr, "|", mesStr, "|", anioStr); // COn la función sprintf puedo agregar varios string a un string. Por eso, me sirve esta función y no strcpy().
 
-    do{
+    do
+    {
 
-        printf("Si usted conoce la key para ser administrador, escribala; sino, presione 1.\n");
+        printf("\nSi usted conoce la key para ser administrador, escribala; sino, presione 1.\n");
         scanf("%d", &u.rol);
 
-        if(u.rol == 4815){
+        if(u.rol == 4815)
+        {
 
             u.rol = 2;
 
         }
 
-    }while(u.rol != 2 && u.rol != 1);
+    }
+    while(u.rol != 2 && u.rol != 1);
 
     puts("-----------------------\n");
 
@@ -155,9 +180,11 @@ void verUsuarios (char archivo[])
     usuario u;
     archi = fopen(archivo, "rb");
     int i = 0;
-    if(archi != NULL){
+    if(archi != NULL)
+    {
 
-        while(fread(&u, sizeof(usuario), 1, archi) > 0){
+        while(fread(&u, sizeof(usuario), 1, archi) > 0)
+        {
 
             printf("Registro N %d\n", i);
             puts("-----------\n");
@@ -182,17 +209,23 @@ int comprobarEmail(char email[])
 
     int flag = 1;
 
-    while(email[i] != '\0' && flag == 1){
+    while(email[i] != '\0' && flag == 1)
+    {
 
-        if (email[i] == 64){ //Compruebo que el mail tenga un arroba. 64 es el @ en ASCII.
+        if (email[i] == 64)  //Compruebo que el mail tenga un arroba. 64 es el @ en ASCII.
+        {
 
-            if(tienePuntoCom(email) == 0){ //Ya comprobado que haya un arroba, compruebo que tenga ".com".
+            if(tienePuntoCom(email) == 0)  //Ya comprobado que haya un arroba, compruebo que tenga ".com".
+            {
 
-                if(existeEmail(email) == 0){ //Solo falta comprobar que el email no exista.
+                if(existeEmail(email) == 0)  //Solo falta comprobar que el email no exista.
+                {
 
                     flag = 0; //Y, así, si el email ingresado pasa los tres test, flag valdrá 0.
 
-                }else{
+                }
+                else
+                {
 
                     flag = -9;
 
@@ -221,9 +254,11 @@ int existeEmail(char email[])
 
     int v = archivoToArregloUsuario("usuario.bid", a, 0, 100);
 
-    while(i < v && control == 0){ //Si control deja de valer 0, no tiene sentido seguir recorriendo el bucle; pues, ya sé que el mail existe.
+    while(i < v && control == 0)  //Si control deja de valer 0, no tiene sentido seguir recorriendo el bucle; pues, ya sé que el mail existe.
+    {
 
-        if(strcmpi(a[i].email, email) == 0){
+        if(strcmpi(a[i].email, email) == 0)
+        {
 
             control = 1;
 
@@ -248,7 +283,8 @@ int tienePuntoCom(char email[])
 
     char aux[10];
 
-    while(j <= longitud){
+    while(j <= longitud)
+    {
 
         aux[i] = email[j];
 
@@ -291,7 +327,8 @@ void imprimirArrayUsuario(usuario a[], int v)
 
     int i = 0;
 
-    while(i < v){
+    while(i < v)
+    {
 
         puts("----------------------------\n");
 
@@ -321,15 +358,20 @@ int buscarUsuario(usuario a[], int v, char email[], char pass[])
 
     int control = -2;
 
-    while(i < v){
+    while(i < v)
+    {
 
-        if(strcmpi(a[i].email, email) == 0){
+        if(strcmpi(a[i].email, email) == 0)
+        {
 
-            if(strcmpi(a[i].pass, pass) == 0){
+            if(strcmpi(a[i].pass, pass) == 0)
+            {
 
                 control = i; //Retorno la posición del usuario. Así, me será muy sencillo acceder a todos sus datos.
 
-            }else{
+            }
+            else
+            {
 
                 control = -1;
 
@@ -343,4 +385,17 @@ int buscarUsuario(usuario a[], int v, char email[], char pass[])
 
     return control;
 
+}
+
+void mostrarUsuario(usuario u)  ///Función para controlar los datos almacenados en SESSION
+{
+    puts("-----------\n");
+    printf("ID: %d\n", u.id);
+    printf("Nombre y apellido: %s\n", u.nombre);
+    printf("Email: %s\n", u.email);
+    printf("Edad: %d\n", u.edad);
+    printf("Genero: %c\n", u.genero);
+    printf("Fecha de nacimiento: %s\n", u.fechaNacimiento);
+    printf("Rol: %d\n", u.rol);
+    puts("---------------\n");
 }

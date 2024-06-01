@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <time.h> //Librería oficial de C que tiene la función random.
 #include <string.h>
-#include <stdio.h> 
+#include <stdio.h>
 
 
 
-typedef struct 
+typedef struct
 {
 
     int id; //Debe ser autoincremental.s
@@ -34,3 +34,4 @@ void imprimirArrayUsuario(usuario a[], int v);
 int buscarUsuario(usuario a[], int v, char email[], char pass[]);
 int existeEmail(char email[]);
 int tienePuntoCom(char email[]);
+void mostrarUsuario(usuario u);  ///Función para controlar los datos almacenados en SESSION

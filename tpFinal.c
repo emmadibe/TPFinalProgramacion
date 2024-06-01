@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <time.h> //Librería oficial de C que tiene la función random.
 #include <string.h>
-#include <stdio.h> //Librería oficial de C necesaria apra utilizar la estructura FILE y sus respectivas funciones, entre otras utilidades.
+#include <stdio.h> //Librería oficial de C necesaria para utilizar la estructura FILE y sus respectivas funciones, entre otras utilidades.
 #include <conio.h> //Libreria oficial para utilizar la funcion getch
 #include "estructuraUsuario.h"
 #include "funcionesGenerales.h"
@@ -17,21 +17,16 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
 usuario cargarVariablesDeSession(usuario SESSION, usuario u);
 // void libroUsuarios(int opcion, usuario SESSION);
 // void libroAdmins(int opcion, usuario SESSION);
-//  void accionLibro(int opcion, usuario SESSION, stLibro miLibro);
+// void accionLibro(int opcion, usuario SESSION, stLibro miLibro);
 
-usuario SESSION; //VARIABLES DE SESIÓN. En esta variable vamos a almacenar los valores de los campos del usuario que se logueo para, luego, poder utilizarlos a lo largo del programa. Necesitaremos, por ejemplo, recuperar el id del usuario para que cada comentario se corresponda con el usuario.
+usuario SESSION; /*VARIABLES DE SESIÓN. En esta variable vamos a almacenar los valores de los campos del usuario que se logueo para, luego, poder utilizarlos a lo largo del programa.
+                     Necesitaremos, por ejemplo, recuperar el id del usuario para que cada comentario se corresponda con el usuario.*/
 
 int main()
 {
 
-/* ----------------------------      ZONA TESTEOS     -------------------------------- */
-//
-//    stLibro listalibros[100];
-//    int vlistalibros = 0;
 
-  
-//    vlistalibros = cargaArregloLibros(listalibros, vlistalibros, 100);
-//    muestraArregloLibrosAdmin(listalibros, vlistalibros);
+/* ----------------------------      ZONA TESTEOS     -------------------------------- */
 
 
 
@@ -42,10 +37,11 @@ int main()
 /* ------------------------------------------------------------------------------------ */
 
 
-  
+
 
     menuLogueo();
 
+  //  mostrarUsuario(SESSION);  ///Función para controlar los datos almacenados en SESSION
 }
 
 int opcionesMenuLogueo()
@@ -54,7 +50,7 @@ int opcionesMenuLogueo()
 
     system("color 75");
     printf("----------------------------------------------\n");
-    printf("          BIENVENIDO A BOOKNOOK!\n");
+    printf("          BIENVENIDO A BOOKLIFE!\n");
     printf("----------------------------------------------\n");
     printf("\n 1-  Crear usuario nuevo");
     printf("\n 2-  Iniciar sesion");
@@ -82,7 +78,7 @@ void menuLogueo()
 
     char control;
     int opcionMenu;
- 
+
     do
     {
         opcionMenu = opcionesMenuLogueo();
@@ -215,7 +211,6 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION)
         case 1: //Ir a SECCION LIBROS
 
             opcionLibros =  opcionLibrosAdmins();
-
             libroAdmins(opcionLibros, SESSION);
 
             break;
@@ -290,7 +285,7 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
         int opcionLibros = 0;
         opcionMenu = opcionesMenuUsuario(arregloUsuarios, usuarioLogueado);
         system("cls");
-        
+
         switch(opcionMenu)
         {
         case 1: //Ir a SECCION LIBROS
@@ -357,7 +352,7 @@ void libroUsuarios(int opcion, usuario SESSION)
     switch (opcion)
     {
     case 1:
-        
+
         printf("LISTA DE LIBROS: \n");
 
         validos = archivoToArrayLibros("listaLibros.bid", l, validos, dim);
@@ -365,14 +360,14 @@ void libroUsuarios(int opcion, usuario SESSION)
         imprimirArrayLibrosAdm(l, validos);
 
         break;
-    
+
     case 2:
 
         break;
 
     case 3:
 
-          cargaLibroArchivo("listaLibros.bid");
+        cargaLibroArchivo("listaLibros.bid");
 
         break;
 
@@ -381,6 +376,7 @@ void libroUsuarios(int opcion, usuario SESSION)
     }
 
 }
+
 int opcionLibrosAdmins()
 {
 
@@ -423,7 +419,7 @@ void libroAdmins(int opcion, usuario SESSION)
         imprimirArrayLibrosAdm(l, validos);
 
         break;
-    
+
     case 2:
 
         printf("Escribir el nombre del libro al cual deseas ingresar.\n");
@@ -461,7 +457,7 @@ void libroAdmins(int opcion, usuario SESSION)
 
     case 3:
 
-          cargaLibroArchivo("listaLibros.bid");
+        cargaLibroArchivo("listaLibros.bid");
 
         break;
 
@@ -477,11 +473,11 @@ void accionLibro(int opcion, usuario SESSION, stLibro miLibro)
     switch (opcion)
     {
     case 1:
-        
+
         printf("Hola %s.\n Asi que te gusta el libro %s", SESSION.nombre, miLibro.titulo);
 
         break;
-    
+
     default:
         break;
     }
@@ -509,14 +505,12 @@ usuario cargarVariablesDeSession(usuario SESSION, usuario u)
 {
 
     strcpy(SESSION.nombre, u.nombre);
-    
     strcpy(SESSION.email, u.email);
     strcpy(SESSION.pass, u.pass);
     strcpy(SESSION.fechaNacimiento, u.fechaNacimiento);
-    SESSION.genero = u.genero; //Es un char, no un string.        
+    SESSION.genero = u.genero; //Es un char, no un string.
     sprintf(SESSION.id, "%d", u.id);
     sprintf(SESSION.rol, "%d", u.rol);
 
     return SESSION;
-
 }

@@ -1,78 +1,8 @@
 #include "estructuraLibros.h"
 #include "funcionesGenerales.h"
 
-void imprimirArrayLibrosAdm(stLibro l[], int v)
-{
 
-    int i = 0;
-
-    while(i < v)
-    {
-
-        printf("----------------------\n");
-        printf("ID: %d\n", l[i].idLibro);
-        printf("Titulo: %s\n", l[i].titulo);
-        printf("Autor: %s\n", l[i].autor);
-        printf("Editorial: %s\n", l[i].editorial);
-        printf("Categoria: %s\n", l[i].categoria);
-        printf("Valoracion: %.2f\n", l[i].valoracion);
-        printf("--------------------------\n");
-
-        i++;
-
-    }
-
-}
-
-int archivoToArrayLibros(char nombreArchivo[], stLibro l[], int v, int dim)
-{
-
-     int cant = cantElementosArchivo(nombreArchivo, sizeof(stLibro));
-
-     int total = cant + v;
-
-     FILE * archi = fopen(nombreArchivo, "rb");
-
-     if(archi && total <= dim)
-     {
-
-        while(fread(&l[v], sizeof(stLibro), 1, archi) > 0)
-        {
-
-            v++;
-
-        }
-
-        fclose(archi);
-
-     }
-
-     return v;
-
-}
-
-int cantElementosArchivoLibro(char nombreArchivo[])
-{
-
-    FILE * archi = fopen(nombreArchivo,"rb"); //Abro el archivo que paso por parámetro en modo lectura binaria (rb).
-    int cant = 0; 
-
-    if(archi) //Compruebo que el archivo se haya abierto correctamente. Acordate que, en modo rb, si no existe el archivo retorna NULL. 
-    {
-        fseek(archi, 0, SEEK_END); //Desplazo el indicador de posesión al final del archivo (EOF).
-        long int tamano = ftell(archi);
-        cant = tamano/sizeof(stLibro); //En esta línea de código obtengo la cantidad de elementos que tengo en el archivo. La función ftell() me retorna la posición actual del indicador de posisión MEDIDO EN BYTES. Al estar en el final del archivo, me va a terminar retornando la cantidad de bytes que ocupa mi archivo. Si eso lo divido por el tamanio de la estructura, obtengo la cantidad de elementos.
-        //Obviamente, el tamanio de la estructura la obtendré en el main usando la función sizeof() y pasándole como parámetro el identificador de la estructura. Por ejemplo: sizeof(usuario).
-        fclose(archi);//Cierro el archivo. 
-    }
-
-    
-
-    return cant;
-
-}
-
-stLibro cargaUnNuevoLibro()
+stLibro cargaUnNuevoLibro(char tituloNuevoLibro[])
 {
     stLibro libro;
     char aux[100];
@@ -81,11 +11,7 @@ stLibro cargaUnNuevoLibro()
 
     libro.idLibro = cantElementosArchivoLibro("listaLibros.bid");
 
-    printf("\nIngrese el titulo del libro: ");
-    fflush(stdin);
-    gets(aux);
-    //Hacer funci�n que chequee que no est� repetido el titulo
-    strcpy(libro.titulo, aux);
+    strcpy(libro.titulo, tituloNuevoLibro);
 
     printf("\nIngrese la editorial del libro: ");
     fflush(stdin);
@@ -97,13 +23,13 @@ stLibro cargaUnNuevoLibro()
     gets(aux);
     strcpy(libro.autor, aux);
 
-    printf("\nSeleccione la categor�a del libro: ");
+    printf("\nSeleccione la categoria del libro: ");
     eligeCategoriaLibro(categoria);
     strcpy(libro.categoria, categoria);
 
     libro.eliminado = 0;
 
-    printf("TU LIBRO ES: \n");
+    printf("\nTU LIBRO ES: \n");
 
     muestraUnLibroAdmin(libro);
 
@@ -174,6 +100,7 @@ void eligeCategoriaLibro(char categoria[])
     }
 }
 
+/*
 int cargaArregloLibros(stLibro libros[], int vLibros, int dimLibros)
 {
     char control = 's';
@@ -182,7 +109,7 @@ int cargaArregloLibros(stLibro libros[], int vLibros, int dimLibros)
     {
         libros[vLibros] = cargaUnNuevoLibro(nuevoLibro);
         vLibros++;
-        //printf("Libros cargados: %d", vAlumnos);  ///Control funci�n de carga
+        //printf("Libros cargados: %d", vAlumnos);  ///Control funcion de carga
         printf("Desea agregar otro libro? Presiones ESC para terminar\n");
         fflush(stdin);
         control = getch();
@@ -190,6 +117,7 @@ int cargaArregloLibros(stLibro libros[], int vLibros, int dimLibros)
     }
     return vLibros;
 }
+*/
 
 void muestraUnLibroAdmin(stLibro libro)
 {
@@ -220,15 +148,28 @@ void cargaLibroArchivo(char nombreArchivo[])
 {
     stLibro nuevoLibro;
     char option = 0;
+    char tituloNuevoLibro[100];
 
     FILE *archi = fopen(nombreArchivo, "ab");
 
     if(archi != NULL)
     {
         do{
-            nuevoLibro = cargaUnNuevoLibro();
-            fwrite(&nuevoLibro, sizeof(stLibro), 1, archi);  //fwrite devuelve la cantidad de elemetos que fueron escritos
-            fclose(archi); //Debo cerrar aquí el archivo para que se guarden los cambios. Sino, si el usuario quiere agregar otro libro, no podrá actualizarse el id.
+            printf("\nIngrese el titulo del libro: ");
+            fflush(stdin);
+            gets(tituloNuevoLibro);
+
+            if(yaExisteLibro(tituloNuevoLibro)== 0)  //Valida que el libro nuevo todavia no exista en el archivo
+            {
+                nuevoLibro = cargaUnNuevoLibro(tituloNuevoLibro);
+                fwrite(&nuevoLibro, sizeof(stLibro), 1, archi);  //fwrite devuelve la cantidad de elemetos que fueron escritos
+                fclose(archi); //Debo cerrar aquí el archivo para que se guarden los cambios. Sino, si el usuario quiere agregar otro libro, no podrá actualizarse el id.
+            }
+            else if(yaExisteLibro(tituloNuevoLibro)== 1)  //Si el titulo ya existe en el archivo, suspende la carga
+            {
+                puts("El libro ya existe en nustros archivos!");
+            }
+
             printf("�Desea cargar otro libro? Presiones ESC para terminar\n");
             fflush(stdin);
             option = getch();
@@ -245,68 +186,118 @@ void cargaLibroArchivo(char nombreArchivo[])
 
 int buscarIdibro(char nombreLibro[])
 {
-
     stLibro arrayLibro[50];
-
     int validos = 0, i = 0;
-
     char flag = 't';
-
     int id = -1; //Por si  no lo encuentra, debe retornar un valor no validos como id. El id no puede ser negativo.
 
     validos = archivoToArrayLibros("listaLibros.bid", arrayLibro, validos, 50);
 
     while(i < validos && flag == 't')
     {
-
         if(strcmpi(nombreLibro, arrayLibro[i].titulo) == 0)
         {
-
             flag = 'f';
-
             id = arrayLibro[i].idLibro;
-
         }
-
         i++;
-
     }
-
     return id;
-
 }
 
 stLibro buscarLibroPorId(int idLibro, stLibro a[], int v)
 {
-
     int i = 0;
-
     stLibro librito;
-
     char flag = 't';
-
     while(i < v && flag == 't')
     {
-
         if(a[i].idLibro == idLibro)
         {
-
             librito = a[i];
-
             flag = 'f';
-
         }
-
         i++;
-
     }
-
     return librito;
-
 }
 
+void imprimirArrayLibrosAdm(stLibro l[], int v)
+{
+    int i = 0;
 
+    while(i < v)
+    {
+        printf("----------------------\n");
+        printf("ID: %d\n", l[i].idLibro);
+        printf("Titulo: %s\n", l[i].titulo);
+        printf("Autor: %s\n", l[i].autor);
+        printf("Editorial: %s\n", l[i].editorial);
+        printf("Categoria: %s\n", l[i].categoria);
+        printf("Valoracion: %.2f\n", l[i].valoracion);
+        printf("--------------------------\n");
 
+        i++;
+    }
+}
+
+int archivoToArrayLibros(char nombreArchivo[], stLibro l[], int v, int dim)
+{
+
+    int cant = cantElementosArchivo(nombreArchivo, sizeof(stLibro));
+    int total = cant + v;
+
+    FILE * archi = fopen(nombreArchivo, "rb");
+
+    if(archi && total <= dim)
+    {
+        while(fread(&l[v], sizeof(stLibro), 1, archi) > 0)
+        {
+            v++;
+        }
+        fclose(archi);
+    }
+    return v;
+}
+
+int cantElementosArchivoLibro(char nombreArchivo[])
+{
+    FILE * archi = fopen(nombreArchivo,"rb"); //Abro el archivo que paso por parámetro en modo lectura binaria (rb).
+    int cant = 0;
+
+    if(archi) //Compruebo que el archivo se haya abierto correctamente. Acordate que, en modo rb, si no existe el archivo retorna NULL.
+    {
+        fseek(archi, 0, SEEK_END); //Desplazo el indicador de posesión al final del archivo (EOF).
+        long int tamano = ftell(archi);
+
+        cant = tamano/sizeof(stLibro);
+        /*En esta línea de código obtengo la cantidad de elementos que tengo en el archivo. //La función ftell() me retorna la posición actual del indicador de posisión MEDIDO EN BYTES.
+        Al estar en el final del archivo, me va a terminar retornando la cantidad de bytes que ocupa mi archivo. Si eso lo divido por el tamanio de la estructura, obtengo la cantidad de elementos.
+        Obviamente, el tamanio de la estructura la obtendré en el main usando la función sizeof() y pasándole como parámetro el identificador de la estructura. Por ejemplo: sizeof(usuario).*/
+
+        fclose(archi);//Cierro el archivo.
+    }
+    return cant;
+}
+
+int yaExisteLibro(char nombreLibro[])
+{
+    stLibro arrayLibro[150];
+    int validos = 0, i = 0;
+    int flag = 0;
+
+    validos = archivoToArrayLibros("listaLibros.bid", arrayLibro, validos, 150);
+
+    while(i < validos && flag == 0)
+    {
+        if(strcmpi(nombreLibro, arrayLibro[i].titulo) == 0)
+        {
+            flag = 1;
+        }
+        i++;
+    }
+    return flag;
+}
 
 
 

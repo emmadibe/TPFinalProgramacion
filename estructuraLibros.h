@@ -17,10 +17,9 @@ typedef struct{
 }stLibro;
 
 
-stLibro cargaUnNuevoLibro();
+stLibro cargaUnNuevoLibro(char tituloNuevoLibro[]);
 void eligeCategoriaLibro(char categoria[]);
-int cargaArregloLibros(stLibro libros[], int vLibros, int dimLibros);
-
+//int cargaArregloLibros(stLibro libros[], int vLibros, int dimLibros);
 void muestraUnLibroAdmin(stLibro libro);
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros);
 void cargaLibroArchivo(char nombreArchivo[]);
@@ -29,6 +28,7 @@ void imprimirArrayLibros(stLibro l[], int v);
 int cantElementosArchivoLibroAdm(char nombreArchivo[]);
 int buscarIdibro(char nombreLibro[]);
 stLibro buscarLibroPorId(int idLibro, stLibro a[], int v);
+int yaExisteLibro(char nombreLibro[]);
 
 
 
