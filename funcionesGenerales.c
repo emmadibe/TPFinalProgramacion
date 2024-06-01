@@ -6,7 +6,7 @@
 //Contar cantidad de elemento en el archivo
 //La función cantElementosArchivo cuenta la cantidad de elementos en un archivo binario.
 
-int cantElementosArchivo(char nombreArchivo[], int tamanioEstructura) 
+int cantElementosArchivo(char nombreArchivo[], size_t tamanioEstructura) 
 {
 
     FILE * archi = fopen(nombreArchivo,"rb"); //Abro el archivo que paso por parámetro en modo lectura binaria (rb).
@@ -19,6 +19,8 @@ int cantElementosArchivo(char nombreArchivo[], int tamanioEstructura)
         //Obviamente, el tamanio de la estructura la obtendré en el main usando la función sizeof() y pasándole como parámetro el identificador de la estructura. Por ejemplo: sizeof(usuario).
         fclose(archi);//Cierro el archivo. 
     }
+
+    
 
     return cant;
 

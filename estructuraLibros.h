@@ -6,13 +6,13 @@
 
 typedef struct{
 
-    int idLibro; /// único, autoincremental
+    int idLibro; /// ï¿½nico, autoincremental
     char titulo[100];
     char editorial[50];
     char autor[50];
     char categoria[50];
     float valoracion;
-    int eliminado; /// 0 si está activo - 1 si está eliminado
+    int eliminado; /// 0 si estï¿½ activo - 1 si estï¿½ eliminado
 
 }stLibro;
 
@@ -24,7 +24,11 @@ int cargaArregloLibros(stLibro libros[], int vLibros, int dimLibros);
 void muestraUnLibroAdmin(stLibro libro);
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros);
 void cargaLibroArchivo(char nombreArchivo[]);
-
+int archivoToArrayLibros(char nombreArchivo[], stLibro l[], int v, int dim);
+void imprimirArrayLibros(stLibro l[], int v);
+int cantElementosArchivoLibroAdm(char nombreArchivo[]);
+int buscarIdibro(char nombreLibro[]);
+stLibro buscarLibroPorId(int idLibro, stLibro a[], int v);
 
 
 

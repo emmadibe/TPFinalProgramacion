@@ -1,5 +1,4 @@
 
 
 
-int cantElementosArchivo(char nombreArchivo[], int tamanioEstructura);
-
+int cantElementosArchivo(char nombreArchivo[], size_t tamanioEstructura);

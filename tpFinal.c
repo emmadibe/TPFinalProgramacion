@@ -24,9 +24,7 @@ int main()
 //    stLibro listalibros[100];
 //    int vlistalibros = 0;
 
-    cargaLibroArchivo("listaLibros.bid");
-
-
+  
 //    vlistalibros = cargaArregloLibros(listalibros, vlistalibros, 100);
 //    muestraArregloLibrosAdmin(listalibros, vlistalibros);
 
@@ -40,7 +38,7 @@ int main()
 
 
 
-  //  menuLogueo();
+    menuLogueo();
 
 }
 
@@ -78,7 +76,7 @@ void menuLogueo()
 
     char control;
     int opcionMenu;
-
+ 
     do
     {
         opcionMenu = opcionesMenuLogueo();
@@ -195,6 +193,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado)
 {
     char control;
     int opcionMenu;
+    int opcionLibros = 0;
     int validosUsuarios = 0;
     usuario u[50];
 
@@ -206,6 +205,10 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado)
         switch(opcionMenu)
         {
         case 1: //Ir a SECCION LIBROS
+
+            opcionLibros =  opcionLibrosAdmins();
+
+            libroAdmins(opcionLibros);
 
             break;
         case 2: //Ir a SECCION COMENTARIOS
@@ -276,12 +279,17 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado)
 
     do
     {
+        int opcionLibros = 0;
         opcionMenu = opcionesMenuUsuario(arregloUsuarios, usuarioLogueado);
         system("cls");
-
+        
         switch(opcionMenu)
         {
         case 1: //Ir a SECCION LIBROS
+
+            opcionLibros = opcionLibrosUsuarios();
+
+            libroUsuarios(opcionLibros);
 
             break;
         case 2: //Ir a SECCION COMENTARIOS
@@ -314,4 +322,153 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado)
     while(control != 27);
 }
 
+int opcionLibrosUsuarios()
+{
 
+    int opcion = 0;
+
+    do{
+
+        printf("Bienvenido a la seccion de libros. \n");
+        printf("Marque 1) Ver lista de libros.\n 2) Entrar a un libro.\n 3) Agregar un libro.\n 0) Regresar.\n");
+
+    }while(opcion < 0 || opcion > 3);
+
+}
+
+void libroUsuarios(int opcion)
+{
+
+    stLibro l[30];
+
+    int validos = 0;
+
+    int dim = 30;
+
+    switch (opcion)
+    {
+    case 1:
+        
+        printf("LISTA DE LIBROS: \n");
+
+        validos = archivoToArrayLibros("listaLibros.bid", l, validos, dim);
+
+        imprimirArrayLibrosAdm(l, validos);
+
+        break;
+    
+    case 2:
+
+        break;
+
+    case 3:
+
+          cargaLibroArchivo("listaLibros.bid");
+
+        break;
+
+    default:
+        break;
+    }
+
+}
+int opcionLibrosAdmins()
+{
+
+    int opcion = 0;
+
+    do{
+
+        printf("Bienvenido a la seccion de libros. \n");
+        printf("Marque 1) Ver lista de libros.\n 2) Entrar a un libro.\n 3) Agregar un libro.\n 0) Regresar.\n");
+
+        scanf("%d", &opcion);
+
+    }while(opcion < 0 || opcion > 3);
+
+}
+
+void libroAdmins(int opcion)
+{
+
+    stLibro l[30];
+
+    stLibro miLibro;
+
+    int validos = 0;
+    char nombreLibro[60];
+    int dim = 30;
+    int idLibro;
+
+    int opcionEntrarAlLibro;
+
+    switch (opcion)
+    {
+    case 1:
+        
+        printf("LISTA DE LIBROS: \n");
+
+        validos = archivoToArrayLibros("listaLibros.bid", l, validos, dim);
+
+        imprimirArrayLibrosAdm(l, validos);
+
+        break;
+    
+    case 2:
+
+        printf("Escribir el nombre del libro al cual deseas ingresar.\n");
+        fflush(stdin);
+        gets(nombreLibro);
+        idLibro = buscarIdibro(nombreLibro);
+
+        if(idLibro >= 0){
+
+            validos = 0;
+            validos = archivoToArrayLibros("listaLibros.bid", l, validos, dim);
+
+            miLibro = buscarLibroPorId(idLibro, l, validos);
+
+            puts("-----------------------\n");
+            printf("ID del libro :  %d\n", idLibro);
+            printf("Titulo:  %s\n", miLibro.titulo);
+            printf("Autor :  %s\n", miLibro.autor);
+            printf("Editorial :  %s\n", miLibro.editorial);
+            printf("Categoria :  %s\n", miLibro.categoria);
+            printf("Puntaje :  %f\n", miLibro.valoracion);
+            puts("-----------------------\n");
+
+            opcionEntrarAlLibro = menuEntrarALibro();
+
+        }else{
+
+            printf("No existe el libro.\n");
+
+        }
+
+        break;
+
+    case 3:
+
+          cargaLibroArchivo("listaLibros.bid");
+
+        break;
+
+    default:
+        break;
+    }
+
+}
+
+int menuEntrarALibro()
+{
+
+    int opcion;
+
+    do{
+
+        puts("Que desea hacer con el libro?\n");
+        printf("1) Eliminar el comentario.\n 2) Editar el comentario.\n 3) Agregarle un comentario.\n 0) Nada.\n");
+
+    }while(opcion <= 0 || opcion > 3);
+
+}
