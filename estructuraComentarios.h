@@ -1,3 +1,8 @@
+#include <stdlib.h>
+#include <time.h> //Librería oficial de C que tiene la función random.
+#include <string.h>
+#include <stdio.h>
+
 typedef struct {
     int idComentario;  /// único, autoincremental
     int idLibro; 
@@ -9,4 +14,4 @@ typedef struct {
     int eliminado; /// 0 si está activo - 1 si está eliminado
 }stComentario; 
 
-// stComentario cargarComentarioNuevo();
+stComentario cargarComentarioNuevo(int idUsuario, int idLibro);

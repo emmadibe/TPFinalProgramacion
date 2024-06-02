@@ -6,6 +6,7 @@
 #include "estructuraUsuario.h"
 #include "funcionesGenerales.h"
 #include "estructuraLibros.h"
+#include "estructuraComentarios.h"
 #include <stddef.h>
 
 int opcionesMenuLogueo();
@@ -470,11 +471,22 @@ void libroAdmins(int opcion, usuario SESSION)
 void accionLibro(int opcion, usuario SESSION, stLibro miLibro)
 {
 
+    stComentario comentario;
+
     switch (opcion)
     {
-    case 1:
+    case 3:
 
-        printf("Hola %s.\n Asi que te gusta el libro %s", SESSION.nombre, miLibro.titulo);
+        printf("Hola %s.\n Entraste al libro %s.\n", SESSION.nombre, miLibro.titulo);
+
+        comentario = cargarComentarioNuevo(SESSION.id, miLibro.idLibro);
+
+        printf("Tu comentario del libro es el siguiente:\n");
+        puts("---------------------------------------------\n");
+        printf("%s\n", comentario.tituloComentario);
+        printf("%s\n", comentario.descripcion);
+        printf("Puntaje: %d.\n", comentario.puntaje);
+        puts("---------------------------------------------\n");
 
         break;
 
