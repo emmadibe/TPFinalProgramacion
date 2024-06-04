@@ -65,15 +65,71 @@ stComentario cargarComentarioNuevo(int idUsuario, int idLibro)
 
 }
 
-void archivoToArrayComentario(char nombreArchivo[])
+void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int  *v, int d)
 {
+
+    int cant = cantElementosArchivo(nombreArchivo, sizeof(stComentario));
+
+    int total = cant + *v;
 
     FILE *archi = fopen(nombreArchivo, "rb");
 
-    if(archi)
+    if(archi && total <= d)
     {
 
-        
+        while(fread(&c[*v], sizeof(stComentario), 1, archi) > 0)
+        {
+
+            *v = *v + 1;
+
+        }
+
+        fclose(archi);
+
     }
+
+}
+
+int buscarComentario(int idLibro, stComentario c[], int v)
+{
+
+    int i = 0;
+
+    int posicion = -1;
+
+    char flag = 't';
+
+    while(i < v && flag == 't')
+    {
+
+        if(c[i].idLibro == idLibro)
+        {
+
+            posicion = i;
+            
+            flag = 'f';
+
+        }
+
+        i++;
+
+    }
+
+    return posicion;
+
+}
+
+void imprimirUnComentarioDelArrayComentario(stComentario c[], int posicion, char tituloLibro[50])
+{
+
+    puts("-------------------------------------\n");
+
+    printf("Comentario del libro %s\n", tituloLibro);
+
+    printf("%s\n", c[posicion].tituloComentario);
+    printf("%s\n", c[posicion].descripcion);
+
+    puts("-------------------------------------\n");
+
 
 }

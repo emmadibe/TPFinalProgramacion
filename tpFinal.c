@@ -471,7 +471,13 @@ void libroAdmins(int opcion, usuario SESSION)
 void accionLibro(int opcion, usuario SESSION, stLibro miLibro)
 {
 
+    int v = 0, d= 55;
+
     stComentario comentario;
+
+    stComentario arrayComentario[55];
+
+    int posicion = 0;
 
     switch (opcion)
     {
@@ -490,6 +496,22 @@ void accionLibro(int opcion, usuario SESSION, stLibro miLibro)
 
         break;
 
+    case 4:
+
+        archivoToArrayComentario("listaComentarios.bid", arrayComentario, &v, d);
+
+        posicion = buscarComentario(miLibro.idLibro, arrayComentario, v);
+
+        if (posicion == -1){ //buscarComentario retorna -1 si no encontró una estructura con el valor de idLibro que le pasamos por parametro.
+
+            imprimirUnComentarioDelArrayComentario(arrayComentario, posicion, miLibro.titulo);
+
+        }else{
+
+            printf("El libro %s todavia no posee comentarios.\n", miLibro.titulo);
+
+        }
+
     default:
         break;
     }
@@ -504,10 +526,10 @@ int opcionesMenuEntrarALibro()
     do{
 
         puts("Que desea hacer con el libro?\n");
-        printf("1) Eliminar el comentario.\n 2) Editar el comentario.\n 3) Agregarle un comentario.\n 0) Nada.\n");
+        printf("1) Eliminar el comentario.\n 2) Editar el comentario.\n 3) Agregarle un comentario.\n 4) Ver comentario\n 0) Nada.\n");
         scanf("%d", &opcion);
 
-    }while(opcion <= 0 || opcion > 3);
+    }while(opcion <= 0 || opcion > 4);
 
     return opcion;
 
