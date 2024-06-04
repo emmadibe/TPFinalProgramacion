@@ -502,7 +502,7 @@ void accionLibro(int opcion, usuario SESSION, stLibro miLibro)
 
         posicion = buscarComentario(miLibro.idLibro, arrayComentario, v);
 
-        if (posicion == -1){ //buscarComentario retorna -1 si no encontró una estructura con el valor de idLibro que le pasamos por parametro.
+        if (posicion != -1){ //buscarComentario retorna -1 si no encontró una estructura con el valor de idLibro que le pasamos por parametro.
 
             imprimirUnComentarioDelArrayComentario(arrayComentario, posicion, miLibro.titulo);
 
@@ -511,6 +511,9 @@ void accionLibro(int opcion, usuario SESSION, stLibro miLibro)
             printf("El libro %s todavia no posee comentarios.\n", miLibro.titulo);
 
         }
+
+        printf("La posicion es: %d\n", posicion);
+        printf("El id es: %d\n", miLibro.idLibro);
 
     default:
         break;
