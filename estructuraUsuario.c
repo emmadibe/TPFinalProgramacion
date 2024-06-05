@@ -1,6 +1,129 @@
 #include "estructuraUsuario.h"
 #include "funcionesGenerales.h"
 
+void editarusuario(char nombreArchivo[]) //La idea es pasar todo el archivo, todos los usuarios, a un array y editar al usuario DESDE el array, Luego, sobreescribo el archivo con los datos del array. Para ello, debo abrir el archivo en modo wb.
+{
+    int verificaEmail;
+    int compararCadenas;
+    char pass2[55];
+    int longCadena;
+    int v = 0, d = 222, posicion = 0, edad = 0;
+    char sexo;
+
+    char email[55];
+
+    char pass[55];
+
+    usuario u[222];
+
+    v = archivoToArregloUsuario(nombreArchivo, u, v, d);
+
+    printf("Debes ingresar tus datos actuales, primero, para poder editar tu perfil:\n");
+
+    printf("Email: \n");
+    fflush(stdin);
+    gets(email);
+
+    printf("password: \n");
+    fflush(stdin);
+    gets(pass);
+
+    posicion = buscarUsuario(u, v, email, pass); //Ya tengo la posición del usuario en el array.
+
+    do
+    {
+
+        printf("\nIngrese nombre y apellido entre 6 y 30 caracteres: \n");
+        fflush(stdin);
+        gets(u[posicion].nombre);
+
+        longCadena = strlen(u[posicion].nombre);
+
+    }while(longCadena < 6 || longCadena > 30);
+
+        do
+    {
+
+        printf("\nIngrese su email: \n");
+        fflush(stdin);
+        gets(u[posicion].email);
+
+        verificaEmail = comprobarEmail(u[posicion].email);
+
+        //printf("%d", verificaEmail);  //Control de funcion
+
+        if(verificaEmail == 1)
+        {
+
+            puts("UN EMAIL DEBE TENER UN ARROBA Y TERMINAR EN .COM!\n");
+
+        }
+        else if(verificaEmail == -9)
+        {
+
+            puts("EL EMAIL YA EXISTEª ELIJA OTRO.\n");
+
+        }
+
+    }while(verificaEmail != 0);
+
+
+    do
+    {
+
+        do
+        {
+
+            printf("\nIngrese password: \n");
+            gets(u[posicion].pass);
+            longCadena = strlen(u[posicion].pass);
+
+        }
+        while(longCadena < 5);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
+
+        printf("\nConfirmar pass: \n");
+        gets(pass2);
+
+        compararCadenas = strcmp(u[posicion].pass, pass2);
+
+    }while(compararCadenas != 0);
+
+        do
+    {
+
+        printf("\nIngrese una edad del 1 al 100: \n");
+        scanf("%d", &u[posicion].edad);
+
+    }while(u[posicion].edad < 1 || u[posicion].edad > 100 );
+
+    do
+    {
+
+        printf("\nIngrese su genero: f, m o x\n");
+        u[posicion].genero = getche();
+
+    }while(u[posicion].genero != 'f' && u[posicion].genero != 'm' && u[posicion].genero != 'x');
+
+    arrayToArchivo(nombreArchivo, u, v);
+
+}
+
+void arrayToArchivo(char nombreArchivo[], usuario u[], int v)
+{
+
+    FILE *archi = fopen(nombreArchivo, "wb");
+
+    if(archi)
+    {
+
+        fwrite(u, sizeof(usuario), v, archi);
+        
+        fclose(archi);
+
+    }
+
+}
+
 int crearUsuario(char archivo[])
 {
 

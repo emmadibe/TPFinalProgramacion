@@ -35,3 +35,5 @@ int buscarUsuario(usuario a[], int v, char email[], char pass[]);
 int existeEmail(char email[]);
 int tienePuntoCom(char email[]);
 void mostrarUsuario(usuario u);  ///Función para controlar los datos almacenados en SESSION
+void editarusuario(char nombreArchivo[]);
+void arrayToArchivo(char nombreArchivo[], usuario u[], int v);

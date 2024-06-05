@@ -220,6 +220,8 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION)
             break;
         case 3: //Editar mi perfil
 
+            editarusuario("usuario.bid");            
+
             break;
         case 4: //Ver lista de usuarios
 
