@@ -225,6 +225,8 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION)
             break;
         case 4: //Ver lista de usuarios
 
+            validosUsuarios = 0; //Reinicio el válidos para que o haya repetición de usuarios.
+
             validosUsuarios = archivoToArregloUsuario("usuario.bid", u, validosUsuarios, 50);
             imprimirArrayUsuario(u, validosUsuarios);
 
@@ -232,9 +234,13 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION)
         case 5: //Editar usuarios
 
             break;
+
         case 6: //Eliminar un usuario
 
+            eliminarUsuario("usuario.bid", SESSION);
+
             break;
+
         case 7: //Cierre de sesion
 
             printf("Hasta luego admin!");

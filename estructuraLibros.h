@@ -31,4 +31,3 @@ stLibro buscarLibroPorId(int idLibro, stLibro a[], int v);
 int yaExisteLibro(char nombreLibro[]);
 
 
-

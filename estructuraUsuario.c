@@ -1,6 +1,97 @@
 #include "estructuraUsuario.h"
 #include "funcionesGenerales.h"
 
+void eliminarUsuario(char nombreArchivo[], usuario admin)
+{
+
+        int validos = 0;
+        int dimension = 300;
+        int idUsuarioEliminar = 0;
+        int posicion;
+        usuario u[300];
+
+        validos = archivoToArregloUsuario(nombreArchivo, u, validos, dimension); //Siempre trabajo desde el array. Por eso, antes que nada debo pasar todos los datos que tengo en mi archivo a un arreglo. Desde ahí, haré lo que sea necesario: imprimir los datos, editarlos o borrarlos. 
+
+        printf("Hola, %s. Ingresar el id del usuario que desea eliminar: \n", admin.nombre);
+        scanf("%d", &idUsuarioEliminar);
+
+        posicion = buscarUsuarioPorId(idUsuarioEliminar, u, validos);
+
+        if(posicion == -1)
+        {
+
+            printf("No existe un usuaio con ese id\n");
+
+        }else{
+
+            if(u[posicion].rol == 1)
+            {
+
+            ////////////////////Borro el usuario que está en la posicion posicion del array:
+
+            validos = enroqueArray(u, validos, posicion);
+
+            ////////////////////////////////////////Fin de borrar el usuario en el array.
+
+            arrayToArchivo(nombreArchivo, u, validos); //Guardo el array en el archivo. Así, se guardarán todos los usuarios de nuevo excepto el que acabo de eliminar; pues, ya no está en el array.
+
+            printf("Usuario eliminado correctamente\n");
+
+            }else{
+
+                printf("Un administrador no puede eliminar a otro administrador!\n");
+
+            }
+
+
+        }
+
+          
+}
+
+int enroqueArray(usuario u[], int v, int posicion)
+{
+    ///////////////////////En posicion, voy a poner lo que hay al final del array.
+
+    strcpy(u[posicion].nombre, u[v - 1].nombre);
+    strcpy(u[posicion].email,  u[v - 1].email);
+    strcpy(u[posicion].pass,  u[v - 1].pass);
+    strcpy(u[posicion].fechaNacimiento,  u[v - 1].fechaNacimiento);
+    u[posicion].edad =  u[v - 1].edad;
+    u[posicion].id =  u[v - 1].id;
+    u[posicion].rol =  u[v - 1].rol;
+    u[posicion].genero =  u[v - 1].genero;
+
+    /////////////////////////////////////////////
+
+    return v - 1; //Le quito un valor a validos porque ahora hay un usuario menos.
+
+}
+
+int buscarUsuarioPorId(int idUsuario, usuario u[], int v)
+{
+
+    int i = 0;
+    int posicion = -1; //me srive también como variable flag. Pues, cuando posicion deje de valer -1 rompo el bucle.
+
+    while(i < v)
+    {
+
+        if(u[i].id == idUsuario)
+        {
+
+            posicion = i;
+
+        }
+
+        i++;
+
+    }
+
+    return posicion;
+
+}
+
 void editarusuario(char nombreArchivo[]) //La idea es pasar todo el archivo, todos los usuarios, a un array y editar al usuario DESDE el array, Luego, sobreescribo el archivo con los datos del array. Para ello, debo abrir el archivo en modo wb.
 {
     int verificaEmail;
@@ -111,7 +202,7 @@ void editarusuario(char nombreArchivo[]) //La idea es pasar todo el archivo, tod
 void arrayToArchivo(char nombreArchivo[], usuario u[], int v)
 {
 
-    FILE *archi = fopen(nombreArchivo, "wb");
+    FILE *archi = fopen(nombreArchivo, "wb"); //Al archivo lo abro en modo Wb para sobreescribir los datos.
 
     if(archi)
     {
