@@ -94,6 +94,9 @@ int buscarUsuarioPorId(int idUsuario, usuario u[], int v)
 
 void editarusuario(char nombreArchivo[]) //La idea es pasar todo el archivo, todos los usuarios, a un array y editar al usuario DESDE el array, Luego, sobreescribo el archivo con los datos del array. Para ello, debo abrir el archivo en modo wb.
 {
+
+    int opcion = 0;
+
     int verificaEmail;
     int compararCadenas;
     char pass2[55];
@@ -121,81 +124,120 @@ void editarusuario(char nombreArchivo[]) //La idea es pasar todo el archivo, tod
 
     posicion = buscarUsuario(u, v, email, pass); //Ya tengo la posición del usuario en el array.
 
-    do
-    {
+    if(posicion == -2 || posicion == -1){
 
-        printf("\nIngrese nombre y apellido entre 6 y 30 caracteres: \n");
-        fflush(stdin);
-        gets(u[posicion].nombre);
+        puts("No existe un usuario con esos datos. Al menos uno de ellos es incorrecto.\n");
 
-        longCadena = strlen(u[posicion].nombre);
-
-    }while(longCadena < 6 || longCadena > 30);
-
-        do
-    {
-
-        printf("\nIngrese su email: \n");
-        fflush(stdin);
-        gets(u[posicion].email);
-
-        verificaEmail = comprobarEmail(u[posicion].email);
-
-        //printf("%d", verificaEmail);  //Control de funcion
-
-        if(verificaEmail == 1)
-        {
-
-            puts("UN EMAIL DEBE TENER UN ARROBA Y TERMINAR EN .COM!\n");
-
-        }
-        else if(verificaEmail == -9)
-        {
-
-            puts("EL EMAIL YA EXISTEª ELIJA OTRO.\n");
-
-        }
-
-    }while(verificaEmail != 0);
-
-
-    do
-    {
+    }else{
 
         do
         {
+            
+            printf("Seleccionar el campo a editar: \n");
+            printf("1) Nombre.\n 2)Email.\n 3) Pass.\n 4)Edad.\n 5) Genero.\n");
+            scanf("%d", &opcion);
 
-            printf("\nIngrese password: \n");
-            gets(u[posicion].pass);
-            longCadena = strlen(u[posicion].pass);
+        } while (opcion < 1 && opcion > 5);
 
+        switch (opcion)
+        {
+            case 1:
+                
+                do{
+
+                    printf("\nIngrese nombre y apellido entre 6 y 30 caracteres: \n");
+                    fflush(stdin);
+                    gets(u[posicion].nombre);
+
+                    longCadena = strlen(u[posicion].nombre);
+
+                }while(longCadena < 6 || longCadena > 30);
+
+                break;
+
+            case 2:
+
+                do
+                {
+
+                    printf("\nIngrese su email: \n");
+                    fflush(stdin);
+                    gets(u[posicion].email);
+
+                    verificaEmail = comprobarEmail(u[posicion].email);
+
+                    //printf("%d", verificaEmail);  //Control de funcion
+
+                    if(verificaEmail == 1)
+                    {
+
+                        puts("UN EMAIL DEBE TENER UN ARROBA Y TERMINAR EN .COM!\n");
+
+                    }
+                    else if(verificaEmail == -9)
+                    {
+
+                        puts("EL EMAIL YA EXISTEª ELIJA OTRO.\n");
+
+                    }}while(verificaEmail != 0);
+
+                break;
+
+            case 3:
+
+                do
+                {
+
+                do
+                {
+
+                    printf("\nIngrese password: \n");
+                    gets(u[posicion].pass);
+                    longCadena = strlen(u[posicion].pass);
+
+                }
+                while(longCadena < 5);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
+
+                printf("\nConfirmar pass: \n");
+                gets(pass2);
+
+                compararCadenas = strcmp(u[posicion].pass, pass2);
+
+                }while(compararCadenas != 0);
+
+                break;
+
+            case 4:
+
+                do
+                {
+
+                    printf("\nIngrese una edad del 1 al 100: \n");
+                    scanf("%d", &u[posicion].edad);
+
+                }while(u[posicion].edad < 1 || u[posicion].edad > 100 );
+
+                break;
+
+            case 5:
+
+                 do
+                {
+
+                    printf("\nIngrese su genero: f, m o x\n");
+                    u[posicion].genero = getche();
+
+                }while(u[posicion].genero != 'f' && u[posicion].genero != 'm' && u[posicion].genero != 'x');
+
+                break;
+        
         }
-        while(longCadena < 5);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
 
-        printf("\nConfirmar pass: \n");
-        gets(pass2);
+        arrayToArchivo(nombreArchivo, u, v);
 
-        compararCadenas = strcmp(u[posicion].pass, pass2);
+    }
 
-    }while(compararCadenas != 0);
-
-        do
-    {
-
-        printf("\nIngrese una edad del 1 al 100: \n");
-        scanf("%d", &u[posicion].edad);
-
-    }while(u[posicion].edad < 1 || u[posicion].edad > 100 );
-
-    do
-    {
-
-        printf("\nIngrese su genero: f, m o x\n");
-        u[posicion].genero = getche();
-
-    }while(u[posicion].genero != 'f' && u[posicion].genero != 'm' && u[posicion].genero != 'x');
-
-    arrayToArchivo(nombreArchivo, u, v);
+     
 
 }
 
@@ -570,9 +612,9 @@ int buscarUsuario(usuario a[], int v, char email[], char pass[])
 
     int i = 0;
 
-    int control = -2;
+    int control = -2; //La variable me sirve también como flag.
 
-    while(i < v)
+    while(i < v && control == -2)
     {
 
         if(strcmpi(a[i].email, email) == 0)

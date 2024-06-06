@@ -309,6 +309,8 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
             break;
         case 3: //Editar mi perfil
 
+            editarusuario("usuario.bid");            
+
             break;
         case 4: //Cierre de sesion
 
