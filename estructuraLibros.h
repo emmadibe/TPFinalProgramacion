@@ -29,5 +29,7 @@ void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros);
 
 
 int archivoToArrayLibros(char nombreArchivo[], stLibro libros[], int v, int dim);
+int archivoToArrayLibrosSegunCategoria(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char categoria[]);
+int archivoToArrayLibrosSegunAutor(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char autorBuscado[]);
 int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[]);
 stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v);

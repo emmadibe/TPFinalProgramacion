@@ -182,13 +182,13 @@ int existeLibro(char nombreLibro[], char archivoLibros[])
 void muestraUnLibroAdmin(stLibro libro)
 {
     printf("\n-----------------------------------------------\n");
-    printf("\nTitulo: %s", libro.titulo);
+    printf("Titulo: %s", libro.titulo);
     printf("\n-----------------------------------------------\n");
-    printf("\nIdLibro ..... %d", libro.idLibro);
-    printf("\nAutor ....... %s", libro.autor);
-    printf("\nEditorial ... %s", libro.editorial);
-    printf("\nCategoria ... %s", libro.categoria);
-    printf("\nValoracion .. %.2f", libro.valoracion);
+    printf("ID Libro ............... %d", libro.idLibro);
+    printf("\nAutor ................ %s", libro.autor);
+    printf("\nEditorial ............ %s", libro.editorial);
+    printf("\nCategoria ............ %s", libro.categoria);
+    printf("\nValoracion promedio .. %.2f", libro.valoracion);
     printf("\n-----------------------------------------------\n");
 }
 
@@ -210,7 +210,7 @@ void muestraArchivoLibrosAdmins(char archivoLibros[])
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros)
 {
     int i = 0;
-    printf("Libros cargados: \n");
+
     while(i < vLibros)
     {
         muestraUnLibroAdmin(arregloLibros[i]);
@@ -258,5 +258,45 @@ stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v)
     return libroEncontrado;
 }
 
+int archivoToArrayLibrosSegunCategoria(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char categoria[])
+{
+    stLibro aux;
+    FILE * archi = fopen(archivoLibros, "rb");
+    int i = v;
 
+    if(archi)
+    {
+        while( i < dim && fread(&aux, sizeof(stLibro), 1, archi) > 0)
+        {
+            if(strcmpi(categoria, aux.categoria) == 0)
+            {
+                arregloLibros[i] = aux;
+                i++;
+            }
+        }
+        fclose(archi);
+    }
+    return i; //retorna los validos
+}
+
+int archivoToArrayLibrosSegunAutor(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char autorBuscado[])
+{
+    stLibro aux;
+    FILE * archi = fopen(archivoLibros, "rb");
+    int i = v;
+
+    if(archi)
+    {
+        while( i < dim && fread(&aux, sizeof(stLibro), 1, archi) > 0)
+        {
+            if(strcmpi(autorBuscado, aux.autor) == 0)
+            {
+                arregloLibros[i] = aux;
+                i++;
+            }
+        }
+        fclose(archi);
+    }
+    return i; //retorna los validos
+}
 

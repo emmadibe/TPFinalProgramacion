@@ -172,7 +172,7 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
-
+        system("PAUSE");
         system("cls");
         system("color 75");
     }
@@ -248,6 +248,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
             puts("MI PERFIL:\n");
             imprimirUnRegistro(SESSION);
 
+
             break;
         case 5: //editar mi perfil
 
@@ -261,7 +262,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
-
+        system("PAUSE");
         system("cls");
         system("color 75");
 
@@ -329,6 +330,7 @@ void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[])
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
+        system("PAUSE");
         system("cls");
         system("color 75");
     }
@@ -344,8 +346,8 @@ int opcionSubMenuLibrosAdmin()
     printf("        SECCION LIBROS ADMINISTRADOR  \n");
     printf("----------------------------------------------\n");
     printf("\n 1-  Ver lista de libros guardados.");
-    printf("\n 2-  Ver libros de una categoria."); /// Todavia sin codear
-    printf("\n 3-  Ver libros de un autor."); /// Todavia sin codear
+    printf("\n 2-  Ver libros de una categoria.");
+    printf("\n 3-  Ver libros de un autor.");
     printf("\n 4-  Agregar un libro nuevo.");
     printf("\n 5-  Buscar un libro por titulo y modificarlo."); /// Todavia sin codear
     printf("\n 6-  Ver tus libros favoritos.");  /// Todavia sin codear
@@ -364,6 +366,14 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
 {
     int opcion = -1;
 
+    char categoriaElegida[50];
+    stLibro librosCategBuscada[200];
+    int valLibrosCategBuscada = 0;
+
+    char autorBuscado[50];
+    stLibro librosDelAutor[200];
+    int valLibrosDelAutor = 0;
+
     do
     {
         opcion = opcionSubMenuLibrosAdmin();
@@ -376,13 +386,38 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
 
             break;
         case 2:
-            puts("Ver libros de una categoria");
+            puts("\n\nVer libros de una categoria");
+            puts("\n Que categoria quieres ver?");
+            eligeCategoriaLibro(categoriaElegida);
 
+            valLibrosCategBuscada = archivoToArrayLibrosSegunCategoria(archivoLibros, librosCategBuscada, valLibrosCategBuscada, 200, categoriaElegida);
+
+            if( valLibrosCategBuscada == 0)
+            {
+                puts("No se encontraron libros de esa categoria en nuestros archivos.");
+            }
+            else
+            {
+                muestraArregloLibrosAdmin(librosCategBuscada, valLibrosCategBuscada);
+            }
 
             break;
         case 3:
-            puts("Ver libros de un autor");
+            puts("\n\nVer libros de un autor");
+            puts("\n Ingresa el nombre del autor del cual quieres ver los libros: ");
+            fflush(stdin);
+            gets(autorBuscado);
 
+            valLibrosDelAutor = archivoToArrayLibrosSegunAutor(archivoLibros, librosDelAutor, valLibrosDelAutor, 200, autorBuscado);
+
+            if( valLibrosDelAutor == 0)
+            {
+                puts("No se encontraron libros de ese autor en nuestros archivos.");
+            }
+            else
+            {
+                muestraArregloLibrosAdmin(librosDelAutor, valLibrosDelAutor);
+            }
 
             break;
         case 4:
@@ -418,6 +453,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
+        system("PAUSE");
         system("cls");
         system("color 75");
     }
@@ -479,6 +515,7 @@ void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[])
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
+        system("PAUSE");
         system("cls");
         system("color 75");
     }

@@ -34,7 +34,7 @@ void imprimirArrayUsuario(usuario a[], int v);
 int buscarUsuario(usuario a[], int v, char email[], char pass[]);
 int existeEmail(char email[]);
 int tienePuntoCom(char email[]);
-void mostrarUsuario(usuario u);  ///Función para controlar los datos almacenados en SESSION
+void mostrarUnUsuario(usuario u);
 void editarUsuario(char nombreArchivo[]);
 void arrayToArchivo(char nombreArchivo[], usuario u[], int v);
 int buscarUsuarioPorId(int idUsuario, usuario u[], int v);

@@ -651,7 +651,7 @@ int buscarUsuario(usuario a[], int v, char email[], char pass[])
 
 }
 
-void mostrarUsuario(usuario u)  ///Función para controlar los datos almacenados en SESSION
+void mostrarUnUsuario(usuario u)
 {
     puts("-----------\n");
     printf("ID: %d\n", u.id);
