@@ -40,3 +40,4 @@ void arrayToArchivo(char nombreArchivo[], usuario u[], int v);
 int buscarUsuarioPorId(int idUsuario, usuario u[], int v);
 void eliminarUsuario(char nombreArchivo[], usuario admin);
 int enroqueArray(usuario u[], int v, int posicion);
+void imprimirUnRegistro(usuario u);

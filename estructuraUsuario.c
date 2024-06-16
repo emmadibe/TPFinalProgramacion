@@ -443,18 +443,26 @@ void verUsuarios (char archivo[])
         {
 
             printf("Registro N %d\n", i);
-            puts("-----------\n");
-            printf("ID: %d\n", u.id);
-            printf("Nombre y apellido: %s\n", u.nombre);
-            printf("Edad: %d\n", u.edad);
-            printf("Genero: %c\n", u.genero);
-            printf("Fecha de nacimiento: %s\n", u.fechaNacimiento);
-            printf("Rol: %d\n", u.rol);
-            puts("---------------\n");
+            
+            imprimirUnRegistro(u);
 
         }
 
     }
+
+}
+
+void imprimirUnRegistro(usuario u)
+{
+
+    puts("-----------\n");
+    printf("ID: %d\n", u.id);
+    printf("Nombre y apellido: %s\n", u.nombre);
+    printf("Edad: %d\n", u.edad);
+    printf("Genero: %c\n", u.genero);
+    printf("Fecha de nacimiento: %s\n", u.fechaNacimiento);
+    printf("Rol: %d\n", u.rol);
+    puts("---------------\n");
 
 }
 

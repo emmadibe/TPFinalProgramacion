@@ -186,7 +186,8 @@ int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado)
     printf("\n 4-  Ver lista de usuarios");
     printf("\n 5-  Editar usuarios");
     printf("\n 6-  Eliminar un usuario");
-    printf("\n 7-  Cerrar sesion");
+    printf("\n 7-  Ver mi perfil");
+    printf("\n 8-  Cerrar sesion");
 
     printf("\n\n Ingresa una opcion:  ");
     scanf("%d", &eleccion);
@@ -241,7 +242,15 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION)
 
             break;
 
-        case 7: //Cierre de sesion
+        case 7: //Ver mi perfil.
+
+            puts("MI PERFIL:\n");
+
+            imprimirUnRegistro(SESSION);
+
+            break;
+
+        case 8: //Cierre de sesion
 
             printf("Hasta luego admin!");
 
@@ -262,7 +271,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION)
         control = getch();
         system("cls");
     }
-    while(control != 27);
+    while(control != 27 && opcionMenu != 8);
 }
 
 int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado)
@@ -312,7 +321,16 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
             editarusuario("usuario.bid");            
 
             break;
-        case 4: //Cierre de sesion
+
+        case 4: //Imprimo mi perfil de usuario en pantalla.
+
+            puts("MI PERFIL:\n");
+
+            imprimirUnRegistro(SESSION);
+
+            break;
+
+        case 5: //Cierre de sesion
 
             printf("Hasta luego!");
 
@@ -333,7 +351,7 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
         control = getch();
         system("cls");
     }
-    while(control != 27);
+    while(control != 27 && opcionMenu != 5);
 }
 
 int opcionLibrosUsuarios()
