@@ -10,7 +10,7 @@ void eliminarUsuario(char nombreArchivo[], usuario admin)
         int posicion;
         usuario u[300];
 
-        validos = archivoToArregloUsuario(nombreArchivo, u, validos, dimension); //Siempre trabajo desde el array. Por eso, antes que nada debo pasar todos los datos que tengo en mi archivo a un arreglo. Desde ahí, haré lo que sea necesario: imprimir los datos, editarlos o borrarlos. 
+        validos = archivoToArregloUsuario(nombreArchivo, u, validos, dimension); //Siempre trabajo desde el array. Por eso, antes que nada debo pasar todos los datos que tengo en mi archivo a un arreglo. Desde ahí, haré lo que sea necesario: imprimir los datos, editarlos o borrarlos.
 
         printf("Hola, %s. Ingresar el id del usuario que desea eliminar: \n", admin.nombre);
         scanf("%d", &idUsuarioEliminar);
@@ -46,7 +46,7 @@ void eliminarUsuario(char nombreArchivo[], usuario admin)
 
         }
 
-          
+
 }
 
 int enroqueArray(usuario u[], int v, int posicion)
@@ -92,7 +92,7 @@ int buscarUsuarioPorId(int idUsuario, usuario u[], int v)
 
 }
 
-void editarusuario(char nombreArchivo[]) //La idea es pasar todo el archivo, todos los usuarios, a un array y editar al usuario DESDE el array, Luego, sobreescribo el archivo con los datos del array. Para ello, debo abrir el archivo en modo wb.
+void editarUsuario(char nombreArchivo[]) //La idea es pasar todo el archivo, todos los usuarios, a un array y editar al usuario DESDE el array, Luego, sobreescribo el archivo con los datos del array. Para ello, debo abrir el archivo en modo wb.
 {
 
     int opcion = 0;
@@ -132,7 +132,7 @@ void editarusuario(char nombreArchivo[]) //La idea es pasar todo el archivo, tod
 
         do
         {
-            
+
             printf("Seleccionar el campo a editar: \n");
             printf("1) Nombre.\n 2)Email.\n 3) Pass.\n 4)Edad.\n 5) Genero.\n");
             scanf("%d", &opcion);
@@ -142,7 +142,7 @@ void editarusuario(char nombreArchivo[]) //La idea es pasar todo el archivo, tod
         switch (opcion)
         {
             case 1:
-                
+
                 do{
 
                     printf("\nIngrese nombre y apellido entre 6 y 30 caracteres: \n");
@@ -230,14 +230,14 @@ void editarusuario(char nombreArchivo[]) //La idea es pasar todo el archivo, tod
                 }while(u[posicion].genero != 'f' && u[posicion].genero != 'm' && u[posicion].genero != 'x');
 
                 break;
-        
+
         }
 
         arrayToArchivo(nombreArchivo, u, v);
 
     }
 
-     
+
 
 }
 
@@ -250,7 +250,7 @@ void arrayToArchivo(char nombreArchivo[], usuario u[], int v)
     {
 
         fwrite(u, sizeof(usuario), v, archi);
-        
+
         fclose(archi);
 
     }
@@ -443,7 +443,7 @@ void verUsuarios (char archivo[])
         {
 
             printf("Registro N %d\n", i);
-            
+
             imprimirUnRegistro(u);
 
         }

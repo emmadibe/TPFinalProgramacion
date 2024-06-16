@@ -9,25 +9,31 @@
 #include "estructuraComentarios.h"
 #include <stddef.h>
 
-int opcionesMenuLogueo();
-void menuLogueo();
-int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado);
-void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION);
-int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado);
-void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION);
-usuario cargarVariablesDeSession(usuario SESSION, usuario u);
-// void libroUsuarios(int opcion, usuario SESSION);
-// void libroAdmins(int opcion, usuario SESSION);
-// void accionLibro(int opcion, usuario SESSION, stLibro miLibro);
+#define AR_USUARIOS "usuario.bid"
+#define AR_LIBROS "libros.bid"
+#define AR_COMENTARIOS "comentarios.bid"
 
-usuario SESSION; /*VARIABLES DE SESIÓN. En esta variable vamos a almacenar los valores de los campos del usuario que se logueo para, luego, poder utilizarlos a lo largo del programa.
-                     Necesitaremos, por ejemplo, recuperar el id del usuario para que cada comentario se corresponda con el usuario.*/
+
+int opcionesMenuLogueo();
+void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
+int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado);
+void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios, char archivoLibros[], char archivoComentarios[]);
+int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado);
+void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios, char archivoLibros[], char archivoComentarios[]);
+usuario guardaVariablesDeSession(usuario SESSION, usuario u);
+
+/**
+*VARIABLE DE SESSION. En esta variable vamos a almacenar los valores de los campos del usuario que se logueo para, luego, poder utilizarlos a lo largo del programa.
+*Necesitaremos, por ejemplo, recuperar el id del usuario para que cada comentario se corresponda con el usuario.
+*/
+
+usuario SESSION;
 
 int main()
 {
 
 
-/* ----------------------------      ZONA TESTEOS     -------------------------------- */
+    /* ----------------------------      ZONA TESTEOS     -------------------------------- */
 
 
 
@@ -35,15 +41,19 @@ int main()
 
 
 
-/* ------------------------------------------------------------------------------------ */
+    /* ------------------------------------------------------------------------------------ */
 
 
 
 
-    menuLogueo();
+    menuLogueo(AR_USUARIOS,AR_LIBROS,AR_COMENTARIOS);
 
-  //  mostrarUsuario(SESSION);  ///Función para controlar los datos almacenados en SESSION
+    //  mostrarUsuario(SESSION);  ///Función para controlar los datos almacenados en SESSION
 }
+
+/// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
+///         ZONA DE LOGUEO Y REGISTRO DE USUARIOS
+/// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
 int opcionesMenuLogueo()
 {
@@ -55,7 +65,7 @@ int opcionesMenuLogueo()
     printf("----------------------------------------------\n");
     printf("\n 1-  Crear usuario nuevo");
     printf("\n 2-  Iniciar sesion");
-    printf("\n 3-  No quiero estar aqui, adios!");
+    printf("\n 0-  Cerrar programa");
 
     printf("\n\n Ingresa una opcion:  ");
     scanf("%d", &eleccion);
@@ -63,7 +73,7 @@ int opcionesMenuLogueo()
     return eleccion;
 }
 
-void menuLogueo()
+void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComentarios[])
 {
     int crearNuevoUsuario = 0;
 
@@ -73,11 +83,10 @@ void menuLogueo()
     char email[50];
     char pass[50];
 
-    int logueo = -198;
+    int posUsuarioLogueado = -3;
 
-    validosUsuario = archivoToArregloUsuario("usuario.bid", a, validosUsuario, 100);
+    validosUsuario = archivoToArregloUsuario(archivoUsuarios, a, validosUsuario, 100);
 
-    char control;
     int opcionMenu;
 
     do
@@ -91,7 +100,7 @@ void menuLogueo()
 
             puts("CREAR UN NUEVO USUARIO\n");
 
-            crearNuevoUsuario = crearUsuario("usuario.bid");
+            crearNuevoUsuario = crearUsuario(archivoUsuarios);
 
             if(crearNuevoUsuario == 0)
             {
@@ -107,7 +116,7 @@ void menuLogueo()
 
             puts("LOGUEARTE\n");
 
-            validosUsuario = archivoToArregloUsuario("usuario.bid", a, validosUsuario, 100);
+            validosUsuario = archivoToArregloUsuario(archivoUsuarios, a, validosUsuario, 100);
 
             do
             {
@@ -119,58 +128,67 @@ void menuLogueo()
                 fflush(stdin);
                 gets(pass);
 
-                logueo = buscarUsuario(a, validosUsuario, email, pass);
+                posUsuarioLogueado = buscarUsuario(a, validosUsuario, email, pass);
 
-                if(logueo == -2)
+                if(posUsuarioLogueado == -2)
                 {
                     puts("USUARIO INCORRECTO!\n");
                 }
-                else if (logueo == -1)
+                else if (posUsuarioLogueado == -1)
                 {
                     puts("ALGUNO DE LOS DATOS INGRESADOS NO SON CORRECTOS!\n");
                 }
                 else
                 {
-                    printf("HOLA DE NUEVO, %s!\n", a[logueo].nombre ); //Es que la función logueo, de encontrar una coincidencia, me retorna la posicion del usuario.
+                    system("cls");
+                    printf("HOLA DE NUEVO, %s!\n", a[posUsuarioLogueado].nombre ); //Es que la función logueo, de encontrar una coincidencia, me retorna la posicion del usuario.
 
-                    SESSION = cargarVariablesDeSession(SESSION, a[logueo]);
+                    SESSION = guardaVariablesDeSession(SESSION, a[posUsuarioLogueado]);
 
-                    if(a[logueo].rol == 2 ) //Solo los admins (rol == 2) deben poder ver, editar y eliminar usuarios.
+                    if(a[posUsuarioLogueado].rol == 2 ) //Solo los admins (rol == 2) deben poder ver, editar y eliminar usuarios.
                     {
-                        menuAdmins(a, logueo, SESSION);
+                        menuAdmins(a, posUsuarioLogueado, SESSION, archivoUsuarios, archivoLibros, archivoComentarios);
                     }
                     else
                     {
-                        menuUsuarios(a, logueo, SESSION);
+                        menuUsuarios(a, posUsuarioLogueado, SESSION, archivoUsuarios, archivoLibros, archivoComentarios);
                     }
                 }
 
-            }while(logueo == -1 || logueo == -2);
+            }
+            while(posUsuarioLogueado == -1 || posUsuarioLogueado == -2);
 
             break;
-        case 3:      // opción del usuario arrepentido
-
-            printf("Ya te vas? Volve pronto!\n\n");
-
+        case 0:
             break;
+
         default:
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
 
-        printf("\n");
-        system("PAUSE");
         system("cls");
-
         system("color 75");
-        printf("\nQuieres continuar? Presione ESC para cerrar el programa o cualquier tecla para volver al menu de logueo\n");
-        fflush(stdin);
-        control = getch();
-        system("cls");
-
     }
-    while(control != 27);
+    while(opcionMenu != 0);
 }
+
+usuario guardaVariablesDeSession(usuario SESSION, usuario u)
+{
+    strcpy(SESSION.nombre, u.nombre);
+    strcpy(SESSION.email, u.email);
+    strcpy(SESSION.pass, u.pass);
+    strcpy(SESSION.fechaNacimiento, u.fechaNacimiento);
+    SESSION.genero = u.genero; //Es un char, no un string.
+    sprintf(SESSION.id, "%d", u.id);
+    sprintf(SESSION.rol, "%d", u.rol);
+
+    return SESSION;
+}
+
+/// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
+///         ZONA DE USUARIOS ADMINISTRADORES
+/// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
 int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado)
 {
@@ -180,14 +198,12 @@ int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado)
     printf("----------------------------------------------\n");
     printf("        MENU PRINCIPAL ADMINISTRADORES \n");
     printf("----------------------------------------------\n");
-    printf("\n 1-  Ir a SECCION LIBROS");
-    printf("\n 2-  Ir a SECCION COMENTARIOS");
-    printf("\n 3-  Editar mi perfil");
-    printf("\n 4-  Ver lista de usuarios");
-    printf("\n 5-  Editar usuarios");
-    printf("\n 6-  Eliminar un usuario");
-    printf("\n 7-  Ver mi perfil");
-    printf("\n 8-  Cerrar sesion");
+    printf("\n 1-  Ir a SECCION COMENTARIOS");
+    printf("\n 2-  Ir a SECCION LIBROS");
+    printf("\n 3-  Ir a SECCION USUARIOS");
+    printf("\n 4-  Ver mi perfil");
+    printf("\n 5-  Editar mi perfil");
+    printf("\n 0-  Cerrar sesion");
 
     printf("\n\n Ingresa una opcion:  ");
     scanf("%d", &eleccion);
@@ -195,13 +211,9 @@ int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado)
     return eleccion;
 }
 
-void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION)
+void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios, char archivoLibros[], char archivoComentarios[])
 {
-    char control;
     int opcionMenu;
-    int opcionLibros = 0;
-    int validosUsuarios = 0;
-    usuario u[50];
 
     do
     {
@@ -212,47 +224,32 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION)
         {
         case 1: //Ir a SECCION LIBROS
 
-            opcionLibros =  opcionLibrosAdmins();
-            libroAdmins(opcionLibros, SESSION);
+
 
             break;
-        case 2: //Ir a SECCION COMENTARIOS
+        case 2: //Ir a SECCION LIBROS
+
+            subMenuLibrosAdmin(SESSION, archivoLibros);
 
             break;
-        case 3: //Editar mi perfil
+        case 3: //Ir a SECCION USUARIOS  (subMenu exclusivo de administradores)
 
-            editarusuario("usuario.bid");            
-
-            break;
-        case 4: //Ver lista de usuarios
-
-            validosUsuarios = 0; //Reinicio el válidos para que o haya repetición de usuarios.
-
-            validosUsuarios = archivoToArregloUsuario("usuario.bid", u, validosUsuarios, 50);
-            imprimirArrayUsuario(u, validosUsuarios);
+            subMenuUsuariosAdmin(SESSION, archivoUsuarios);
 
             break;
-        case 5: //Editar usuarios
-
-            break;
-
-        case 6: //Eliminar un usuario
-
-            eliminarUsuario("usuario.bid", SESSION);
-
-            break;
-
-        case 7: //Ver mi perfil.
+        case 4: //ver mi perfil
 
             puts("MI PERFIL:\n");
-
             imprimirUnRegistro(SESSION);
 
             break;
+        case 5: //editar mi perfil
 
-        case 8: //Cierre de sesion
+            editarUsuario(archivoUsuarios);
 
-            printf("Hasta luego admin!");
+           break;
+        case 0:
+            //printf("Hasta luego admin!");
 
             break;
 
@@ -261,18 +258,150 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION)
             printf("\nOPCION INVALIDA\n");
         }
 
-        printf("\n");
-        system("PAUSE");
         system("cls");
+        system("color 75");
+
+    }
+    while(opcionMenu != 0);
+}
+
+int opcionSubMenuUsuariosAdmin()
+{
+    int opcion = -1;
+    do
+    {
 
         system("color 75");
-        printf("\nQuieres continuar? Presione ESC para confirmar el cierre de sesion o cualquier tecla para volver al menu de administrador\n");
-        fflush(stdin);
-        control = getch();
-        system("cls");
+        printf("----------------------------------------------\n");
+        printf("        SECCION USUARIOS ADMINISTRADOR  \n");
+        printf("----------------------------------------------\n");
+        printf("\n 1-  Ver lista de usuarios registrados.");
+        printf("\n 2-  Editar usuarios.");
+        printf("\n 3-  Eliminar un usuario.");
+        printf("\n 0-  Volver al menu anterior.");
+
+        printf("\n\n Ingresa una opcion:  ");
+        scanf("%d", &opcion);
+
     }
-    while(control != 27 && opcionMenu != 8);
+    while(opcion < 0 || opcion > 3);
+
+    return opcion;
 }
+
+void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[])
+{
+    int opcion = -1;
+
+    int validosUsuarios = 0;
+    usuario u[50];
+
+
+    do
+    {
+        opcion = opcionSubMenuUsuariosAdmin();
+
+        switch (opcion)
+        {
+        case 1:
+            puts("Ver lista de usuarios registrados.");
+
+            validosUsuarios = 0; //Reinicio el válidos para que no haya repetición de usuarios.
+            validosUsuarios = archivoToArregloUsuario(archivoUsuarios, u, validosUsuarios, 50);
+            imprimirArrayUsuario(u, validosUsuarios);
+
+            break;
+
+        case 2:
+            puts("Editar usuarios.");
+
+            break;
+
+        case 3:
+            puts("Eliminar un usuario.");
+
+            eliminarUsuario(archivoUsuarios, SESSION);
+            break;
+
+        case 0:
+            break;
+
+        default:
+            system("color 74");
+            printf("\nOPCION INVALIDA\n");
+        }
+        system("cls");
+        system("color 75");
+    }
+    while(opcion != 0);
+}
+
+int opcionSubMenuLibrosAdmin()
+{
+    int opcion = -1;
+    do
+    {
+        system("color 75");
+        printf("----------------------------------------------\n");
+        printf("        SECCION LIBROS ADMINISTRADOR  \n");
+        printf("----------------------------------------------\n");
+        printf("\n 1-  Ver lista de libros guardados.");
+        printf("\n 2-  Agregar un libro nuevo.");
+        printf("\n 3-  Buscar un libro y modificarlo.");
+        printf("\n 0-  Volver al menu anterior.");
+
+        printf("\n\n Ingresa una opcion:  ");
+        scanf("%d", &opcion);
+    }
+    while(opcion < 0 || opcion > 3);
+
+    return opcion;
+
+}
+
+void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
+{
+    int opcion = -1;
+
+
+    do
+    {
+        opcion = opcionSubMenuLibrosAdmin();
+
+        switch (opcion)
+        {
+        case 1:
+            puts("Ver lista de libros guardados");
+
+            break;
+
+        case 2:
+            puts("Agregar un libro nuevo");
+
+            break;
+
+        case 3:
+            puts("Buscar un libro y modificarlo");
+
+            break;
+
+        case 0:
+            break;
+
+        default:
+            system("color 74");
+            printf("\nOPCION INVALIDA\n");
+        }
+        system("cls");
+        system("color 75");
+    }
+    while(opcion != 0);
+}
+
+
+/// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
+///         ZONA DE USUARIOS CLIENTES
+/// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
 int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado)
 {
@@ -293,7 +422,7 @@ int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado)
     return eleccion;
 }
 
-void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION)
+void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios, char archivoLibros[], char archivoComentarios[])
 {
     char control;
     int opcionMenu;
@@ -308,9 +437,6 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
         {
         case 1: //Ir a SECCION LIBROS
 
-            opcionLibros = opcionLibrosUsuarios();
-
-            libroUsuarios(opcionLibros, SESSION);
 
             break;
         case 2: //Ir a SECCION COMENTARIOS
@@ -318,7 +444,7 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
             break;
         case 3: //Editar mi perfil
 
-            editarusuario("usuario.bid");            
+            editarUsuario(archivoUsuarios);
 
             break;
 
@@ -354,228 +480,5 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
     while(control != 27 && opcionMenu != 5);
 }
 
-int opcionLibrosUsuarios()
-{
 
-    int opcion = 0;
 
-    do{
-
-        printf("Bienvenido a la seccion de libros. \n");
-        printf("Marque 1) Ver lista de libros.\n 2) Entrar a un libro.\n 3) Agregar un libro.\n 0) Regresar.\n");
-
-    }while(opcion < 0 || opcion > 3);
-
-    return opcion;
-
-}
-
-void libroUsuarios(int opcion, usuario SESSION)
-{
-    stLibro l[30];
-
-    int validos = 0;
-
-    int dim = 30;
-
-    switch (opcion)
-    {
-    case 1:
-
-        printf("LISTA DE LIBROS: \n");
-
-        validos = archivoToArrayLibros("listaLibros.bid", l, validos, dim);
-
-        imprimirArrayLibrosAdm(l, validos);
-
-        break;
-
-    case 2:
-
-        break;
-
-    case 3:
-
-        cargaLibroArchivo("listaLibros.bid");
-
-        break;
-
-    default:
-        break;
-    }
-
-}
-
-int opcionLibrosAdmins()
-{
-
-    int opcion = 0;
-
-    do{
-
-        printf("Bienvenido a la seccion de libros. \n");
-        printf("Marque 1) Ver lista de libros.\n 2) Entrar a un libro.\n 3) Agregar un libro.\n 0) Regresar.\n");
-
-        scanf("%d", &opcion);
-
-    }while(opcion < 0 || opcion > 3);
-
-    return opcion;
-
-}
-
-void libroAdmins(int opcion, usuario SESSION)
-{
-
-    stLibro l[30];
-
-    stLibro miLibro;
-
-    int validos = 0;
-    char nombreLibro[60];
-    int dim = 30;
-    int idLibro;
-
-    int opcionEntrarAlLibro;
-
-    switch (opcion)
-    {
-    case 1:
-        printf("LISTA DE LIBROS: \n");
-
-        validos = archivoToArrayLibros("listaLibros.bid", l, validos, dim);
-
-        imprimirArrayLibrosAdm(l, validos);
-
-        break;
-
-    case 2:
-
-        printf("Escribir el nombre del libro al cual deseas ingresar.\n");
-        fflush(stdin);
-        gets(nombreLibro);
-        idLibro = buscarIdibro(nombreLibro);
-
-        if(idLibro >= 0){
-
-            validos = 0;
-            validos = archivoToArrayLibros("listaLibros.bid", l, validos, dim);
-
-            miLibro = buscarLibroPorId(idLibro, l, validos);
-
-            puts("-----------------------\n");
-            printf("ID del libro :  %d\n", idLibro);
-            printf("Titulo:  %s\n", miLibro.titulo);
-            printf("Autor :  %s\n", miLibro.autor);
-            printf("Editorial :  %s\n", miLibro.editorial);
-            printf("Categoria :  %s\n", miLibro.categoria);
-            printf("Puntaje :  %f\n", miLibro.valoracion);
-            puts("-----------------------\n");
-
-            opcionEntrarAlLibro = opcionesMenuEntrarALibro();
-
-            accionLibro(opcionEntrarAlLibro, SESSION, miLibro);
-
-        }else{
-
-            printf("No existe el libro.\n");
-
-        }
-
-        break;
-
-    case 3:
-
-        cargaLibroArchivo("listaLibros.bid");
-
-        break;
-
-    default:
-        break;
-    }
-
-}
-
-void accionLibro(int opcion, usuario SESSION, stLibro miLibro)
-{
-
-    int v = 0, d= 55;
-
-    stComentario comentario;
-
-    stComentario arrayComentario[55];
-
-    int posicion = 0;
-
-    switch (opcion)
-    {
-    case 3:
-
-        printf("Hola %s.\n Entraste al libro %s.\n", SESSION.nombre, miLibro.titulo);
-
-        comentario = cargarComentarioNuevo(SESSION.id, miLibro.idLibro);
-
-        printf("Tu comentario del libro es el siguiente:\n");
-        puts("---------------------------------------------\n");
-        printf("%s\n", comentario.tituloComentario);
-        printf("%s\n", comentario.descripcion);
-        printf("Puntaje: %d.\n", comentario.puntaje);
-        puts("---------------------------------------------\n");
-
-        break;
-
-    case 4:
-
-        archivoToArrayComentario("listaComentarios.bid", arrayComentario, &v, d);
-
-        posicion = buscarComentario(miLibro.idLibro, arrayComentario, v);
-
-        if (posicion != -1){ //buscarComentario retorna -1 si no encontró una estructura con el valor de idLibro que le pasamos por parametro.
-
-            imprimirUnComentarioDelArrayComentario(arrayComentario, posicion, miLibro.titulo);
-
-        }else{
-
-            printf("El libro %s todavia no posee comentarios.\n", miLibro.titulo);
-
-        }
-
-        printf("La posicion es: %d\n", posicion);
-        printf("El id es: %d\n", miLibro.idLibro);
-
-    default:
-        break;
-    }
-
-}
-
-int opcionesMenuEntrarALibro()
-{
-
-    int opcion;
-
-    do{
-
-        puts("Que desea hacer con el libro?\n");
-        printf("1) Eliminar el comentario.\n 2) Editar el comentario.\n 3) Agregarle un comentario.\n 4) Ver comentario\n 0) Nada.\n");
-        scanf("%d", &opcion);
-
-    }while(opcion <= 0 || opcion > 4);
-
-    return opcion;
-
-}
-
-usuario cargarVariablesDeSession(usuario SESSION, usuario u)
-{
-
-    strcpy(SESSION.nombre, u.nombre);
-    strcpy(SESSION.email, u.email);
-    strcpy(SESSION.pass, u.pass);
-    strcpy(SESSION.fechaNacimiento, u.fechaNacimiento);
-    SESSION.genero = u.genero; //Es un char, no un string.
-    sprintf(SESSION.id, "%d", u.id);
-    sprintf(SESSION.rol, "%d", u.rol);
-
-    return SESSION;
-}

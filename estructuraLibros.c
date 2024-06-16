@@ -228,14 +228,7 @@ void imprimirArrayLibrosAdm(stLibro l[], int v)
 
     while(i < v)
     {
-        printf("----------------------\n");
-        printf("ID: %d\n", l[i].idLibro);
-        printf("Titulo: %s\n", l[i].titulo);
-        printf("Autor: %s\n", l[i].autor);
-        printf("Editorial: %s\n", l[i].editorial);
-        printf("Categoria: %s\n", l[i].categoria);
-        printf("Valoracion: %.2f\n", l[i].valoracion);
-        printf("--------------------------\n");
+        muestraUnLibroAdmin(l[i]);
 
         i++;
     }

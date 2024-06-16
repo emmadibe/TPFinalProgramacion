@@ -10,7 +10,7 @@ stComentario cargarComentarioNuevo(int idUsuario, int idLibro)
     comentario.idComentario = cantElementosArchivo("listaComentarios.bid", sizeof(stComentario));
     int puntaje = 0;
 
-    /////////////////////////////////////////////OBTENGO LA FECHA ACTUAL : 
+    /////////////////////////////////////////////OBTENGO LA FECHA ACTUAL :
     time_t tiempo_actual;
     struct tm* tiempo_local;
     char fecha_actual[80];
@@ -62,7 +62,6 @@ stComentario cargarComentarioNuevo(int idUsuario, int idLibro)
     }
 
     return comentario;
-
 }
 
 void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int  *v, int d)
@@ -106,7 +105,7 @@ int buscarComentario(int idLibro, stComentario c[], int v)
         {
 
             posicion = i;
-            
+
             flag = 'f';
 
         }
