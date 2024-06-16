@@ -16,11 +16,17 @@
 
 int opcionesMenuLogueo();
 void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
-int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado);
-void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios, char archivoLibros[], char archivoComentarios[]);
-int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado);
-void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios, char archivoLibros[], char archivoComentarios[]);
 usuario guardaVariablesDeSession(usuario SESSION, usuario u);
+int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado);
+void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
+int opcionSubMenuUsuariosAdmin();
+void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[]);
+int opcionSubMenuLibrosAdmin();
+void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[]);
+int opcionSubMenuComentariosAdmin();
+void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[]);
+int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado);
+void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
 
 /**
 *VARIABLE DE SESSION. En esta variable vamos a almacenar los valores de los campos del usuario que se logueo para, luego, poder utilizarlos a lo largo del programa.
@@ -48,7 +54,7 @@ int main()
 
     menuLogueo(AR_USUARIOS,AR_LIBROS,AR_COMENTARIOS);
 
-    //  mostrarUsuario(SESSION);  ///Función para controlar los datos almacenados en SESSION
+    //mostrarUsuario(SESSION);  ///Función para controlar los datos almacenados en SESSION
 }
 
 /// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
@@ -180,8 +186,8 @@ usuario guardaVariablesDeSession(usuario SESSION, usuario u)
     strcpy(SESSION.pass, u.pass);
     strcpy(SESSION.fechaNacimiento, u.fechaNacimiento);
     SESSION.genero = u.genero; //Es un char, no un string.
-    sprintf(SESSION.id, "%d", u.id);
-    sprintf(SESSION.rol, "%d", u.rol);
+    //sprintf(SESSION.id, "%d", u.id);
+    //sprintf(SESSION.rol, "%d", u.rol);
 
     return SESSION;
 }
@@ -211,9 +217,9 @@ int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado)
     return eleccion;
 }
 
-void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios, char archivoLibros[], char archivoComentarios[])
+void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[])
 {
-    int opcionMenu;
+    int opcionMenu = -1;
 
     do
     {
@@ -249,8 +255,6 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
 
            break;
         case 0:
-            //printf("Hasta luego admin!");
-
             break;
 
         default:
@@ -268,23 +272,18 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
 int opcionSubMenuUsuariosAdmin()
 {
     int opcion = -1;
-    do
-    {
 
-        system("color 75");
-        printf("----------------------------------------------\n");
-        printf("        SECCION USUARIOS ADMINISTRADOR  \n");
-        printf("----------------------------------------------\n");
-        printf("\n 1-  Ver lista de usuarios registrados.");
-        printf("\n 2-  Editar usuarios.");
-        printf("\n 3-  Eliminar un usuario.");
-        printf("\n 0-  Volver al menu anterior.");
+    system("color 75");
+    printf("----------------------------------------------\n");
+    printf("        SECCION USUARIOS ADMINISTRADOR  \n");
+    printf("----------------------------------------------\n");
+    printf("\n 1-  Ver lista de usuarios registrados.");
+    printf("\n 2-  Editar usuarios.");
+    printf("\n 3-  Eliminar un usuario.");
+    printf("\n 0-  Volver al menu anterior.");
 
-        printf("\n\n Ingresa una opcion:  ");
-        scanf("%d", &opcion);
-
-    }
-    while(opcion < 0 || opcion > 3);
+    printf("\n\n Ingresa una opcion:  ");
+    scanf("%d", &opcion);
 
     return opcion;
 }
@@ -339,34 +338,122 @@ void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[])
 int opcionSubMenuLibrosAdmin()
 {
     int opcion = -1;
-    do
-    {
-        system("color 75");
-        printf("----------------------------------------------\n");
-        printf("        SECCION LIBROS ADMINISTRADOR  \n");
-        printf("----------------------------------------------\n");
-        printf("\n 1-  Ver lista de libros guardados.");
-        printf("\n 2-  Agregar un libro nuevo.");
-        printf("\n 3-  Buscar un libro y modificarlo.");
-        printf("\n 0-  Volver al menu anterior.");
 
-        printf("\n\n Ingresa una opcion:  ");
-        scanf("%d", &opcion);
-    }
-    while(opcion < 0 || opcion > 3);
+    system("color 75");
+    printf("----------------------------------------------\n");
+    printf("        SECCION LIBROS ADMINISTRADOR  \n");
+    printf("----------------------------------------------\n");
+    printf("\n 1-  Ver lista de libros guardados.");
+    printf("\n 2-  Ver libros de una categoria."); /// Todavia sin codear
+    printf("\n 3-  Ver libros de un autor."); /// Todavia sin codear
+    printf("\n 4-  Agregar un libro nuevo.");
+    printf("\n 5-  Buscar un libro por titulo y modificarlo."); /// Todavia sin codear
+    printf("\n 6-  Ver tus libros favoritos.");  /// Todavia sin codear
+    printf("\n 7-  Agregar un libro a tus favoritos.");  /// Todavia sin codear
+    printf("\n 8-  Quitar un libro a tus favoritos.");  /// Todavia sin codear
+    printf("\n 9-  Elimina un libro."); /// Todavia sin codear
+    printf("\n 0-  Volver al menu anterior.");
+
+    printf("\n\n Ingresa una opcion:  ");
+    scanf("%d", &opcion);
 
     return opcion;
-
 }
 
 void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
 {
     int opcion = -1;
 
-
     do
     {
         opcion = opcionSubMenuLibrosAdmin();
+
+        switch (opcion)
+        {
+        case 1:
+            puts("Ver lista de libros guardados");
+            muestraArchivoLibrosAdmins(archivoLibros);
+
+            break;
+        case 2:
+            puts("Ver libros de una categoria");
+
+
+            break;
+        case 3:
+            puts("Ver libros de un autor");
+
+
+            break;
+        case 4:
+            puts("Agregar un libro nuevo");
+            cargaLibrosAlArchivo(archivoLibros);
+
+            break;
+
+        case 5:
+            puts("Buscar un libro por titulo y modificarlo");
+
+            break;
+        case 6:
+            puts("Ver tus libros favoritos");
+
+            break;
+        case 7:
+            puts("Agregar un libro a tus favoritos");
+
+            break;
+        case 8:
+            puts("Quitar un libro a tus favoritos");
+
+            break;
+        case 9:
+            puts("Elimina un libro");
+
+            break;
+
+        case 0:
+            break;
+        default:
+            system("color 74");
+            printf("\nOPCION INVALIDA\n");
+        }
+        system("cls");
+        system("color 75");
+    }
+    while(opcion != 0);
+}
+
+int opcionSubMenuComentariosAdmin()
+{
+    int opcion = -1;
+
+    system("color 75");
+    printf("------------------------------------------------------\n");
+    printf("   SECCION COMENTARIOS Y VALORACIONES ADMINISTRADOR  \n");
+    printf("------------------------------------------------------\n");
+    printf("\n 1-  Ver valoracion y comentarios de un libro.");
+    printf("\n 2-  Puntuar un libro.");
+    printf("\n 3-  Modificar mi valoracion de un libro.");
+    printf("\n 4-  Comentar un libro.");
+    printf("\n 5-  Modificar mi comentario de un libro.");
+    printf("\n 6-  Eliminar mi comentario de un libro.");
+    printf("\n 7-  Eliminar comentarios de otros usuarios de un libro.");
+    printf("\n 0-  Volver al menu anterior.");
+
+    printf("\n\n Ingresa una opcion:  ");
+    scanf("%d", &opcion);
+
+    return opcion;
+}
+
+void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[])
+{
+    int opcion = -1;
+
+    do
+    {
+        opcion = opcionSubMenuComentariosAdmin();
 
         switch (opcion)
         {
@@ -398,7 +485,6 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
     while(opcion != 0);
 }
 
-
 /// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 ///         ZONA DE USUARIOS CLIENTES
 /// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
@@ -422,14 +508,13 @@ int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado)
     return eleccion;
 }
 
-void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios, char archivoLibros[], char archivoComentarios[])
+void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[])
 {
     char control;
     int opcionMenu;
 
     do
     {
-        int opcionLibros = 0;
         opcionMenu = opcionesMenuUsuario(arregloUsuarios, usuarioLogueado);
         system("cls");
 
@@ -479,6 +564,9 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
     }
     while(control != 27 && opcionMenu != 5);
 }
+
+
+
 
 
 

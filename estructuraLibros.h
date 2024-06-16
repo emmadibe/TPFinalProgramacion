@@ -17,17 +17,17 @@ typedef struct{
 }stLibro;
 
 
-stLibro cargaUnNuevoLibro(char tituloNuevoLibro[]);
+stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[]);
 void eligeCategoriaLibro(char categoria[]);
-//int cargaArregloLibros(stLibro libros[], int vLibros, int dimLibros);
+int existeLibro(char nombreLibro[], char archivoLibros[]);
+void cargaLibrosAlArchivo(char archivoLibros[]);
+
+
 void muestraUnLibroAdmin(stLibro libro);
+void muestraArchivoLibrosAdmins(char archivoLibros[]);
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros);
-void cargaLibroArchivo(char nombreArchivo[]);
-int archivoToArrayLibros(char nombreArchivo[], stLibro l[], int v, int dim);
-void imprimirArrayLibros(stLibro l[], int v);
-int cantElementosArchivoLibroAdm(char nombreArchivo[]);
-int buscarIdibro(char nombreLibro[]);
-stLibro buscarLibroPorId(int idLibro, stLibro a[], int v);
-int yaExisteLibro(char nombreLibro[]);
 
 
+int archivoToArrayLibros(char nombreArchivo[], stLibro libros[], int v, int dim);
+int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[]);
+stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v);

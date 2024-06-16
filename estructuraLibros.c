@@ -2,14 +2,16 @@
 #include "funcionesGenerales.h"
 
 
-stLibro cargaUnNuevoLibro(char tituloNuevoLibro[])
+stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[])
 {
-    stLibro libro;
+    stLibro libro; // Variable para cargar en nuevo libro
+
     char aux[100];
-    float valoracion;
     char categoria[50];
 
-    libro.idLibro = cantElementosArchivoLibro("listaLibros.bid");
+    /* Uso la funcion de contar la cantidad de elementos del archivo para asignarle
+    * al libro el siguinte ID disponible y le sumo uno para que no exista el ID 0 */
+    libro.idLibro = (cantElementosArchivo(archivoLibros, sizeof(stLibro)) + 1);
 
     strcpy(libro.titulo, tituloNuevoLibro);
 
@@ -33,23 +35,21 @@ stLibro cargaUnNuevoLibro(char tituloNuevoLibro[])
 
     muestraUnLibroAdmin(libro);
 
-   return libro;
+    return libro;
 }
 
 void eligeCategoriaLibro(char categoria[])
 {
     int eleccion;
 
-    char op1[] = "Ciencia Ficcion";
-    char op2[] = "Misterio y suspenso";
-    char op3[] = "Policial";
-    char op4[] = "Romance";
-    char op5[] = "Juvenil";
-    char op6[] = "Infantil";
+    char op1[] = "Novelas/Ciencia Ficcion";
+    char op2[] = "Historicos/Biograficos";
+    char op3[] = "Educativos/Academicos";
+    char op4[] = "Desarrollo personal/Autoayuda";
+    char op5[] = "Infantiles";
+    char op6[] = "Ciencia y tecnología";
     char op7[] = "Cocina y gastronomia";
-    char op8[] = "Academico";
-    char op9[] = "Ciencia y tecnologia";
-    char op10[] = "Salud y bienestar";
+
 
     printf("\n 1-  %s", op1);
     printf("\n 2-  %s", op2);
@@ -58,66 +58,126 @@ void eligeCategoriaLibro(char categoria[])
     printf("\n 5-  %s", op5);
     printf("\n 6-  %s", op6);
     printf("\n 7-  %s", op7);
-    printf("\n 8-  %s", op8);
-    printf("\n 9-  %s", op9);
-    printf("\n 10-  %s", op10);
 
-    printf("\n\n Ingresa una opcion:  ");
-    scanf("%d", &eleccion);
-
-    switch(eleccion)
+    do
     {
-    case 1:
-        strcpy(categoria, op1);
-        break;
-    case 2:
-        strcpy(categoria, op2);
-        break;
-    case 3:
-        strcpy(categoria, op3);
-        break;
-    case 4:
-        strcpy(categoria, op4);
-        break;
-    case 5:
-        strcpy(categoria, op5);
-        break;
-    case 6:
-        strcpy(categoria, op6);
-        break;
-    case 7:
-        strcpy(categoria, op7);
-        break;
-    case 8:
-        strcpy(categoria, op8);
-        break;
-    case 9:
-        strcpy(categoria, op9);
-        break;
-    case 10:
-        strcpy(categoria, op10);
-        break;
+        printf("\n\n Ingresa una opcion:  ");
+        scanf("%d", &eleccion);
+
+        switch(eleccion)
+        {
+        case 1:
+            strcpy(categoria, op1);
+            break;
+        case 2:
+            strcpy(categoria, op2);
+            break;
+        case 3:
+            strcpy(categoria, op3);
+            break;
+        case 4:
+            strcpy(categoria, op4);
+            break;
+        case 5:
+            strcpy(categoria, op5);
+            break;
+        case 6:
+            strcpy(categoria, op6);
+            break;
+        case 7:
+            strcpy(categoria, op7);
+            break;
+        default:
+            puts("Opcion incorrecta. Intente nuevamente: ");
+            break;
+        }
     }
+    while(eleccion > 7 && eleccion < 1);
 }
 
-/*
-int cargaArregloLibros(stLibro libros[], int vLibros, int dimLibros)
+void cargaLibrosAlArchivo(char archivoLibros[])
 {
-    char control = 's';
     stLibro nuevoLibro;
-    while(vLibros < dimLibros && control != 27)
+
+    char option = 0;
+    int flag = -1;
+    char tituloNuevoLibro[100];
+
+    FILE *archi = fopen(archivoLibros, "ab");
+
+    if(archi != NULL)
     {
-        libros[vLibros] = cargaUnNuevoLibro(nuevoLibro);
-        vLibros++;
-        //printf("Libros cargados: %d", vAlumnos);  ///Control funcion de carga
-        printf("Desea agregar otro libro? Presiones ESC para terminar\n");
-        fflush(stdin);
-        control = getch();
-        system("cls");
+        do
+        {
+            printf("\nIngrese el titulo del libro: ");
+            fflush(stdin);
+            gets(tituloNuevoLibro);
+
+            flag = existeLibro(tituloNuevoLibro,archivoLibros);
+            if(flag == 0)  //Valida que el libro nuevo todavia no exista en el archivo
+            {
+                nuevoLibro = cargaUnNuevoLibro(tituloNuevoLibro, archivoLibros);
+                fwrite(&nuevoLibro, sizeof(stLibro), 1, archi);
+                fclose(archi); //Debo cerrar aquí el archivo para que se guarden los cambios. Sino, si el usuario quiere agregar otro libro, no podrá actualizarse el id.
+            }
+            else if(flag == 1)  //Si el titulo ya existe en el archivo, suspende la carga
+            {
+                puts("El libro ya existe en nustros archivos!");
+            }
+
+            printf("Desea cargar otro libro? Presiones ESC para terminar\n");
+            fflush(stdin);
+            option = getch();
+            system("cls");
+
+        }
+        while (option != 27);
+
+        fclose(archi); //Vuelvo a cerrar el archivo porque si el libro ya existia dejaba el archivo abierto
     }
-    return vLibros;
+    else
+    {
+        printf("No se pudo abrir el archivo.");
+    }
 }
-*/
+
+int archivoToArrayLibros(char nombreArchivo[], stLibro libros[], int v, int dim)
+{
+
+    int cant = cantElementosArchivo(nombreArchivo, sizeof(stLibro));
+    int total = cant + v;
+
+    FILE * archi = fopen(nombreArchivo, "rb");
+
+    if(archi && total <= dim)
+    {
+        while(fread(&libros[v], sizeof(stLibro), 1, archi) > 0)
+        {
+            v++;
+        }
+        fclose(archi);
+    }
+    return v;
+}
+
+int existeLibro(char nombreLibro[], char archivoLibros[])
+{
+    stLibro arrayLibro[150];
+    int validos = 0, i = 0;
+    int flag = 0; // en un primcipio, suponemos que el libro no existe en el archivo
+
+    validos = archivoToArrayLibros(archivoLibros, arrayLibro, validos, 200);
+
+    while(i < validos && flag == 0)
+    {
+        if(strcmpi(nombreLibro, arrayLibro[i].titulo) == 0)  // comprueba, libro por libro, si el titulo ya está guardado en el archivo (no diferencia entre mayusculas y minusculas
+        {
+            flag = 1; // El libro ya existe en el archivo
+        }
+        i++;
+    }
+    return flag;
+}
 
 void muestraUnLibroAdmin(stLibro libro)
 {
@@ -132,6 +192,21 @@ void muestraUnLibroAdmin(stLibro libro)
     printf("\n-----------------------------------------------\n");
 }
 
+void muestraArchivoLibrosAdmins(char archivoLibros[])
+{
+    FILE * archi = fopen(archivoLibros, "rb");
+    stLibro aux;
+
+    if(archi)
+    {
+        while(fread(&aux, sizeof(stLibro), 1, archi)>0)
+        {
+            muestraUnLibroAdmin(aux);
+        }
+        fclose(archi);
+    }
+}
+
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros)
 {
     int i = 0;
@@ -144,60 +219,20 @@ void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros)
     printf("\n");
 }
 
-void cargaLibroArchivo(char nombreArchivo[])
+int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[])
 {
-    stLibro nuevoLibro;
-    char option = 0;
-    char tituloNuevoLibro[100];
-
-    FILE *archi = fopen(nombreArchivo, "ab");
-
-    if(archi != NULL)
-    {
-        do{
-            printf("\nIngrese el titulo del libro: ");
-            fflush(stdin);
-            gets(tituloNuevoLibro);
-
-            if(yaExisteLibro(tituloNuevoLibro)== 0)  //Valida que el libro nuevo todavia no exista en el archivo
-            {
-                nuevoLibro = cargaUnNuevoLibro(tituloNuevoLibro);
-                fwrite(&nuevoLibro, sizeof(stLibro), 1, archi);  //fwrite devuelve la cantidad de elemetos que fueron escritos
-                fclose(archi); //Debo cerrar aquí el archivo para que se guarden los cambios. Sino, si el usuario quiere agregar otro libro, no podrá actualizarse el id.
-            }
-            else if(yaExisteLibro(tituloNuevoLibro)== 1)  //Si el titulo ya existe en el archivo, suspende la carga
-            {
-                puts("El libro ya existe en nustros archivos!");
-            }
-
-            printf("�Desea cargar otro libro? Presiones ESC para terminar\n");
-            fflush(stdin);
-            option = getch();
-            system("cls");
-
-        }while (option != 27);
-
-    }
-    else
-    {
-        printf("No se pudo abrir el archivo.");
-    }
-}
-
-int buscarIdibro(char nombreLibro[])
-{
-    stLibro arrayLibro[50];
+    stLibro arrayLibro[200];
     int validos = 0, i = 0;
-    char flag = 't';
+    char flag = 1;
     int id = -1; //Por si  no lo encuentra, debe retornar un valor no validos como id. El id no puede ser negativo.
 
-    validos = archivoToArrayLibros("listaLibros.bid", arrayLibro, validos, 50);
+    validos = archivoToArrayLibros(archivoLibros, arrayLibro, validos, 200);
 
-    while(i < validos && flag == 't')
+    while(i < validos && flag == 1)
     {
-        if(strcmpi(nombreLibro, arrayLibro[i].titulo) == 0)
+        if(strcmpi(tituloLibro, arrayLibro[i].titulo) == 0)
         {
-            flag = 'f';
+            flag = 0;
             id = arrayLibro[i].idLibro;
         }
         i++;
@@ -205,93 +240,23 @@ int buscarIdibro(char nombreLibro[])
     return id;
 }
 
-stLibro buscarLibroPorId(int idLibro, stLibro a[], int v)
+stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v)
 {
     int i = 0;
-    stLibro librito;
-    char flag = 't';
-    while(i < v && flag == 't')
+    stLibro libroEncontrado;
+    char flag = 1;
+
+    while(i < v && flag == 1)
     {
-        if(a[i].idLibro == idLibro)
+        if(arregloLibros[i].idLibro == idLibroBuscado)
         {
-            librito = a[i];
-            flag = 'f';
+            libroEncontrado = arregloLibros[i];
+            flag = 0;
         }
         i++;
     }
-    return librito;
+    return libroEncontrado;
 }
-
-void imprimirArrayLibrosAdm(stLibro l[], int v)
-{
-    int i = 0;
-
-    while(i < v)
-    {
-        muestraUnLibroAdmin(l[i]);
-
-        i++;
-    }
-}
-
-int archivoToArrayLibros(char nombreArchivo[], stLibro l[], int v, int dim)
-{
-
-    int cant = cantElementosArchivo(nombreArchivo, sizeof(stLibro));
-    int total = cant + v;
-
-    FILE * archi = fopen(nombreArchivo, "rb");
-
-    if(archi && total <= dim)
-    {
-        while(fread(&l[v], sizeof(stLibro), 1, archi) > 0)
-        {
-            v++;
-        }
-        fclose(archi);
-    }
-    return v;
-}
-
-int cantElementosArchivoLibro(char nombreArchivo[])
-{
-    FILE * archi = fopen(nombreArchivo,"rb"); //Abro el archivo que paso por parámetro en modo lectura binaria (rb).
-    int cant = 0;
-
-    if(archi) //Compruebo que el archivo se haya abierto correctamente. Acordate que, en modo rb, si no existe el archivo retorna NULL.
-    {
-        fseek(archi, 0, SEEK_END); //Desplazo el indicador de posesión al final del archivo (EOF).
-        long int tamano = ftell(archi);
-
-        cant = tamano/sizeof(stLibro);
-        /*En esta línea de código obtengo la cantidad de elementos que tengo en el archivo. //La función ftell() me retorna la posición actual del indicador de posisión MEDIDO EN BYTES.
-        Al estar en el final del archivo, me va a terminar retornando la cantidad de bytes que ocupa mi archivo. Si eso lo divido por el tamanio de la estructura, obtengo la cantidad de elementos.
-        Obviamente, el tamanio de la estructura la obtendré en el main usando la función sizeof() y pasándole como parámetro el identificador de la estructura. Por ejemplo: sizeof(usuario).*/
-
-        fclose(archi);//Cierro el archivo.
-    }
-    return cant;
-}
-
-int yaExisteLibro(char nombreLibro[])
-{
-    stLibro arrayLibro[150];
-    int validos = 0, i = 0;
-    int flag = 0;
-
-    validos = archivoToArrayLibros("listaLibros.bid", arrayLibro, validos, 150);
-
-    while(i < validos && flag == 0)
-    {
-        if(strcmpi(nombreLibro, arrayLibro[i].titulo) == 0)
-        {
-            flag = 1;
-        }
-        i++;
-    }
-    return flag;
-}
-
 
 
 
