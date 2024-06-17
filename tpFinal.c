@@ -190,6 +190,8 @@ usuario guardaVariablesDeSession(usuario SESSION, usuario u)
     SESSION.edad = u.edad;
     SESSION.rol = u.rol;
 
+    SESSION.domicilio = u.domicilio;
+
     return SESSION;
 }
 

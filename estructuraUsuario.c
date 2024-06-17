@@ -278,6 +278,8 @@ int crearUsuario(char archivo[])
 
     usuario u; //Declaramos una variable de tipo usuario.
 
+    stDomicilio d;
+
     FILE *archi; //Declaramos un puntero a la estructura FILE.
 
     archi = fopen(archivo, "ab");
@@ -348,6 +350,7 @@ int crearUsuario(char archivo[])
         {
 
             printf("\nIngrese password: \n");
+            fflush(stdin);
             gets(u.pass);
             longCadena = strlen(u.pass);
 
@@ -355,6 +358,7 @@ int crearUsuario(char archivo[])
         while(longCadena < 5);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
 
         printf("\nConfirmar pass: \n");
+        fflush(stdin);
         gets(pass2);
 
         compararCadenas = strcmp(u.pass, pass2);
@@ -408,7 +412,7 @@ int crearUsuario(char archivo[])
     do{
 
         puts("Ingrese su numero de DNI:\n");
-
+        fflush(stdin);
         gets(dni);
 
         if(strlen(dni) >= 8){
@@ -422,6 +426,10 @@ int crearUsuario(char archivo[])
         }
 
     }while(strlen(dni) < 8);
+
+    d = cargarDomicilio();
+
+    u.domicilio = d;
 
     do
     {
@@ -482,6 +490,7 @@ void imprimirUnRegistro(usuario u)
     printf("Genero: %c\n", u.genero);
     printf("Fecha de nacimiento: %s\n", u.fechaNacimiento);
     printf("DNI: %s.\n", u.dni);
+    printf("Calle: %s\n", u.domicilio.calle);
     printf("Rol: %d\n", u.rol);
 
     if(u.rol == 2){

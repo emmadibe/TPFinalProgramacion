@@ -6,3 +6,5 @@ typedef struct{
     char localidad[50];
     char pais[100];
 } stDomicilio;
+
+stDomicilio cargarDomicilio();
