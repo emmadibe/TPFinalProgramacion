@@ -266,6 +266,8 @@ int crearUsuario(char archivo[])
 
     int compararCadenas = 0;
 
+    char dni[20];
+
     int verificaEmail;
 
     int dia = 0, mes = 0, anio = 0;
@@ -403,6 +405,24 @@ int crearUsuario(char archivo[])
 
     sprintf(u.fechaNacimiento, "%s %s %s %s %s", diaStr, "|", mesStr, "|", anioStr); // COn la función sprintf puedo agregar varios string a un string. Por eso, me sirve esta función y no strcpy().
 
+    do{
+
+        puts("Ingrese su numero de DNI:\n");
+
+        gets(dni);
+
+        if(strlen(dni) >= 8){
+
+            strcpy(u.dni, dni);
+
+        }else{
+
+            puts("DNI invalido.\n");
+
+        }
+
+    }while(strlen(dni) < 8);
+
     do
     {
 
@@ -461,7 +481,19 @@ void imprimirUnRegistro(usuario u)
     printf("Edad: %d\n", u.edad);
     printf("Genero: %c\n", u.genero);
     printf("Fecha de nacimiento: %s\n", u.fechaNacimiento);
+    printf("DNI: %s.\n", u.dni);
     printf("Rol: %d\n", u.rol);
+
+    if(u.rol == 2){
+
+        puts("Es un administrador\n");
+
+    }else{
+
+        puts("Es un usuario.\n");
+
+    }
+
     puts("---------------\n");
 
 }

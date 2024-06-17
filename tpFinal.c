@@ -7,7 +7,6 @@
 #include "funcionesGenerales.h"
 #include "estructuraLibros.h"
 #include "estructuraComentarios.h"
-#include <stddef.h>
 
 #define AR_USUARIOS "usuario.bid"
 #define AR_LIBROS "libros.bid"
@@ -188,6 +187,8 @@ usuario guardaVariablesDeSession(usuario SESSION, usuario u)
     SESSION.genero = u.genero; //Es un char, no un string.
     //sprintf(SESSION.id, "%d", u.id);
     //sprintf(SESSION.rol, "%d", u.rol);
+    SESSION.edad = u.edad;
+    SESSION.rol = u.rol;
 
     return SESSION;
 }
@@ -537,7 +538,8 @@ int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado)
     printf("\n 1-  Ir a SECCION LIBROS");
     printf("\n 2-  Ir a SECCION COMENTARIOS");
     printf("\n 3-  Editar mi perfil");
-    printf("\n 4-  Cerrar sesion");
+    printf("\n 4-  Ver mis datos de perfil");
+    printf("\n 5-  Cerrar sesion");
 
     printf("\n\n Ingresa una opcion:  ");
     scanf("%d", &eleccion);

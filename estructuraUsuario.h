@@ -2,7 +2,7 @@
 #include <time.h> //Librería oficial de C que tiene la función random.
 #include <string.h>
 #include <stdio.h>
-
+#include "estructuraDomicilio.h"
 
 
 typedef struct
@@ -23,6 +23,10 @@ typedef struct
     char genero; //f, m, x.
 
     char fechaNacimiento[30];
+
+    char dni[10];
+
+    stDomicilio domicilio;
 
 }usuario;
 
