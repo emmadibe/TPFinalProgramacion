@@ -681,11 +681,8 @@ int buscarUsuario(usuario a[], int v, char email[], char pass[])
                 control = -1;
 
             }
-
         }
-
         i++;
-
     }
 
     return control;

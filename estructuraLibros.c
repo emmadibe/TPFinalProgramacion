@@ -311,8 +311,6 @@ int archivoToArrayLibrosSegunAutor(char archivoLibros[], stLibro arregloLibros[]
     }
     return i; //retorna los validos
 }
-
-/*
 void modificaDatosLibro(stLibro arregloLibros[], int val)
 {
     char tituloBuscado[100];
@@ -329,7 +327,7 @@ void modificaDatosLibro(stLibro arregloLibros[], int val)
 
         if(posEnArreglo > - 1)
         {
-            //subMenuModificaArchivoDatosLibro(archivoLibros,posEnArchi);
+            subMenuModificaArregloDatosLibro(arregloLibros,posEnArreglo);
             flag = 1;
             opcion1 = 0;
         }
@@ -358,7 +356,66 @@ int buscaLibroPosicionEnArregloTitulo(stLibro arreglo[], int val, char titulo[])
     }
     return pos;
 }
-*/
+
+
+void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo)
+{
+    int option = 0;
+    int option2 = 0;
+
+    do
+    {
+        puts("El libro que estas por modificar es:");
+        muestraUnLibroUsuario(arrayLibros[posEnArreglo]);
+        puts("\n");
+
+        printf("Cual campo queres modificar?\n");
+        printf("1. Titulo\n");
+        printf("2. Editorial \n");
+        printf("3. Autor\n");
+        printf("4. Categoria\n");
+
+        scanf("%d",&option);
+
+        switch(option)
+        {
+        case 1:
+            puts("Ingrese el nuevo titulo:\n");
+            fflush(stdin);
+            gets(arrayLibros[posEnArreglo].titulo);
+            puts("Se modifico correctamente.\n");
+            option2 = 0;
+            break;
+        case 2:
+            puts("Ingrese la nueva editorial:\n");
+            fflush(stdin);
+            gets(arrayLibros[posEnArreglo].editorial);
+            puts("Se modifico correctamente\n");
+            option2 = 0;
+            break;
+        case 3:
+            puts("Ingrese el nuevo autor: ");
+            fflush(stdin);
+            gets(arrayLibros[posEnArreglo].autor);
+            puts("Se modifico correctamente\n");
+            option2 = 0;
+            break;
+        case 4:
+            puts("Selecione la nueva categoria del libro: ");
+            eligeCategoriaLibro(arrayLibros[posEnArreglo].categoria);
+            puts("Se modifico correctamente\n");
+            option2 = 0;
+            break;
+        default:
+            printf("No existe esa opción. Quiere volver a intentar? Presione 1.\n");
+            scanf("%d", &option2);
+        }
+        system("cls");
+    }
+    while (option2 == 1);
+}
+
+
 
 
 

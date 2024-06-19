@@ -36,4 +36,7 @@ int archivoToArrayLibrosSegunAutor(char archivoLibros[], stLibro arregloLibros[]
 int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[]);
 stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v);
 int buscaLibroConTituloEnArreglo(stLibro arregloLibros[], int val);
+int buscaLibroPosicionEnArregloTitulo(stLibro arreglo[], int val, char titulo[]);
 
+void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo);
+void modificaDatosLibro(stLibro arregloLibros[], int val);

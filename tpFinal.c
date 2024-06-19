@@ -37,7 +37,6 @@ usuario SESSION;
 int main()
 {
 
-
     /* ----------------------------      ZONA TESTEOS     -------------------------------- */
 
 
@@ -47,7 +46,6 @@ int main()
 
 
     /* ------------------------------------------------------------------------------------ */
-
 
 
 
@@ -159,7 +157,6 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
                         menuUsuarios(a, posUsuarioLogueado, SESSION, archivoUsuarios, archivoLibros, archivoComentarios);
                     }
                 }
-
             }
             while(posUsuarioLogueado == -1 || posUsuarioLogueado == -2);
 
@@ -435,8 +432,6 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
         case 5:
             puts("Buscar un libro por titulo y modificarlo");
             archivoToArrayLibros(archivoLibros,libreriaCompleta,valLibreriaCompleta,300);
-
-
 
             break;
         case 6:
