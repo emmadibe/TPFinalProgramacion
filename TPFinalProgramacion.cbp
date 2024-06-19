@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="estructuraComentarios.h" />
+		<Unit filename="estructuraDomicilio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="estructuraDomicilio.h" />
 		<Unit filename="estructuraLibros.c">
 			<Option compilerVar="CC" />
 		</Unit>

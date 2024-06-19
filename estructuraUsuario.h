@@ -12,7 +12,7 @@ typedef struct
 
     char nombre[30];
 
-    char email[30];
+    char email[100];
 
     int edad;
 
@@ -27,6 +27,12 @@ typedef struct
     char dni[10];
 
     stDomicilio domicilio;
+
+    char username[20];  /// agrege las variables que le faltaban a la estructura (18-6-24)
+
+    char librosFavoritos[50];
+
+    int eliminado; // 0 si esta activo, -1 si esta eliminado
 
 }usuario;
 

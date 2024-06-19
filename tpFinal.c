@@ -377,6 +377,9 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
     stLibro librosDelAutor[200];
     int valLibrosDelAutor = 0;
 
+    stLibro libreriaCompleta[300];
+    int valLibreriaCompleta = 0;
+
     do
     {
         opcion = opcionSubMenuLibrosAdmin();
@@ -431,6 +434,9 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
 
         case 5:
             puts("Buscar un libro por titulo y modificarlo");
+            archivoToArrayLibros(archivoLibros,libreriaCompleta,valLibreriaCompleta,300);
+
+
 
             break;
         case 6:
