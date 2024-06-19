@@ -1,5 +1,6 @@
 #include "estructuraLibros.h"
 #include "funcionesGenerales.h"
+#include "estructuraUsuario.h"
 
 
 stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[])
@@ -415,7 +416,28 @@ void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo)
     while (option2 == 1);
 }
 
+void arregloToArchivoLibros(stLibro arregloLibros[], int v, char archivoLibros[])
+{
+    FILE * archi = fopen(archivoLibros,"wb");
 
+    if(archi)
+    {
+        fwrite(arregloLibros,sizeof(stLibro),v,archi);
+        fclose(archi);
+    }
+}
+
+void muestraLibrosFavoritosDeUsuario(usuario usuarioConsulta, stLibro arregloLibros[], int val)
+{
+    stLibro libroAux;
+
+    puts("Tus libros favoritos son:");
+    for(int i = 0; i<usuarioConsulta.validosFavoritos; i++)
+    {
+        libroAux = buscarLibroPorId(usuarioConsulta.librosFavoritos[i],arregloLibros,val);
+        printf("%d. %s\n", i+1, libroAux.titulo);
+    }
+}
 
 
 

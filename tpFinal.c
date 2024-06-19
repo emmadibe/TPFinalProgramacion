@@ -36,7 +36,6 @@ usuario SESSION;
 
 int main()
 {
-
     /* ----------------------------      ZONA TESTEOS     -------------------------------- */
 
 
@@ -432,10 +431,15 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
         case 5:
             puts("Buscar un libro por titulo y modificarlo");
             archivoToArrayLibros(archivoLibros,libreriaCompleta,valLibreriaCompleta,300);
+            modificaDatosLibro(libreriaCompleta,valLibreriaCompleta);
+            arregloToArchivoLibros(libreriaCompleta, valLibreriaCompleta, archivoLibros);
 
             break;
         case 6:
             puts("Ver tus libros favoritos");
+            archivoToArrayLibros(archivoLibros,libreriaCompleta,valLibreriaCompleta,300);
+            //muestraLibrosFavoritosDeUsuario(SESSION, libreriaCompleta, valLibreriaCompleta);
+            arregloToArchivoLibros(libreriaCompleta, valLibreriaCompleta, archivoLibros);
 
             break;
         case 7:

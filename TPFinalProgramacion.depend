@@ -4,15 +4,16 @@
 	"funcionesGenerales.h"
 	<stddef.h>
 
-1718828472 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
+1718835746 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
 	"estructuraLibros.h"
 	"funcionesGenerales.h"
+	"estructuraUsuario.h"
 
-1718751432 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
+1718835315 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
 	"estructuraUsuario.h"
 	"funcionesGenerales.h"
 
-1718754988 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
+1718835315 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
 	<stdlib.h>
 	<time.h>
 	<string.h>
@@ -28,7 +29,7 @@
 	<stdio.h>
 	<stddef.h>
 
-1718824462 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
+1718835845 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
 	<stdlib.h>
 	<time.h>
 	<string.h>
@@ -39,7 +40,7 @@
 	"estructuraLibros.h"
 	"estructuraComentarios.h"
 
-1718828499 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
+1718835850 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -51,12 +52,12 @@
 	<string.h>
 	<stdio.h>
 
-1718751432 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.c
+1718835569 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.c
 	<stdlib.h>
 	<time.h>
 	<string.h>
 	<stdio.h>
 	"estructuraDomicilio.h"
 
-1718751432 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.h
+1718835630 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.h
 

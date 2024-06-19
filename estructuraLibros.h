@@ -4,15 +4,16 @@
 #include <conio.h>
 
 
+
 typedef struct{
 
-    int idLibro; /// �nico, autoincremental
+    int idLibro; /// unico, autoincremental
     char titulo[100];
     char editorial[50];
     char autor[50];
     char categoria[50];
     float valoracion;
-    int eliminado; /// 0 si est� activo - 1 si est� eliminado
+    int eliminado; /// 0 si esta activo - 1 si esta eliminado
 
 }stLibro;
 
@@ -26,11 +27,12 @@ void cargaLibrosAlArchivo(char archivoLibros[]);
 void muestraUnLibroAdmin(stLibro libro);
 void muestraArchivoLibrosAdmins(char archivoLibros[]);
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros);
-
+//void muestraLibrosFavoritosDeUsuario(usuario usuarioConsulta, stLibro arregloLibros[], int val);
 
 int archivoToArrayLibros(char nombreArchivo[], stLibro libros[], int v, int dim);
 int archivoToArrayLibrosSegunCategoria(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char categoria[]);
 int archivoToArrayLibrosSegunAutor(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char autorBuscado[]);
+void arregloToArchivoLibros(stLibro arregloLibros[], int v, char archivoLibros[]);
 
 
 int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[]);

@@ -30,7 +30,8 @@ typedef struct
 
     char username[20];  /// agrege las variables que le faltaban a la estructura (18-6-24)
 
-    char librosFavoritos[50];
+    int librosFavoritos[50];
+    int validosFavoritos;
 
     int eliminado; // 0 si esta activo, -1 si esta eliminado
 

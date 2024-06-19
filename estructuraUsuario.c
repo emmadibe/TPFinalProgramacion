@@ -431,6 +431,8 @@ int crearUsuario(char archivo[])
 
     u.domicilio = d;
 
+    u.validosFavoritos = 0; // declaro los validos del arreglo de libros favoritos en 0 cuando se crea un nuevo usuario.
+
     do
     {
 

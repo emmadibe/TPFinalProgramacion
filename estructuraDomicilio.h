@@ -1,3 +1,5 @@
+
+
 typedef struct{
     char calle[50];
     int altura;
