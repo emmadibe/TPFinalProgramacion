@@ -2,8 +2,9 @@
 #include <time.h> //Librería oficial de C que tiene la función random.
 #include <string.h>
 #include <stdio.h>
+#include <conio.h>
 #include "estructuraDomicilio.h"
-
+#include "funcionesGenerales.h"
 
 typedef struct
 {

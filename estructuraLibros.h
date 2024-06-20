@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <conio.h>
-
 #include "estructuraUsuario.h"
 
 
@@ -43,3 +42,4 @@ int buscaLibroPosicionEnArregloTitulo(stLibro arreglo[], int val, char titulo[])
 
 void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo);
 void modificaDatosLibro(stLibro arregloLibros[], int val);
+void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[]);

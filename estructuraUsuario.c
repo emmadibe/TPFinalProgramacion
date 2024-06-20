@@ -100,9 +100,7 @@ void editarUsuario(char nombreArchivo[]) //La idea es pasar todo el archivo, tod
     int compararCadenas;
     char pass2[55];
     int longCadena;
-    int v = 0, d = 222, posicion = 0, edad = 0;
-    char sexo;
-
+    int v = 0, d = 222, posicion = 0;
     char email[55];
 
     char pass[55];
@@ -214,6 +212,7 @@ void editarUsuario(char nombreArchivo[]) //La idea es pasar todo el archivo, tod
                     printf("\nIngrese una edad del 1 al 100: \n");
                     scanf("%d", &u[posicion].edad);
 
+
                 }while(u[posicion].edad < 1 || u[posicion].edad > 100 );
 
                 break;
@@ -224,7 +223,7 @@ void editarUsuario(char nombreArchivo[]) //La idea es pasar todo el archivo, tod
                 {
 
                     printf("\nIngrese su genero: f, m o x\n");
-                    u[posicion].genero = getche();
+                    u[posicion].genero = getch();
 
                 }while(u[posicion].genero != 'f' && u[posicion].genero != 'm' && u[posicion].genero != 'x');
 

@@ -8,8 +8,8 @@ stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[])
     char aux[100];
     char categoria[50];
 
-/* Uso la funcion de contar la cantidad de elementos del archivo para asignarle
-* al libro el siguinte ID disponible y le sumo uno para que no exista el ID 0 */
+    /* Uso la funcion de contar la cantidad de elementos del archivo para asignarle
+    * al libro el siguinte ID disponible y le sumo uno para que no exista el ID 0 */
     libro.idLibro = (cantElementosArchivo(archivoLibros, sizeof(stLibro)) + 1);
 
     strcpy(libro.titulo, tituloNuevoLibro);
@@ -46,7 +46,7 @@ void eligeCategoriaLibro(char categoria[])
     char op3[] = "Educativos/Academicos";
     char op4[] = "Desarrollo personal/Autoayuda";
     char op5[] = "Infantiles";
-    char op6[] = "Ciencia y tecnología";
+    char op6[] = "Ciencia y tecnologia";
     char op7[] = "Cocina y gastronomia";
 
 
@@ -97,61 +97,58 @@ void eligeCategoriaLibro(char categoria[])
 void cargaLibrosAlArchivo(char archivoLibros[])
 {
     stLibro nuevoLibro;
-
     char option = 0;
     int flag = -1;
     char tituloNuevoLibro[100];
 
-    FILE *archi = fopen(archivoLibros, "ab");
-
-    if(archi != NULL)
+    do
     {
-        do
-        {
-            printf("\nIngrese el titulo del libro: ");
-            fflush(stdin);
-            gets(tituloNuevoLibro);
+        system("cls");
+        puts("CARGANDO NUEVO LIBRO\n");
+        printf("\nIngrese el titulo del libro: ");
+        fflush(stdin);
+        gets(tituloNuevoLibro);
 
-            flag = existeLibro(tituloNuevoLibro,archivoLibros);
-            if(flag == 0)  //Valida que el libro nuevo todavia no exista en el archivo
+        flag = existeLibro(tituloNuevoLibro,archivoLibros);
+        if(flag == 0)  //Valida que el libro nuevo todavia no exista en el archivo
+        {
+            FILE *archi = fopen(archivoLibros, "ab");
+            if(archi)
             {
                 nuevoLibro = cargaUnNuevoLibro(tituloNuevoLibro, archivoLibros);
                 fwrite(&nuevoLibro, sizeof(stLibro), 1, archi);
-                fclose(archi); //Debo cerrar aquí el archivo para que se guarden los cambios. Sino, si el usuario quiere agregar otro libro, no podrá actualizarse el id.
+                fclose(archi);
             }
-            else if(flag == 1)  //Si el titulo ya existe en el archivo, suspende la carga
+            else
             {
-                puts("El libro ya existe en nustros archivos!");
+                printf("No se pudo abrir el archivo.");
             }
-
-            printf("Desea cargar otro libro? Presiones ESC para terminar\n");
-            fflush(stdin);
-            option = getch();
-            system("cls");
-
         }
-        while (option != 27);
-
-        fclose(archi); //Vuelvo a cerrar el archivo porque si el libro ya existia dejaba el archivo abierto
+        else if(flag == 1)  //Si el titulo ya existe en el archivo, suspende la carga
+        {
+            puts("El libro ya existe en nustros archivos!");
+        }
+        printf("Desea cargar otro libro? Presiones ESC para terminar\n");
+        fflush(stdin);
+        option = getch();
+        system("cls");
     }
-    else
-    {
-        printf("No se pudo abrir el archivo.");
-    }
+    while(option != 27);
 }
 
 int archivoToArrayLibros(char nombreArchivo[], stLibro libros[], int v, int dim)
 {
-
     int cant = cantElementosArchivo(nombreArchivo, sizeof(stLibro));
     int total = cant + v;
+    stLibro aux;
 
-    FILE * archi = fopen(nombreArchivo, "rb");
+    FILE *archi = fopen(nombreArchivo, "rb");
 
     if(archi && total <= dim)
     {
-        while(fread(&libros[v], sizeof(stLibro), 1, archi) > 0)
+        while(fread(&aux, sizeof(stLibro), 1, archi) > 0)
         {
+            libros[v] = aux;
             v++;
         }
         fclose(archi);
@@ -248,7 +245,7 @@ int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[])
         }
         i++;
     }
-    return id;
+    return id; // si no encuentra el libro, retorna -1
 }
 
 stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v)
@@ -273,11 +270,11 @@ int archivoToArrayLibrosSegunCategoria(char archivoLibros[], stLibro arregloLibr
 {
     stLibro aux;
     FILE * archi = fopen(archivoLibros, "rb");
-    int i = v;
+    int i = 0;
 
     if(archi)
     {
-        while( i < dim && fread(&aux, sizeof(stLibro), 1, archi) > 0)
+        while( v < dim && fread(&aux, sizeof(stLibro), 1, archi) > 0)
         {
             if(strcmpi(categoria, aux.categoria) == 0)
             {
@@ -322,9 +319,10 @@ void modificaDatosLibro(stLibro arregloLibros[], int val)
         puts("Ingrese el titulo del libro que desea modificar:");
         fflush(stdin);
         gets(tituloBuscado);
-        posEnArreglo = buscaLibroPosicionEnArregloTitulo(arregloLibros,val,tituloBuscado);
 
-        if(posEnArreglo > - 1)
+        posEnArreglo = buscaLibroPosicionEnArregloTitulo(arregloLibros,val,tituloBuscado);
+        printf("POSENARREGLO %d", posEnArreglo);
+        if(posEnArreglo >= 0)
         {
             subMenuModificaArregloDatosLibro(arregloLibros,posEnArreglo);
             flag = 1;
@@ -332,8 +330,8 @@ void modificaDatosLibro(stLibro arregloLibros[], int val)
         }
         else
         {
-            puts("/n No existe ningún libro en nuestro archivo con ese titulo.");
-            puts("Ingrese 1 para volver a intentar o 0 para salir.");
+            puts("\nNo existe ningun libro en nuestro archivo con ese titulo.");
+            puts("\nIngrese 1 para volver a intentar o 0 para salir.");
             scanf("%d", &opcion1);
         }
     }
@@ -383,6 +381,7 @@ void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo)
             fflush(stdin);
             gets(arrayLibros[posEnArreglo].titulo);
             puts("Se modifico correctamente.\n");
+            system("PAUSE");
             option2 = 0;
             break;
         case 2:
@@ -390,6 +389,7 @@ void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo)
             fflush(stdin);
             gets(arrayLibros[posEnArreglo].editorial);
             puts("Se modifico correctamente\n");
+            system("PAUSE");
             option2 = 0;
             break;
         case 3:
@@ -397,12 +397,14 @@ void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo)
             fflush(stdin);
             gets(arrayLibros[posEnArreglo].autor);
             puts("Se modifico correctamente\n");
+            system("PAUSE");
             option2 = 0;
             break;
         case 4:
             puts("Selecione la nueva categoria del libro: ");
             eligeCategoriaLibro(arrayLibros[posEnArreglo].categoria);
             puts("Se modifico correctamente\n");
+            system("PAUSE");
             option2 = 0;
             break;
         default:
@@ -435,5 +437,47 @@ void muestraLibrosFavoritosDeUsuario(usuario usuarioConsulta, stLibro arregloLib
         libroAux = buscarLibroPorId(usuarioConsulta.librosFavoritos[i],arregloLibros,val);
         printf("%d. %s\n", i+1, libroAux.titulo);
     }
+}
+
+void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[])
+{
+    int idLibroAux = -1;
+    char tituloAux[100];
+    int control = 0;
+    usuario usuarioAux = arregloUsuarios[posUsuario];
+    int i = usuarioAux.validosFavoritos; //bajo los validos del arreglo de favoritos del usuario a una variable contador
+
+    do
+    {
+        puts("Indica el titulo del libro que deseas agregar a tu lista de favoritos: ");
+        fflush(stdin);
+        gets(tituloAux);
+        idLibroAux = buscarIdLibroConTitulo(tituloAux, archivoLibros);
+
+        if(idLibroAux == -1)
+        {
+            puts("No pudimos encontrar el libro que buscas");
+        }
+        else if(idLibroAux >= 0)
+        {
+            if(i<50)
+            {
+                usuarioAux.librosFavoritos[i] = idLibroAux; //copio el id del libro al final del arreglo de la estructura
+                i++;
+            }
+            else
+            {
+                puts("Tu lista de favoritos está llena, elimina otro libro e intenta nuevamente");
+            }
+        }
+        puts("Si quieres agregar otro libro presiona 1, para terminar presiona cualquier otra tecla");
+        scanf("%d", &control);
+        system("cls");
+    }
+    while(control == 1);
+
+    usuarioAux.validosFavoritos = i; //almaceno los nuevos validos en la estructura
+    arregloUsuarios[posUsuario] = usuarioAux; // sobreescribo el usuario con la nueva lista de favoritos y los validos
+
 }
 

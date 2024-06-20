@@ -16,11 +16,11 @@ int opcionesMenuLogueo();
 void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
 usuario guardaVariablesDeSession(usuario SESSION, usuario u);
 int opcionesMenuAdmin();
-void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[], usuario userLogueado);
+void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
 int opcionSubMenuUsuariosAdmin();
 void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[]);
 int opcionSubMenuLibrosAdmin();
-void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[],usuario userLogueado);
+void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuarios[], char archivoComentarios[]);
 int opcionSubMenuComentariosAdmin();
 void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[]);
 int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado);
@@ -80,7 +80,6 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
     char pass[50];
 
     int posUsuarioLogueado = -3;
-    usuario userLogueado;
 
     validosUsuario = archivoToArregloUsuario(archivoUsuarios, a, validosUsuario, 100);   /// se está pasando el archivo al arreglo dos veces (ver linea 116)
 
@@ -141,11 +140,11 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
                     printf("HOLA DE NUEVO, %s!\n", a[posUsuarioLogueado].nombre ); //Es que la función logueo, de encontrar una coincidencia, me retorna la posicion del usuario.
 
                     SESSION = guardaVariablesDeSession(SESSION, a[posUsuarioLogueado]);
-                    userLogueado = a[posUsuarioLogueado]; /// Posible reemplazo de la variable SESSION
+                    //userLogueado = a[posUsuarioLogueado]; /// Posible reemplazo de la variable SESSION
 
                     if(a[posUsuarioLogueado].rol == 2 ) //Solo los admins (rol == 2) deben poder ver, editar y eliminar usuarios.
                     {
-                        menuAdmins(a, posUsuarioLogueado, SESSION, archivoUsuarios, archivoLibros, archivoComentarios, userLogueado);
+                        menuAdmins(a, posUsuarioLogueado, SESSION, archivoUsuarios, archivoLibros, archivoComentarios);
                     }
                     else
                     {
@@ -213,7 +212,7 @@ int opcionesMenuAdmin()
     return eleccion;
 }
 
-void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[], usuario userLogueado)
+void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[])
 {
 /*Función de administración del menu principal de administradores*/
 
@@ -233,7 +232,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
             break;
         case 2: //Ir a SECCION LIBROS
 
-            subMenuLibrosAdmin(SESSION, archivoLibros, userLogueado);
+            subMenuLibrosAdmin(SESSION, archivoLibros, archivoUsuarios, archivoComentarios);
 
             break;
         case 3: //Ir a SECCION USUARIOS  (subMenu exclusivo de administradores)
@@ -360,7 +359,7 @@ int opcionSubMenuLibrosAdmin()
     return opcion;
 }
 
-void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], usuario userLogueado)
+void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuarios[], char archivoComentarios[])
 {
     int opcion = -1;
 
@@ -374,6 +373,11 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], usuario userLogue
 
     stLibro libreriaCompleta[300];
     int valLibreriaCompleta = 0;
+
+    usuario arregloDeUsuarios[300];
+    int valArregloUsario = 0;
+    int posUsuario = -1;
+    int idSession = SESSION.id;
 
     do
     {
@@ -429,20 +433,63 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], usuario userLogue
 
         case 5:
             puts("Buscar un libro por titulo y modificarlo");
-            archivoToArrayLibros(archivoLibros,libreriaCompleta,valLibreriaCompleta,300);
-            modificaDatosLibro(libreriaCompleta,valLibreriaCompleta);
-            arregloToArchivoLibros(libreriaCompleta, valLibreriaCompleta, archivoLibros);
+            valLibreriaCompleta = 0; // reinicio validos para escribir el arreglo desde el inicio
+            valLibreriaCompleta = archivoToArrayLibros(archivoLibros,libreriaCompleta,valLibreriaCompleta,300);
+
+            if (valLibreriaCompleta > 0)
+            {
+                /* funcion de control para evitar sobreescribir el archivo vacio
+                si hubo algun error al pasar los datos del archivo al array*/
+
+                modificaDatosLibro(libreriaCompleta,valLibreriaCompleta);
+                arregloToArchivoLibros(libreriaCompleta, valLibreriaCompleta, archivoLibros);
+            }
+            else
+            {
+                puts("\n ERROR: El archivo está vacio o no funcionó la transferencia de datos al buffer");
+            }
 
             break;
         case 6:
             puts("Ver tus libros favoritos");
+            valLibreriaCompleta = 0; // reinicio validos para escribir el arreglo desde el inicio
             archivoToArrayLibros(archivoLibros,libreriaCompleta,valLibreriaCompleta,300);
-            muestraLibrosFavoritosDeUsuario(userLogueado, libreriaCompleta, valLibreriaCompleta);
-            arregloToArchivoLibros(libreriaCompleta, valLibreriaCompleta, archivoLibros);
+            muestraLibrosFavoritosDeUsuario(SESSION, libreriaCompleta, valLibreriaCompleta);
 
             break;
         case 7:
             puts("Agregar un libro a tus favoritos");
+            valArregloUsario = 0; // reinicio validos para escribir el arreglo desde el inicio
+            valArregloUsario = archivoToArregloUsuario(archivoUsuarios, arregloDeUsuarios, valArregloUsario, 300);
+
+            if (valArregloUsario > 0)
+            {
+                puts("\n-------aaaah----------\n");
+                imprimirArrayUsuario(arregloDeUsuarios, valArregloUsario);
+                puts("\n-------aaaah----------\n");
+
+                /* funcion de control para evitar sobreescribir el archivo vacio
+                si hubo algun error al pasar los datos del archivo al array*/
+
+                posUsuario = buscarUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario); /// creo que no está funcionando esta funcion
+                //printf("POSUSUARIO %d", posUsuario);
+                //printf("IDSESSION %d", idSession);
+                //printf("ID.SESSION %d", SESSION.id);
+
+                if(posUsuario == -1)
+                {
+                    puts("ERROR: No se pudo recuperar la informacion del usuario");
+                }
+                else
+                {
+                    subMenuAgregaFavsDeUser(posUsuario,arregloDeUsuarios,archivoLibros);
+                    arrayToArchivo(archivoUsuarios,arregloDeUsuarios,valArregloUsario); //sobreescribo el archivo con las modificaciones
+                }
+            }
+            else
+            {
+                puts("\n ERROR: El archivo está vacio o no funcionó la transferencia de datos al buffer");
+            }
 
             break;
         case 8:
