@@ -21,4 +21,26 @@ int cantElementosArchivo(char nombreArchivo[], int tamanioEstructura)
     return cant;
 }
 
+int buscaPosicionEnArregloEntero(int arreglo[], int val, int entero)
+{
+    int pos = -1;
+    int i = 0;
+
+    while(i < val && pos == -1 )
+    {
+        if(entero == arreglo[i])
+        {
+            pos = i;
+        }
+        i++;
+    }
+    return pos;
+}
+
+void intercambioVariables(int *a, int *b)
+{
+    *a = *a + *b;
+    *b = *a - *b;
+    *a = *a - *b;
+}
 

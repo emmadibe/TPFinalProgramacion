@@ -467,7 +467,7 @@ void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char arc
             }
             else
             {
-                puts("Tu lista de favoritos está llena, elimina otro libro e intenta nuevamente");
+                puts("Tu lista de favoritos esta llena, elimina otro libro e intenta nuevamente");
             }
         }
         puts("Si quieres agregar otro libro presiona 1, para terminar presiona cualquier otra tecla");
@@ -478,6 +478,49 @@ void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char arc
 
     usuarioAux.validosFavoritos = i; //almaceno los nuevos validos en la estructura
     arregloUsuarios[posUsuario] = usuarioAux; // sobreescribo el usuario con la nueva lista de favoritos y los validos
+}
 
+void subMenuEliminaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[])
+{
+    int idLibroAux = -1;
+    char tituloAux[100];
+    int control = 0;
+    usuario usuarioAux = arregloUsuarios[posUsuario];
+    int i = usuarioAux.validosFavoritos; //bajo los validos del arreglo de favoritos del usuario a una variable contador
+    int posLibroFav = -1;
+
+    do
+    {
+        puts("Indica el titulo del libro que deseas eliminar de tu lista de favoritos: ");
+        fflush(stdin);
+        gets(tituloAux);
+        idLibroAux = buscarIdLibroConTitulo(tituloAux, archivoLibros); // primero: busco el id del libro
+
+        posLibroFav = buscaPosicionEnArregloEntero(usuarioAux.librosFavoritos, usuarioAux.validosFavoritos, idLibroAux);    // segundo: verifico que la id se encuentre en la lista de favoritos
+
+        if(posLibroFav == -1)
+        {
+            puts("No pudimos encontrar el libro que buscas en tu lista de favoritos");
+        }
+        else if(posLibroFav >= 0)
+        {
+            if(i>0)
+            {
+                intercambioVariables(&usuarioAux.librosFavoritos[posLibroFav], &usuarioAux.librosFavoritos[i]); //muevo el idLibro al final del array y disminuyo los validos.
+                i--;
+            }
+            else
+            {
+                puts("Tu lista de favoritos ya esta vacia");
+            }
+        }
+        puts("Si quieres eliminar otro libro presiona 1, para terminar presiona cualquier otra tecla");
+        scanf("%d", &control);
+        system("cls");
+    }
+    while(control == 1);
+
+    usuarioAux.validosFavoritos = i; //almaceno los nuevos validos en la estructura
+    arregloUsuarios[posUsuario] = usuarioAux; // sobreescribo el usuario con la nueva lista de favoritos y los validos
 }
 

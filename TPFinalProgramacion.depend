@@ -4,22 +4,24 @@
 	"funcionesGenerales.h"
 	<stddef.h>
 
-1718840583 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
+1718923691 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
 	"estructuraLibros.h"
 
-1718840829 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
+1718907651 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
 	"estructuraUsuario.h"
 
-1718840065 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
+1718907623 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
 	<stdlib.h>
 	<time.h>
 	<string.h>
 	<stdio.h>
+	<conio.h>
 	"estructuraDomicilio.h"
+	"funcionesGenerales.h"
 
-1718840583 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.h
+1718923691 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.h
 
-1718564250 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
+1718923691 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
 	<stdlib.h>
 	<time.h>
 	<string.h>
@@ -37,7 +39,7 @@
 	"estructuraLibros.h"
 	"estructuraComentarios.h"
 
-1718840874 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
+1718923587 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
