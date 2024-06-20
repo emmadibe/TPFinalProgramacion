@@ -3,6 +3,7 @@
 #include <string.h>
 #include <conio.h>
 
+#include "estructuraUsuario.h"
 
 
 typedef struct{
@@ -27,7 +28,7 @@ void cargaLibrosAlArchivo(char archivoLibros[]);
 void muestraUnLibroAdmin(stLibro libro);
 void muestraArchivoLibrosAdmins(char archivoLibros[]);
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros);
-//void muestraLibrosFavoritosDeUsuario(usuario usuarioConsulta, stLibro arregloLibros[], int val);
+void muestraLibrosFavoritosDeUsuario(usuario usuarioConsulta, stLibro arregloLibros[], int val);
 
 int archivoToArrayLibros(char nombreArchivo[], stLibro libros[], int v, int dim);
 int archivoToArrayLibrosSegunCategoria(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char categoria[]);

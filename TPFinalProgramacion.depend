@@ -4,23 +4,20 @@
 	"funcionesGenerales.h"
 	<stddef.h>
 
-1718835746 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
+1718840583 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
 	"estructuraLibros.h"
-	"funcionesGenerales.h"
+
+1718840829 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
 	"estructuraUsuario.h"
 
-1718835315 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
-	"estructuraUsuario.h"
-	"funcionesGenerales.h"
-
-1718835315 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
+1718840065 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
 	<stdlib.h>
 	<time.h>
 	<string.h>
 	<stdio.h>
 	"estructuraDomicilio.h"
 
-1718562627 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.h
+1718840583 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.h
 
 1718564250 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
 	<stdlib.h>
@@ -29,7 +26,7 @@
 	<stdio.h>
 	<stddef.h>
 
-1718835845 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
+1718839947 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
 	<stdlib.h>
 	<time.h>
 	<string.h>
@@ -40,11 +37,12 @@
 	"estructuraLibros.h"
 	"estructuraComentarios.h"
 
-1718835850 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
+1718840874 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	<conio.h>
+	"estructuraUsuario.h"
 
 1718559346 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
 	<stdlib.h>
@@ -52,12 +50,12 @@
 	<string.h>
 	<stdio.h>
 
-1718835569 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.c
+1718840126 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.c
+	"estructuraDomicilio.h"
+
+1718840218 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.h
 	<stdlib.h>
 	<time.h>
 	<string.h>
 	<stdio.h>
-	"estructuraDomicilio.h"
-
-1718835630 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.h
 

@@ -1,6 +1,4 @@
 #include "estructuraLibros.h"
-#include "funcionesGenerales.h"
-#include "estructuraUsuario.h"
 
 
 stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[])
@@ -10,8 +8,8 @@ stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[])
     char aux[100];
     char categoria[50];
 
-    /* Uso la funcion de contar la cantidad de elementos del archivo para asignarle
-    * al libro el siguinte ID disponible y le sumo uno para que no exista el ID 0 */
+/* Uso la funcion de contar la cantidad de elementos del archivo para asignarle
+* al libro el siguinte ID disponible y le sumo uno para que no exista el ID 0 */
     libro.idLibro = (cantElementosArchivo(archivoLibros, sizeof(stLibro)) + 1);
 
     strcpy(libro.titulo, tituloNuevoLibro);
@@ -439,121 +437,3 @@ void muestraLibrosFavoritosDeUsuario(usuario usuarioConsulta, stLibro arregloLib
     }
 }
 
-
-
-/*
-void subMenuModificarLibroDesdeArchivo(char archivoLibros[])
-{
-
-    char tituloLibro[100];
-    int posEnArchi = -1;
-    int flag = 0;
-    int opcion1 = -1;
-
-    do
-    {
-        printf("\n Ingrese el titulo del libro que desea modificar \n ");
-        fflush(stdin);
-        gets(tituloLibro);
-        posEnArchi = buscarPosEnArchiLibroPorTitulo(archivoLibros,tituloLibro);
-
-        if(posEnArchi > - 1)
-        {
-            subMenuModificaArchivoDatosLibro(archivoLibros,posEnArchi);
-            flag = 1;
-            opcion1 = 0;
-        }
-        else
-        {
-            puts("/n No existe ningún libro en nuestro archivo con ese titulo.");
-            puts("Ingrese 1 para volver a intentar o 0 para salir.");
-            scanf("%d", &opcion1);
-        }
-    }
-    while(flag == 0 && opcion1 != 0);
-    }
-
-int buscarPosEnArchiLibroPorTitulo(char archivoLibros[], char titulo[])
-{
-
-    int pos = -1;
-    int i = 0;
-    stLibro libro;
-
-    FILE * archi = fopen(archivoLibros,"rb");
-
-    if(archi)
-    {
-        while(pos == -1 && fread(&libro,sizeof(stLibro),1,archi) > 0)
-        {
-            if(strcmpi(titulo, libro.titulo) == 0)
-            {
-                pos = i;
-            }
-            i++;
-        }
-        fclose(archi);
-    }
-    return pos;
-}
-
-stLibro subMenuModificaArchivoDatosLibro(stLibro libroEditado)
-{
-    int option = 0;
-    int option2 = 0;
-
-    do
-    {
-        puts("El libro que estas por modificar es:");
-        muestraUnLibroUsuario(libroEditado);
-        puts("\n");
-
-        printf("Cual campo queres modificar?\n");
-        printf("1. Titulo\n");
-        printf("2. Editorial \n");
-        printf("3. Autor\n");
-        printf("4. Categoria\n");
-
-        scanf("%d",&option);
-
-        switch(option)
-        {
-        case 1:
-            puts("Ingrese el nuevo titulo:\n");
-            fflush(stdin);
-            gets(libroEditado.titulo);
-            puts("Se modifico correctamente.\n");
-            option2 = 0;
-            break;
-        case 2:
-            puts("Ingrese la nueva editorial:\n");
-            fflush(stdin);
-            gets(libroEditado.editorial);
-            puts("Se modifico correctamente\n");
-            option2 = 0;
-            break;
-        case 3:
-            puts("Ingrese el nuevo autor: ");
-            fflush(stdin);
-            gets(libroEditado.autor);
-            puts("Se modifico correctamente\n");
-            option2 = 0;
-            break;
-        case 4:
-            puts("Selecione la nueva categoria del libro: ");
-            eligeCategoriaLibro(libroEditado.categoria);
-            puts("Se modifico correctamente\n");
-            option2 = 0;
-            break;
-        default:
-            printf("No existe esa opción. Quiere volver a intentar? Presione 1.\n");
-            scanf("%d", &option2);
-        }
-        system("cls");
-    }
-    while (option2 == 1);
-
-    return libroEditado;
-}
-
-*/

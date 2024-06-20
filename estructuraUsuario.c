@@ -1,5 +1,4 @@
 #include "estructuraUsuario.h"
-#include "funcionesGenerales.h"
 
 void eliminarUsuario(char nombreArchivo[], usuario admin)
 {

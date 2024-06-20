@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdio.h> //Librería oficial de C necesaria para utilizar la estructura FILE y sus respectivas funciones, entre otras utilidades.
 #include <conio.h> //Libreria oficial para utilizar la funcion getch
-#include "estructuraUsuario.h"
 #include "funcionesGenerales.h"
 #include "estructuraLibros.h"
 #include "estructuraComentarios.h"
@@ -16,19 +15,20 @@
 int opcionesMenuLogueo();
 void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
 usuario guardaVariablesDeSession(usuario SESSION, usuario u);
-int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado);
-void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
+int opcionesMenuAdmin();
+void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[], usuario userLogueado);
 int opcionSubMenuUsuariosAdmin();
 void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[]);
 int opcionSubMenuLibrosAdmin();
-void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[]);
+void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[],usuario userLogueado);
 int opcionSubMenuComentariosAdmin();
 void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[]);
 int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado);
 void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
 
 /**
-*VARIABLE DE SESSION. En esta variable vamos a almacenar los valores de los campos del usuario que se logueo para, luego, poder utilizarlos a lo largo del programa.
+*VARIABLE DE SESSION. En esta variable vamos a almacenar los valores de los campos del usuario que se logueo
+*para, luego, poder utilizarlos a lo largo del programa.
 *Necesitaremos, por ejemplo, recuperar el id del usuario para que cada comentario se corresponda con el usuario.
 */
 
@@ -36,21 +36,10 @@ usuario SESSION;
 
 int main()
 {
-    /* ----------------------------      ZONA TESTEOS     -------------------------------- */
-
-
-
-
-
-
-
-    /* ------------------------------------------------------------------------------------ */
-
-
 
     menuLogueo(AR_USUARIOS,AR_LIBROS,AR_COMENTARIOS);
 
-    //mostrarUsuario(SESSION);  ///Función para controlar los datos almacenados en SESSION
+   // mostrarUnUsuario(SESSION);  //Función para controlar los datos almacenados en SESSION
 }
 
 /// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
@@ -59,11 +48,13 @@ int main()
 
 int opcionesMenuLogueo()
 {
+/*Función para imprimir por pantalla el primer menu y retornar la elección del usuario*/
+
     int eleccion;
 
     system("color 75");
     printf("----------------------------------------------\n");
-    printf("          BIENVENIDO A BOOKLIFE!\n");
+    printf("                  BIENVENIDO!\n");
     printf("----------------------------------------------\n");
     printf("\n 1-  Crear usuario nuevo");
     printf("\n 2-  Iniciar sesion");
@@ -77,6 +68,9 @@ int opcionesMenuLogueo()
 
 void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComentarios[])
 {
+/*Función que administra la creación de usuarios, logueos y cierres de sesión,
+*además lleva al usuario a los menus de arministrador o de usuarios clientes según sea su rol*/
+
     int crearNuevoUsuario = 0;
 
     usuario a[100];
@@ -86,8 +80,9 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
     char pass[50];
 
     int posUsuarioLogueado = -3;
+    usuario userLogueado;
 
-    validosUsuario = archivoToArregloUsuario(archivoUsuarios, a, validosUsuario, 100);
+    validosUsuario = archivoToArregloUsuario(archivoUsuarios, a, validosUsuario, 100);   /// se está pasando el archivo al arreglo dos veces (ver linea 116)
 
     int opcionMenu;
 
@@ -146,10 +141,11 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
                     printf("HOLA DE NUEVO, %s!\n", a[posUsuarioLogueado].nombre ); //Es que la función logueo, de encontrar una coincidencia, me retorna la posicion del usuario.
 
                     SESSION = guardaVariablesDeSession(SESSION, a[posUsuarioLogueado]);
+                    userLogueado = a[posUsuarioLogueado]; /// Posible reemplazo de la variable SESSION
 
                     if(a[posUsuarioLogueado].rol == 2 ) //Solo los admins (rol == 2) deben poder ver, editar y eliminar usuarios.
                     {
-                        menuAdmins(a, posUsuarioLogueado, SESSION, archivoUsuarios, archivoLibros, archivoComentarios);
+                        menuAdmins(a, posUsuarioLogueado, SESSION, archivoUsuarios, archivoLibros, archivoComentarios, userLogueado);
                     }
                     else
                     {
@@ -162,7 +158,6 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
             break;
         case 0:
             break;
-
         default:
             system("color 74");
             printf("\nOPCION INVALIDA\n");
@@ -195,8 +190,10 @@ usuario guardaVariablesDeSession(usuario SESSION, usuario u)
 ///         ZONA DE USUARIOS ADMINISTRADORES
 /// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
 
-int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado)
+int opcionesMenuAdmin()
 {
+/*Función para imprimir por pantalla el menu principal del usuario administrador y retornar la elección del mismo*/
+
     int eleccion;
 
     system("color 75");
@@ -216,13 +213,15 @@ int opcionesMenuAdmin(usuario arregloUsuarios[], int usuarioLogueado)
     return eleccion;
 }
 
-void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[])
+void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[], usuario userLogueado)
 {
+/*Función de administración del menu principal de administradores*/
+
     int opcionMenu = -1;
 
     do
     {
-        opcionMenu = opcionesMenuAdmin(arregloUsuarios, usuarioLogueado);
+        opcionMenu = opcionesMenuAdmin();
         system("cls");
 
         switch(opcionMenu)
@@ -234,7 +233,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
             break;
         case 2: //Ir a SECCION LIBROS
 
-            subMenuLibrosAdmin(SESSION, archivoLibros);
+            subMenuLibrosAdmin(SESSION, archivoLibros, userLogueado);
 
             break;
         case 3: //Ir a SECCION USUARIOS  (subMenu exclusivo de administradores)
@@ -361,7 +360,7 @@ int opcionSubMenuLibrosAdmin()
     return opcion;
 }
 
-void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
+void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], usuario userLogueado)
 {
     int opcion = -1;
 
@@ -438,7 +437,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[])
         case 6:
             puts("Ver tus libros favoritos");
             archivoToArrayLibros(archivoLibros,libreriaCompleta,valLibreriaCompleta,300);
-            //muestraLibrosFavoritosDeUsuario(SESSION, libreriaCompleta, valLibreriaCompleta);
+            muestraLibrosFavoritosDeUsuario(userLogueado, libreriaCompleta, valLibreriaCompleta);
             arregloToArchivoLibros(libreriaCompleta, valLibreriaCompleta, archivoLibros);
 
             break;
