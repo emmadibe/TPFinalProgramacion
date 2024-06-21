@@ -27,7 +27,7 @@ void cargaLibrosAlArchivo(char archivoLibros[]);
 void muestraUnLibroAdmin(stLibro libro);
 void muestraArchivoLibrosAdmins(char archivoLibros[]);
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros);
-void muestraLibrosFavoritosDeUsuario(usuario usuarioConsulta, stLibro arregloLibros[], int val);
+void muestraLibrosFavoritosDeUsuario(int idUsuario, char archivoUsuarios[], char archivoLibros[]);
 
 int archivoToArrayLibros(char nombreArchivo[], stLibro libros[], int v, int dim);
 int archivoToArrayLibrosSegunCategoria(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char categoria[]);

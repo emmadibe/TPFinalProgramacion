@@ -43,7 +43,7 @@ int main()
 
     menuLogueo(AR_USUARIOS,AR_LIBROS,AR_COMENTARIOS);
 
-   // mostrarUnUsuario(SESSION);  //Función para controlar los datos almacenados en SESSION
+    // mostrarUnUsuario(SESSION);  //Función para controlar los datos almacenados en SESSION
 }
 
 /// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
@@ -52,7 +52,7 @@ int main()
 
 int opcionesMenuLogueo()
 {
-/*Función para imprimir por pantalla el primer menu y retornar la elección del usuario*/
+    /*Función para imprimir por pantalla el primer menu y retornar la elección del usuario*/
 
     int eleccion;
 
@@ -72,8 +72,8 @@ int opcionesMenuLogueo()
 
 void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComentarios[])
 {
-/*Función que administra la creación de usuarios, logueos y cierres de sesión,
-*además lleva al usuario a los menus de arministrador o de usuarios clientes según sea su rol*/
+    /*Función que administra la creación de usuarios, logueos y cierres de sesión,
+    *además lleva al usuario a los menus de arministrador o de usuarios clientes según sea su rol*/
 
     int crearNuevoUsuario = 0;
 
@@ -164,6 +164,7 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
+        puts("\n\n");
         system("PAUSE");
         system("cls");
         system("color 75");
@@ -178,11 +179,9 @@ usuario guardaVariablesDeSession(usuario SESSION, usuario u)
     strcpy(SESSION.pass, u.pass);
     strcpy(SESSION.fechaNacimiento, u.fechaNacimiento);
     SESSION.genero = u.genero; //Es un char, no un string.
-    //sprintf(SESSION.id, "%d", u.id);
-    //sprintf(SESSION.rol, "%d", u.rol);
     SESSION.edad = u.edad;
     SESSION.rol = u.rol;
-
+    SESSION.id = u.id;
     SESSION.domicilio = u.domicilio;
 
     return SESSION;
@@ -194,7 +193,7 @@ usuario guardaVariablesDeSession(usuario SESSION, usuario u)
 
 int opcionesMenuAdmin()
 {
-/*Función para imprimir por pantalla el menu principal del usuario administrador y retornar la elección del mismo*/
+    /*Función para imprimir por pantalla el menu principal del usuario administrador y retornar la elección del mismo*/
 
     int eleccion;
 
@@ -217,7 +216,7 @@ int opcionesMenuAdmin()
 
 void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[])
 {
-/*Función de administración del menu principal de administradores*/
+    /*Función de administración del menu principal de administradores*/
 
     int opcionMenu = -1;
 
@@ -254,7 +253,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
 
             editarUsuario(archivoUsuarios);
 
-           break;
+            break;
         case 0:
             break;
 
@@ -262,6 +261,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
+        puts("\n\n");
         system("PAUSE");
         system("cls");
         system("color 75");
@@ -330,6 +330,7 @@ void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[])
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
+        puts("\n\n");
         system("PAUSE");
         system("cls");
         system("color 75");
@@ -381,11 +382,6 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
     int valArregloUsario = 0;
     int posUsuario = -1;
     int idSession = SESSION.id;
-
-    stComentario arregloComentarios[300];
-    int valArregloComentarios = 0;
-
-    stLibro libroEliminar;
 
     do
     {
@@ -459,10 +455,9 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
 
             break;
         case 6:
-            puts("Ver tus libros favoritos");
-            valLibreriaCompleta = 0; // reinicio validos para escribir el arreglo desde el inicio
-            archivoToArrayLibros(archivoLibros,libreriaCompleta,valLibreriaCompleta,300);
-            muestraLibrosFavoritosDeUsuario(SESSION, libreriaCompleta, valLibreriaCompleta);
+            puts("Ver tus libros favoritos\n\n");
+
+            muestraLibrosFavoritosDeUsuario(SESSION.id, archivoUsuarios, archivoLibros);
 
             break;
         case 7:
@@ -530,6 +525,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
+        puts("\n\n");
         system("PAUSE");
         system("cls");
         system("color 75");
@@ -592,6 +588,7 @@ void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[])
             system("color 74");
             printf("\nOPCION INVALIDA\n");
         }
+        puts("\n\n");
         system("PAUSE");
         system("cls");
         system("color 75");
@@ -615,7 +612,7 @@ int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado)
     printf("\n 2-  Ir a SECCION COMENTARIOS");
     printf("\n 3-  Editar mi perfil");
     printf("\n 4-  Ver mis datos de perfil");
-    printf("\n 5-  Cerrar sesion");
+    printf("\n 0-  Cerrar sesion");
 
     printf("\n\n Ingresa una opcion:  ");
     scanf("%d", &eleccion);

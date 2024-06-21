@@ -97,7 +97,7 @@ void eligeCategoriaLibro(char categoria[])
 void cargaLibrosAlArchivo(char archivoLibros[])
 {
     stLibro nuevoLibro;
-    char option = 0;
+    int option = 0;
     int flag = -1;
     char tituloNuevoLibro[100];
 
@@ -128,12 +128,11 @@ void cargaLibrosAlArchivo(char archivoLibros[])
         {
             puts("El libro ya existe en nustros archivos!");
         }
-        printf("Desea cargar otro libro? Presiones ESC para terminar\n");
-        fflush(stdin);
-        option = getch();
+        printf("Si desea cargar otro libro presione 1, sino presione cualquier otra tecla\n");
+        scanf("%d", &option);
         system("cls");
     }
-    while(option != 27);
+    while(option == 1);
 }
 
 int archivoToArrayLibros(char nombreArchivo[], stLibro libros[], int v, int dim)
@@ -427,14 +426,28 @@ void arregloToArchivoLibros(stLibro arregloLibros[], int v, char archivoLibros[]
     }
 }
 
-void muestraLibrosFavoritosDeUsuario(usuario usuarioConsulta, stLibro arregloLibros[], int val)
+void muestraLibrosFavoritosDeUsuario(int idUsuario, char archivoUsuarios[], char archivoLibros[])
 {
     stLibro libroAux;
+    usuario usuarioAux;
 
-    puts("Tus libros favoritos son:");
-    for(int i = 0; i<usuarioConsulta.validosFavoritos; i++)
+    stLibro arregloLibros[500];
+    int valArregloLibros = 0;
+
+    usuario arregloUsuarios[500];
+    int valArregloUsuarios = 0;
+    int posUsuarioAux = -1;
+
+    valArregloLibros = archivoToArrayLibros(archivoLibros,arregloLibros,valArregloLibros,500);
+    valArregloUsuarios = archivoToArregloUsuario(archivoUsuarios, arregloUsuarios,valArregloUsuarios,500);
+
+    posUsuarioAux = buscarUsuarioPorId(idUsuario, arregloUsuarios,valArregloUsuarios);
+    usuarioAux = arregloUsuarios[posUsuarioAux];
+
+    printf("%s, tus libros favoritos son:\n\n", usuarioAux.nombre);
+    for(int i = 0; i<usuarioAux.validosFavoritos; i++)
     {
-        libroAux = buscarLibroPorId(usuarioConsulta.librosFavoritos[i],arregloLibros,val);
+        libroAux = buscarLibroPorId(usuarioAux.librosFavoritos[i],arregloLibros,valArregloLibros);
         printf("%d. %s\n", i+1, libroAux.titulo);
     }
 }
