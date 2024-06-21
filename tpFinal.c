@@ -172,7 +172,7 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
     while(opcionMenu != 0);
 }
 
-usuario guardaVariablesDeSession(usuario SESSION, usuario u)
+usuario guardaVariablesDeSession(usuario SESSION, usuario u)  /// se puede reemplazar poniendo en el menu " SESSION = u "
 {
     strcpy(SESSION.nombre, u.nombre);
     strcpy(SESSION.email, u.email);
@@ -227,9 +227,9 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
 
         switch(opcionMenu)
         {
-        case 1: //Ir a SECCION LIBROS
+        case 1: //Ir a SECCION COMENTARIOS
 
-
+            subMenuComentariosAdmin(SESSION, archivoComentarios);
 
             break;
         case 2: //Ir a SECCION LIBROS
@@ -246,7 +246,6 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
 
             puts("MI PERFIL:\n");
             imprimirUnRegistro(SESSION);
-
 
             break;
         case 5: //editar mi perfil
@@ -295,7 +294,6 @@ void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[])
 
     int validosUsuarios = 0;
     usuario u[50];
-
 
     do
     {
@@ -572,12 +570,28 @@ void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[])
             break;
 
         case 2:
-            puts("Agregar un libro nuevo");
+            puts("Puntuar un libro");
 
             break;
 
         case 3:
-            puts("Buscar un libro y modificarlo");
+            puts("Modificar mi valoracion de un libro");
+
+            break;
+        case 4:
+            puts("Comentar un libro");
+
+            break;
+        case 5:
+            puts("Modificar mi comentario de un libro");
+
+            break;
+        case 6:
+            puts("Eliminar mi comentario de un libro");
+
+            break;
+        case 7:
+            puts("Eliminar comentarios de otros usuarios de un libro");
 
             break;
 
