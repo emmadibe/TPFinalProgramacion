@@ -1,6 +1,9 @@
 #include "estructuraComentarios.h"
 #include "funcionesGenerales.h"
 #include <stddef.h>
+
+
+
 stComentario cargarComentarioNuevo(int idUsuario, int idLibro)
 {
 
@@ -131,4 +134,16 @@ void imprimirUnComentarioDelArrayComentario(stComentario c[], int posicion, char
     puts("-------------------------------------\n");
 
 
+}
+
+
+void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[])
+{
+    FILE * archi = fopen(archivoComentarios,"wb");
+
+    if(archi)
+    {
+        fwrite(c,sizeof(stComentario),v,archi);
+        fclose(archi);
+    }
 }

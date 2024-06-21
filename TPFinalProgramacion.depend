@@ -61,3 +61,64 @@
 	<string.h>
 	<stdio.h>
 
+1718940491 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuradomicilio.c
+	"estructuraDomicilio.h"
+
+1718940491 c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuradomicilio.h
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+
+1718940491 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuralibros.c
+	"estructuraLibros.h"
+
+1718940491 c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuralibros.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<conio.h>
+	"estructuraUsuario.h"
+
+1718940491 c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructurausuario.h
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+	<conio.h>
+	"estructuraDomicilio.h"
+	"funcionesGenerales.h"
+
+1718940491 c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\funcionesgenerales.h
+
+1718940491 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructurausuario.c
+	"estructuraUsuario.h"
+
+1718940491 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\funcionesgenerales.c
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+	<stddef.h>
+
+1718940491 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\tpfinal.c
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+	<conio.h>
+	"funcionesGenerales.h"
+	"estructuraLibros.h"
+	"estructuraComentarios.h"
+
+1718940491 c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuracomentarios.h
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+
+1718940723 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuracomentarios.c
+	"estructuraComentarios.h"
+	"funcionesGenerales.h"
+	<stddef.h>
+
