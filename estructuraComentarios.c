@@ -128,8 +128,13 @@ void imprimirUnComentarioDelArrayComentario(stComentario c[], int posicion, char
 
     printf("Comentario del libro %s\n", tituloLibro);
 
-    printf("%s\n", c[posicion].tituloComentario);
-    printf("%s\n", c[posicion].descripcion);
+    printf("Titulo del comentario: %s\n", c[posicion].tituloComentario);
+    printf("Descripcion: %s\n", c[posicion].descripcion);
+    printf ("Puntaje: %d\n", c[posicion].puntaje);
+    printf ("Fecha: %s\n", c[posicion].fechaComentario);
+    ///como hacer para que aparezca el usuario que realizo el comentario?
+    ///esta bien poner lo siguiente?
+    printf ("Usuario %d\n", c[posicion].idUsuario);
 
     puts("-------------------------------------\n");
 

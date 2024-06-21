@@ -17,4 +17,7 @@ typedef struct {
 stComentario cargarComentarioNuevo(int idUsuario, int idLibro);
 void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int * v, int d);
 int buscarComentario(int idLibro, stComentario c[], int v);
-void imprimirUnComentarioDelArrayComentario(stComentario c[], int posicion, char tituloLibro[50]);
+void imprimirUnComentarioDelArrayComentario(stComentario c[], int posicion, char tituloLibro[50]); ///mostrar
+
+///agregadas 21 de junio:
+void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[]);
