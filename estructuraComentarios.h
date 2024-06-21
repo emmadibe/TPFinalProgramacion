@@ -21,3 +21,5 @@ void imprimirUnComentarioDelArrayComentario(stComentario c[], int posicion, char
 
 ///agregadas 21 de junio:
 void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[]);
+void ModificarComentarios(stComentario c[],int v);
+int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idAux);

@@ -152,3 +152,102 @@ void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[
         fclose(archi);
     }
 }
+
+///modificar y eliminar comentarios:
+
+
+void ModificarComentarios(stComentario c[],int v)
+{
+
+    int idAux;
+    int option2;
+    int pos = -1;
+
+    printf("Que comentario queres modificar?\n");
+    scanf("%d",&idAux);
+
+    ///o sino mostrar libros y seleccionar pero mayor costo?
+
+    pos = buscaComentarioPosicionIdEnArreglo(c,v,idAux);
+
+    if(pos > -1)
+    {
+        do
+        {
+            printf("EDITAR COMENTARIO (marque opcion)\n");
+            printf("1. Modificar Titulo del comentario\n");
+            printf("2. Modificar Descripcion\n");
+            printf("3. Modificar Puntaje");
+            printf("4. Eliminar comentario");
+            printf("5. Salir de EDITAR COMENTARIO");
+
+
+            scanf("%d",&option2);
+
+            switch(option2)
+            {
+
+            case 1:
+                printf("Ingrese el nuevo titulo\n");
+                fflush(stdin);
+                gets(c[pos].tituloComentario);
+                printf("Se modifico correctamente \n");
+                break;
+
+            case 2:
+                printf("Ingrese la nueva descripcion \n");
+                fflush(stdin);
+                gets(c[pos].descripcion);
+                printf("Se modifico correctamente\n");
+                break;
+
+            case 3:
+                printf("Ingrese nuevo puntaje \n");
+                scanf("%d", &c[pos].puntaje);
+                printf("Se modifico correctamente\n");
+                break;
+
+            case 4:
+                eliminarComentario(c,pos,idAux);
+                printf("El comentario se ha eliminado correctamente\n");
+                break;
+
+            }
+
+        }
+        while(option2 != 5);
+
+    }
+    else
+    {
+
+        printf("\n No existe comentario con ese id");
+    }
+
+
+}
+
+int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idAux)
+{
+
+    int pos = -1;
+    int i = 0;
+
+    while(i < v && pos == -1 )
+    {
+        if(c[i].idComentario == idAux)
+        {
+            pos = i;
+        }
+        i++;
+    }
+
+
+    return pos;
+}
+
+void eliminarComentario(c,pos,idAux)
+{
+
+}
+
