@@ -1,6 +1,67 @@
 #include "estructuraUsuario.h"
 
-void eliminarUsuario(char nombreArchivo[], usuario admin)
+void inhabilitarUsuario(char nombreArchivo[], int id)
+{
+
+    usuario u[200];
+
+    int v = 0;
+
+    v = archivoToArregloUsuario(nombreArchivo, u, v, 200);
+
+    int i = 0;
+
+    int flag = 0;
+
+    while(i < v && flag == 0){
+
+        if(u[i].id == id){
+
+            if(u[i].rol == 2){ //Un administrador no debe poder inhabilitar a otro administrador.
+
+                flag = 2;
+
+            }else{
+
+                u[i].eliminado = 1;
+
+                flag = 1;
+
+                FILE *archi = fopen(nombreArchivo, "wb");
+
+                if(archi){
+
+                    fwrite(&u, sizeof(usuario), v, archi);
+
+                    fclose(archi);
+
+                }
+
+            }
+
+        }
+
+        i++;
+
+    }
+
+    if(flag == 0){
+
+        puts("No existe un usuario con ese id.\n");
+
+    }else if (flag == 1){
+
+        printf("El usuario %s ha sido inhabilitado.\n", u[i - 1].nombre);
+
+    }else{
+
+        puts("NO PODES INHABILITAR A OTRO ADMINISTRADOR!\n");
+
+    }
+
+}
+
+void eliminarUsuario(char nombreArchivo[], usuario admin) //Función para eliminar al usuario del todo: del archivo y del array. Para inhabilitarlo utilizo la función inhabilitar usuario().
 {
 
         int validos = 0;
@@ -73,7 +134,7 @@ int buscarUsuarioPorId(int idUsuario, usuario u[], int v)
     int i = 0;
     int posicion = -1; //me srive también como variable flag. Pues, cuando posicion deje de valer -1 rompo el bucle.
 
-    while(i < v)
+    while(i < v && posicion == -1)
     {
 
         if(u[i].id == idUsuario)
@@ -91,7 +152,7 @@ int buscarUsuarioPorId(int idUsuario, usuario u[], int v)
 
 }
 
-void editarUsuario(char nombreArchivo[]) //La idea es pasar todo el archivo, todos los usuarios, a un array y editar al usuario DESDE el array, Luego, sobreescribo el archivo con los datos del array. Para ello, debo abrir el archivo en modo wb.
+void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo el archivo, todos los usuarios, a un array y editar al usuario DESDE el array, Luego, sobreescribo el archivo con los datos del array. Para ello, debo abrir el archivo en modo wb.
 {
 
     int opcion = 0;
@@ -109,21 +170,11 @@ void editarUsuario(char nombreArchivo[]) //La idea es pasar todo el archivo, tod
 
     v = archivoToArregloUsuario(nombreArchivo, u, v, d);
 
-    printf("Debes ingresar tus datos actuales, primero, para poder editar tu perfil:\n");
+    posicion = buscarUsuarioPorId(idUsuario, u, v); //Ya tengo la posición del usuario en el array.
 
-    printf("Email: \n");
-    fflush(stdin);
-    gets(email);
+    if(posicion == -1){
 
-    printf("password: \n");
-    fflush(stdin);
-    gets(pass);
-
-    posicion = buscarUsuario(u, v, email, pass); //Ya tengo la posición del usuario en el array.
-
-    if(posicion == -2 || posicion == -1){
-
-        puts("No existe un usuario con esos datos. Al menos uno de ellos es incorrecto.\n");
+        puts("No existe un usuario con ese id.\n");
 
     }else{
 
@@ -447,6 +498,8 @@ int crearUsuario(char archivo[])
     }
     while(u.rol != 2 && u.rol != 1);
 
+    u.eliminado = 0;
+
     puts("-----------------------\n");
 
     fwrite(&u, sizeof(usuario), 1, archi);
@@ -490,8 +543,24 @@ void imprimirUnRegistro(usuario u)
     printf("Genero: %c\n", u.genero);
     printf("Fecha de nacimiento: %s\n", u.fechaNacimiento);
     printf("DNI: %s.\n", u.dni);
+    printf("Pais: %s\n", u.domicilio.pais);
+    printf("Localidad: %s\n", u.domicilio.localidad);
+    printf("Ciudad: %s\n", u.domicilio.ciudad);
+    printf("Codigo Postal: %d\n", u.domicilio.cp);
     printf("Calle: %s\n", u.domicilio.calle);
+    printf("Altura: %d\n", u.domicilio.altura);
     printf("Rol: %d\n", u.rol);
+    printf("Eliminado: %d\n", u.eliminado);
+
+    if(u.eliminado == 0){
+
+        puts("Usuario habilitado.\n");
+
+    }else{
+
+        puts("Usuario no habilitado.\n");
+
+    }
 
     if(u.rol == 2){
 
@@ -647,6 +716,11 @@ void imprimirArrayUsuario(usuario a[], int v)
         printf("Contrasenia: %s\n", a[i].pass);
         printf("Genero: %c\n", a[i].genero);
         printf("Fecha de nacimiento: %s\n", a[i].fechaNacimiento);
+        printf("DNI: %s\n", a[i].dni);
+        printf("Pais: %s\n", a[i].domicilio.pais);
+        printf("Ciudad: %s\n", a[i].domicilio.ciudad);
+        printf("Codigo Postal: %d\n", a[i].domicilio.cp);
+        printf("Eliminado: %d\n", a[i].eliminado);
 
         puts("----------------------------\n");
 
@@ -672,7 +746,15 @@ int buscarUsuario(usuario a[], int v, char email[], char pass[])
             if(strcmpi(a[i].pass, pass) == 0)
             {
 
-                control = i; //Retorno la posición del usuario. Así, me será muy sencillo acceder a todos sus datos.
+                if(a[i].eliminado == 0){
+
+                    control = i; //Retorno la posición del usuario. Así, me será muy sencillo acceder a todos sus datos.
+
+                }else{
+
+                    control = 33;
+
+                }
 
             }
             else

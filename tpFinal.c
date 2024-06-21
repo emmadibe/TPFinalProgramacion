@@ -138,6 +138,12 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
                 {
                     puts("ALGUNO DE LOS DATOS INGRESADOS NO SON CORRECTOS!\n");
                 }
+                else if (posUsuarioLogueado == 33)
+                {
+
+                    puts("Su cuenta ha sido deshabilitada.\n");
+
+                }
                 else
                 {
                     system("cls");
@@ -178,11 +184,17 @@ usuario guardaVariablesDeSession(usuario SESSION, usuario u)  /// se puede reemp
     strcpy(SESSION.email, u.email);
     strcpy(SESSION.pass, u.pass);
     strcpy(SESSION.fechaNacimiento, u.fechaNacimiento);
+    strcpy(SESSION.dni, u.dni);
+    strcpy(SESSION.domicilio.pais, u.domicilio.pais);
+    strcpy(SESSION.domicilio.localidad, u.domicilio.localidad);
+    strcpy(SESSION.domicilio.calle, u.domicilio.calle);
+    strcpy(SESSION.domicilio.ciudad, u.domicilio.ciudad);
     SESSION.genero = u.genero; //Es un char, no un string.
     SESSION.edad = u.edad;
     SESSION.rol = u.rol;
     SESSION.id = u.id;
-    SESSION.domicilio = u.domicilio;
+    SESSION.domicilio.cp = u.domicilio.cp;
+    SESSION.domicilio.altura = u.domicilio.altura;
 
     return SESSION;
 }
@@ -250,7 +262,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
             break;
         case 5: //editar mi perfil
 
-            editarUsuario(archivoUsuarios);
+            editarUsuario(archivoUsuarios, SESSION.id);
 
             break;
         case 0:
@@ -279,7 +291,8 @@ int opcionSubMenuUsuariosAdmin()
     printf("----------------------------------------------\n");
     printf("\n 1-  Ver lista de usuarios registrados.");
     printf("\n 2-  Editar usuarios.");
-    printf("\n 3-  Eliminar un usuario.");
+    printf("\n 3-  Eliminar un usuario."); //Lo borra al usuario del todo, incluido el archivo.
+    printf("\n 4-  Inhabilitar un usuario."); //Solo cambia el valor de eliminado de 0 a 1.
     printf("\n 0-  Volver al menu anterior.");
 
     printf("\n\n Ingresa una opcion:  ");
@@ -295,9 +308,15 @@ void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[])
     int validosUsuarios = 0;
     usuario u[50];
 
+    int id = 0;
+
+    int posicion = 0;
+
     do
     {
         opcion = opcionSubMenuUsuariosAdmin();
+
+        int id;
 
         switch (opcion)
         {
@@ -313,12 +332,30 @@ void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[])
         case 2:
             puts("Editar usuarios.");
 
+            puts("Escribir el id del usuario que deseas editar");
+
+            scanf("%d", &id);
+
+            editarUsuario(AR_USUARIOS, id);
+
             break;
 
-        case 3:
+        case 3: //Lo borra al usuario del todo, incluido el archivo.
             puts("Eliminar un usuario.");
 
             eliminarUsuario(archivoUsuarios, SESSION);
+            break;
+
+        case 4: //Quitar el valor de eliminado de 0 y ponerle 1. 
+
+            puts("inhabilitar un usuario.\n");
+
+            puts("Ingresar el id del usuario que desea inhabilitar.\n");
+
+            scanf("%d", &id);
+
+            inhabilitarUsuario(AR_USUARIOS, id);
+
             break;
 
         case 0:
@@ -655,7 +692,7 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
             break;
         case 3: //Editar mi perfil
 
-            editarUsuario(archivoUsuarios);
+            editarUsuario(archivoUsuarios, SESSION.id);
 
             break;
 
