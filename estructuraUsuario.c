@@ -1,5 +1,42 @@
 #include "estructuraUsuario.h"
 
+int corroborarPass(char pass[])
+{
+
+    int i = 0;
+
+    int mayus = 0;
+
+    int min = 0;
+
+    int validacion = 0;
+
+    while(pass[i] != '\0' && (mayus == 0 || min == 0)){ //El caracter especial null \0 identifica el fin del string en un string.
+
+        if(pass[i] > 'A' && pass[i] < 'Z'){
+
+            mayus++;
+
+        }else if (pass[i] > 'a' && pass[i] < 'z'){
+
+            min++;
+
+        }
+
+        i++;
+
+    }
+
+    if( mayus != 0 && min != 0){
+
+        validacion = 1;
+
+    }
+
+    return validacion;
+
+}
+
 void inhabilitarUsuario(char nombreArchivo[], int id)
 {
 
@@ -166,6 +203,8 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
 
     char pass[55];
 
+    int valPass;
+
     usuario u[222];
 
     v = archivoToArregloUsuario(nombreArchivo, u, v, d);
@@ -232,7 +271,7 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
                 break;
 
             case 3:
-
+                
                 do
                 {
 
@@ -243,8 +282,16 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
                     gets(u[posicion].pass);
                     longCadena = strlen(u[posicion].pass);
 
+                    valPass = corroborarPass(u[posicion].pass);
+                    
+                    if(valPass == 0){
+
+                        puts("El pass debe tener un char minuscula; y otro,masucula.\n");
+
+                    }
+
                 }
-                while(longCadena < 5);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
+                while(longCadena < 5 || valPass == 0);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
 
                 printf("\nConfirmar pass: \n");
                 gets(pass2);
@@ -325,6 +372,8 @@ int crearUsuario(char archivo[])
     char mesStr[20];
     char anioStr[20];
 
+    int validPass;
+
     usuario u; //Declaramos una variable de tipo usuario.
 
     stDomicilio d;
@@ -402,9 +451,17 @@ int crearUsuario(char archivo[])
             fflush(stdin);
             gets(u.pass);
             longCadena = strlen(u.pass);
+            validPass = corroborarPass(u.pass);
 
-        }
-        while(longCadena < 5);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
+            if(validPass != 1){
+
+                puts("El pass debe poseer, al menos, una letra minuscula y otra mayucula.\n");
+
+            }
+
+            printf("ValidPass: %d\n", validPass);
+
+        }while(longCadena < 5 || validPass == 0);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
 
         printf("\nConfirmar pass: \n");
         fflush(stdin);
@@ -539,6 +596,8 @@ void imprimirUnRegistro(usuario u)
     puts("-----------\n");
     printf("ID: %d\n", u.id);
     printf("Nombre y apellido: %s\n", u.nombre);
+    printf("Nombre y apellido: %s\n", u.email);
+    printf("Nombre y apellido: %s\n", u.pass);
     printf("Edad: %d\n", u.edad);
     printf("Genero: %c\n", u.genero);
     printf("Fecha de nacimiento: %s\n", u.fechaNacimiento);

@@ -54,3 +54,4 @@ void eliminarUsuario(char nombreArchivo[], usuario admin);
 int enroqueArray(usuario u[], int v, int posicion);
 void imprimirUnRegistro(usuario u);
 void inhabilitarUsuario(char nombreArchivo[], int id);
+int corroborarPass(char pass[]);
