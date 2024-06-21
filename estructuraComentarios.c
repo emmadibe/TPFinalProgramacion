@@ -246,8 +246,13 @@ int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idAux)
     return pos;
 }
 
-void eliminarComentario(c,pos,idAux)
+void eliminarComentario(stComentario c[] , int pos, int idAux)
 {
+    strcpy (c[pos].descripcion, " ");
+    strcpy (c[pos].puntaje, " ");
+    strcpy (c[pos].tituloComentario, " ");
+    strcpy (c[pos].fechaComentario, " ");
+    ///int eliminado; /// 0 si está activo - 1 si está eliminado
 
 }
 
