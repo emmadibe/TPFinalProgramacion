@@ -3,9 +3,11 @@
 #include <string.h>
 #include <stdio.h> //Librería oficial de C necesaria para utilizar la estructura FILE y sus respectivas funciones, entre otras utilidades.
 #include <conio.h> //Libreria oficial para utilizar la funcion getch
-#include "funcionesGenerales.h"
+
 #include "estructuraLibros.h"
-#include "estructuraComentarios.h"
+//#include "estructuraComentarios.h"  (movi el include a la libreria de libros para poser usar la estructura alli)
+//#include "estructuraUsuario.h"
+//#include "funcionesGenerales.h"
 
 #define AR_USUARIOS "usuario.bid"
 #define AR_LIBROS "libros.bid"
@@ -15,6 +17,7 @@
 int opcionesMenuLogueo();
 void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
 usuario guardaVariablesDeSession(usuario SESSION, usuario u);
+
 int opcionesMenuAdmin();
 void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
 int opcionSubMenuUsuariosAdmin();
@@ -23,6 +26,7 @@ int opcionSubMenuLibrosAdmin();
 void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuarios[], char archivoComentarios[]);
 int opcionSubMenuComentariosAdmin();
 void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[]);
+
 int opcionesMenuUsuario(usuario arregloUsuarios[], int usuarioLogueado);
 void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
 
@@ -346,10 +350,10 @@ int opcionSubMenuLibrosAdmin()
     printf("\n 3-  Ver libros de un autor.");
     printf("\n 4-  Agregar un libro nuevo.");
     printf("\n 5-  Buscar un libro por titulo y modificarlo.");
-    printf("\n 6-  Ver tus libros favoritos.");  /// Todavia sin codear
+    printf("\n 6-  Ver tus libros favoritos.");
     printf("\n 7-  Agregar un libro a tus favoritos.");
-    printf("\n 8-  Quitar un libro a tus favoritos.");  /// Todavia sin codear
-    printf("\n 9-  Elimina un libro."); /// Todavia sin codear
+    printf("\n 8-  Quitar un libro a tus favoritos.");
+    printf("\n 9-  Elimina un libro."); /// Todavia incompleta
     printf("\n 0-  Volver al menu anterior.");
 
     printf("\n\n Ingresa una opcion:  ");
@@ -377,6 +381,11 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
     int valArregloUsario = 0;
     int posUsuario = -1;
     int idSession = SESSION.id;
+
+    stComentario arregloComentarios[300];
+    int valArregloComentarios = 0;
+
+    stLibro libroEliminar;
 
     do
     {
@@ -464,7 +473,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
             if (valArregloUsario > 0)
             {
                 /* funcion de control para evitar sobreescribir el archivo vacio
-                si hubo algun error al pasar los datos del archivo al array*/
+                * si hubo algun error al pasar los datos del archivo al array */
 
                 posUsuario = buscarUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario); /// creo que no está funcionando esta funcion
 
@@ -492,7 +501,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
             if (valArregloUsario > 0)
             {
                 /* funcion de control para evitar sobreescribir el archivo vacio
-                si hubo algun error al pasar los datos del archivo al array*/
+                * si hubo algun error al pasar los datos del archivo al array */
 
                 posUsuario = buscarUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario); /// creo que no está funcionando esta funcion
 
@@ -511,7 +520,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
         case 9:
             puts("Elimina libros");
 
-
+            subMenuEliminaLibrosAdmin(archivoLibros, archivoUsuarios, archivoComentarios);
 
             break;
 

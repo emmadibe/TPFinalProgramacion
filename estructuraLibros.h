@@ -3,7 +3,8 @@
 #include <string.h>
 #include <conio.h>
 #include "estructuraUsuario.h"
-
+#include "estructuraComentarios.h"
+#include "funcionesGenerales.h"
 
 typedef struct{
 
@@ -23,7 +24,6 @@ void eligeCategoriaLibro(char categoria[]);
 int existeLibro(char nombreLibro[], char archivoLibros[]);
 void cargaLibrosAlArchivo(char archivoLibros[]);
 
-
 void muestraUnLibroAdmin(stLibro libro);
 void muestraArchivoLibrosAdmins(char archivoLibros[]);
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros);
@@ -33,7 +33,7 @@ int archivoToArrayLibros(char nombreArchivo[], stLibro libros[], int v, int dim)
 int archivoToArrayLibrosSegunCategoria(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char categoria[]);
 int archivoToArrayLibrosSegunAutor(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char autorBuscado[]);
 void arregloToArchivoLibros(stLibro arregloLibros[], int v, char archivoLibros[]);
-
+void intercambioLibrosArreglo(stLibro *a, stLibro *b);
 
 int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[]);
 stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v);
@@ -44,3 +44,4 @@ void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo);
 void modificaDatosLibro(stLibro arregloLibros[], int val);
 void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[]);
 void subMenuEliminaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[]);
+void subMenuEliminaLibrosAdmin(char archivoLibros[], char archivoUsuarios[], char archivoComentarios[]);

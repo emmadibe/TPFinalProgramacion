@@ -506,7 +506,7 @@ void subMenuEliminaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char ar
         {
             if(i>0)
             {
-                intercambioVariables(&usuarioAux.librosFavoritos[posLibroFav], &usuarioAux.librosFavoritos[i]); //muevo el idLibro al final del array y disminuyo los validos.
+                intercambioVariablesInt(&usuarioAux.librosFavoritos[posLibroFav], &usuarioAux.librosFavoritos[i-1]); //muevo el idLibro al final del array y disminuyo los validos.
                 i--;
             }
             else
@@ -522,5 +522,78 @@ void subMenuEliminaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char ar
 
     usuarioAux.validosFavoritos = i; //almaceno los nuevos validos en la estructura
     arregloUsuarios[posUsuario] = usuarioAux; // sobreescribo el usuario con la nueva lista de favoritos y los validos
+}
+
+void subMenuEliminaLibrosAdmin(char archivoLibros[], char archivoUsuarios[], char archivoComentarios[])
+{
+    stLibro arregloLibros[500];
+    int valArregloLibros = 0;
+
+    stLibro arregloUsuarios[500];
+    int valArregloUsuarios = 0;
+
+    stLibro arregloComentarios[500];
+    int valArregloComentarios = 0;
+
+    char tituloAux[100];
+    int posLibroArreglo = -1;
+    stLibro libroEliminar;
+
+    int control = 0;
+
+    // 1ro: paso los archivos a arreglos para trabajar en buffer
+    valArregloLibros = archivoToArrayLibros(archivoLibros, arregloLibros, valArregloLibros, 500);
+
+    do
+    {
+        puts("Indica el titulo del libro que deseas eliminar del archivo: ");
+        fflush(stdin);
+        gets(tituloAux);
+
+        // 2do: busco posición del libro en el arreglo
+        posLibroArreglo = buscaLibroPosicionEnArregloTitulo(arregloLibros, valArregloLibros, tituloAux);
+
+        if(posLibroArreglo == -1)
+        {
+            puts("No pudimos encontrar el libro que buscas eliminar");
+        }
+        else if(posLibroArreglo >= 0)
+        {
+            libroEliminar = arregloLibros[posLibroArreglo]; // guardo los datos del libro que se va a eliminar
+
+            puts("LIBRO:");
+            muestraUnLibroAdmin(libroEliminar);
+
+            if(valArregloLibros>0)
+            {
+                intercambioLibrosArreglo(&arregloLibros[posLibroArreglo],&arregloLibros[valArregloLibros-1]); //muevo el idLibro al final del array y disminuyo los validos.
+                valArregloLibros--;
+
+                //Elimino los cometarios del libro y elimino el libro de las listas de favoritos
+
+                ///subMenuEliminaComentarios(int idLibroEliminado, char archivoComentarios);
+                ///subMenuEliminaLibroDeFavs(int idLibroEliminado, char archivoUsuarios);
+
+                puts("\nLibro eliminado correctamente.\n");
+            }
+            else
+            {
+                puts("No existen libros en el archivo.");
+            }
+            arregloToArchivoLibros(arregloLibros, valArregloLibros, archivoLibros); // sobreescrivo el archivo con los cambios
+        }
+        puts("Si quieres eliminar otro libro presiona 1, para terminar presiona cualquier otra tecla");
+        scanf("%d", &control);
+        system("cls");
+    }
+    while(control == 1);
+}
+
+void intercambioLibrosArreglo(stLibro *a, stLibro *b)
+{
+    stLibro libroAux = *a;
+
+    *a = *b;
+    *b = libroAux;
 }
 

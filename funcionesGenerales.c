@@ -37,7 +37,7 @@ int buscaPosicionEnArregloEntero(int arreglo[], int val, int entero)
     return pos;
 }
 
-void intercambioVariables(int *a, int *b)
+void intercambioVariablesInt(int *a, int *b)
 {
     *a = *a + *b;
     *b = *a - *b;
