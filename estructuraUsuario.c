@@ -1,5 +1,22 @@
 #include "estructuraUsuario.h"
 
+int buscarUltimoId(char nombreArchivo[])
+{
+
+   usuario u[200];
+
+   int v = 0;
+
+    v = archivoToArregloUsuario(nombreArchivo, u, v, 200);
+
+    int i = 0;
+
+    int id = u[v - 1].id;
+
+    return id;
+
+}
+
 int corroborarPass(char pass[])
 {
 
@@ -374,6 +391,11 @@ int crearUsuario(char archivo[])
 
     stDomicilio d;
 
+    
+    u.id = buscarUltimoId(archivo) + 1;
+
+    printf("ID: %d\n", u.id);
+
     FILE *archi; //Declaramos un puntero a la estructura FILE.
 
     archi = fopen(archivo, "ab");
@@ -384,8 +406,6 @@ int crearUsuario(char archivo[])
         return -1; //Retorno -1 si hubo un error al abrir/crear el archivo.
 
     }
-
-    u.id = cantElementosArchivo("usuario.bid", sizeof(usuario)) + 1;
 
     puts("----------------\n");
 
