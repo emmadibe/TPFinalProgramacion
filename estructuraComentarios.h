@@ -14,9 +14,9 @@ typedef struct {
     int eliminado; /// 0 si está activo - 1 si está eliminado
 }stComentario;
 
-stComentario cargarComentarioNuevo(int idUsuario, int idLibro);
+stComentario cargarComentarioNuevo(int idUsuario, int idLibro, char archivoComentarios[]);
 void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int * v, int d);
-int buscarComentario(int idLibro, stComentario c[], int v);
+int buscarComentarioIdLibro(int idLibro, stComentario c[], int v);
 void imprimirUnComentarioDelArrayComentario(stComentario c[], int posicion, char tituloLibro[50]); ///mostrar
 
 ///agregadas 21 de junio, NO APARECEN EN EL MAIN POR SI QUERES HACER MODIFICACIONES:

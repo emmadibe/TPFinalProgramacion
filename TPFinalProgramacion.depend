@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1718979141 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
+1719025830 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
 	"estructuraComentarios.h"
 	"funcionesGenerales.h"
 	<stddef.h>
 
-1719022503 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
+1719025849 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
 	"estructuraLibros.h"
 
 1719022562 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
@@ -28,7 +28,7 @@
 	<stdio.h>
 	<stddef.h>
 
-1719022689 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
+1719025902 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
 	<stdlib.h>
 	<time.h>
 	<string.h>
@@ -36,16 +36,17 @@
 	<conio.h>
 	"estructuraLibros.h"
 
-1719018635 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
+1719025830 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	<conio.h>
+	<time.h>
 	"estructuraUsuario.h"
 	"estructuraComentarios.h"
 	"funcionesGenerales.h"
 
-1718979141 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
+1719025830 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
 	<stdlib.h>
 	<time.h>
 	<string.h>

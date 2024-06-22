@@ -4,13 +4,13 @@
 
 
 
-stComentario cargarComentarioNuevo(int idUsuario, int idLibro)
+stComentario cargarComentarioNuevo(int idUsuario, int idLibro, char archivoComentarios[])
 {
 
     stComentario comentario;
     char descripcion[500];
     char titulo[20];
-    comentario.idComentario = cantElementosArchivo("listaComentarios.bid", sizeof(stComentario));
+    comentario.idComentario = cantElementosArchivo(archivoComentarios, sizeof(stComentario));
     int puntaje = 0;
 
     /////////////////////////////////////////////OBTENGO LA FECHA ACTUAL :
@@ -27,14 +27,14 @@ stComentario cargarComentarioNuevo(int idUsuario, int idLibro)
 
     ///////////////////////////////////////FIN DE OBTENER LA FECHA ACTUAL
 
-    FILE * archi = fopen("listaComentarios.bid", "ab");
+    FILE * archi = fopen(archivoComentarios, "ab");
 
     if(archi)
     {
 
         comentario.idUsuario = idUsuario;
         comentario.idLibro = idLibro;
-        comentario.idComentario = cantElementosArchivo("listaComentarios.bid", sizeof(stComentario));
+        comentario.idComentario = cantElementosArchivo(archivoComentarios, sizeof(stComentario));
 
         printf("Titulo del comentario: \n");
         fflush(stdin);
@@ -78,47 +78,30 @@ void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int  *v, i
 
     if(archi && total <= d)
     {
-
         while(fread(&c[*v], sizeof(stComentario), 1, archi) > 0)
         {
-
             *v = *v + 1;
-
         }
-
         fclose(archi);
-
     }
-
 }
 
-int buscarComentario(int idLibro, stComentario c[], int v)
+int buscarComentarioIdLibro(int idLibro, stComentario c[], int v)
 {
-
     int i = 0;
-
     int posicion = -1;
-
     char flag = 't';
 
     while(i < v && flag == 't')
     {
-
         if(c[i].idLibro == idLibro)
         {
-
             posicion = i;
-
             flag = 'f';
-
         }
-
         i++;
-
     }
-
     return posicion;
-
 }
 
 void imprimirUnComentarioDelArrayComentario(stComentario c[], int posicion, char tituloLibro[50])

@@ -225,6 +225,21 @@ void muestraArchivoLibrosAdmins(char archivoLibros[])
     }
 }
 
+void muestraArchivoLibrosUsuario(char archivoLibros[])
+{
+    FILE * archi = fopen(archivoLibros, "rb");
+    stLibro aux;
+
+    if(archi)
+    {
+        while(fread(&aux, sizeof(stLibro), 1, archi)>0)
+        {
+            muestraUnLibroUsuario(aux);
+        }
+        fclose(archi);
+    }
+}
+
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros)
 {
     int i = 0;
@@ -236,6 +251,19 @@ void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros)
     }
     printf("\n");
 }
+
+void muestraArregloLibrosUsuario(stLibro arregloLibros[], int vLibros)
+{
+    int i = 0;
+
+    while(i < vLibros)
+    {
+        muestraUnLibroUsuario(arregloLibros[i]);
+        i++;
+    }
+    printf("\n");
+}
+
 
 int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[])
 {
@@ -331,7 +359,6 @@ void modificaDatosLibro(stLibro arregloLibros[], int val)
         gets(tituloBuscado);
 
         posEnArreglo = buscaLibroPosicionEnArregloTitulo(arregloLibros,val,tituloBuscado);
-        printf("POSENARREGLO %d", posEnArreglo);
         if(posEnArreglo >= 0)
         {
             subMenuModificaArregloDatosLibro(arregloLibros,posEnArreglo);
@@ -770,12 +797,32 @@ void subMenuDeshabHabComentarios(int idLibro, char archivoComentarios[], int acc
     arrayToArchivoComentarios(arregloComentarios, valArregloComentarios, archivoComentarios);
 }
 
-/*void mostrarLibroAleatorio(char archivoLibros[],char archivoComentarios[])
+void mostrarLibroComentAleatorio(char archivoLibros[],char archivoComentarios[])
 {
+    stLibro arregloLibros[500];
+    int validosLibros = 0;
+    int posLibro = -1;
+
+    stComentario arregloComentarios[500];
+    int valComentarios = 0;
+
+    validosLibros = archivoToArrayLibros(archivoLibros,arregloLibros,validosLibros,500);
+    posLibro = posRandomArray(validosLibros);
+
+    muestraUnLibroUsuario(arregloLibros[posLibro]);
+    /// funcion de muestra de los comentarios del libro
 
 }
-*/
 
+int posRandomArray(int validos)
+{
+    srand(time(NULL));
+    int pos = 0;
+
+    pos = rand()%validos - 1;
+
+    return pos;
+}
 
 
 
