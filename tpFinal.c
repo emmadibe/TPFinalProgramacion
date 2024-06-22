@@ -1,13 +1,4 @@
-#include <stdlib.h>
-#include <time.h> //Librería oficial de C que tiene la función random.
-#include <string.h>
-#include <stdio.h> //Librería oficial de C necesaria para utilizar la estructura FILE y sus respectivas funciones, entre otras utilidades.
-#include <conio.h> //Libreria oficial para utilizar la funcion getch
-
-#include "estructuraLibros.h"
-//#include "estructuraComentarios.h"  (movi el include a la libreria de libros para poser usar la estructura alli)
-//#include "estructuraUsuario.h"
-//#include "funcionesGenerales.h"
+#include "funcionesGenerales.h"
 
 #define AR_USUARIOS "usuario.bid"
 #define AR_LIBROS "libros.bid"
@@ -508,7 +499,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
                 /* funcion de control para evitar sobreescribir el archivo vacio
                 * si hubo algun error al pasar los datos del archivo al array */
 
-                posUsuario = buscarUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario); /// creo que no está funcionando esta funcion
+                posUsuario = buscarPosUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario); /// creo que no está funcionando esta funcion
 
                 if(posUsuario == -1)
                 {
@@ -536,7 +527,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
                 /* funcion de control para evitar sobreescribir el archivo vacio
                 * si hubo algun error al pasar los datos del archivo al array */
 
-                posUsuario = buscarUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario); /// creo que no está funcionando esta funcion
+                posUsuario = buscarPosUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario); /// creo que no está funcionando esta funcion
 
                 if(posUsuario == -1)
                 {
@@ -552,7 +543,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
         case 9:
             puts("\nVer una recomendacion aleatoria\n");
 
-            mostrarLibroComentAleatorio(archivoLibros,archivoComentarios);
+            muestraLibroComentAleatorio(archivoLibros,archivoComentarios);
 
             break;
         case 10:
@@ -866,7 +857,7 @@ void subMenuLibrosUsuario(usuario SESSION, char archivoLibros[], char archivoUsu
                 /* funcion de control para evitar sobreescribir el archivo vacio
                 * si hubo algun error al pasar los datos del archivo al array */
 
-                posUsuario = buscarUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario);
+                posUsuario = buscarPosUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario);
 
                 if(posUsuario == -1)
                 {
@@ -894,7 +885,7 @@ void subMenuLibrosUsuario(usuario SESSION, char archivoLibros[], char archivoUsu
                 /* funcion de control para evitar sobreescribir el archivo vacio
                 * si hubo algun error al pasar los datos del archivo al array */
 
-                posUsuario = buscarUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario);
+                posUsuario = buscarPosUsuarioPorId(idSession, arregloDeUsuarios, valArregloUsario);
 
                 if(posUsuario == -1)
                 {
@@ -910,7 +901,7 @@ void subMenuLibrosUsuario(usuario SESSION, char archivoLibros[], char archivoUsu
         case 9:
             puts("\nVer una recomendacion aleatoria\n");
 
-            mostrarLibroComentAleatorio(archivoLibros,archivoComentarios);
+            muestraLibroComentAleatorio(archivoLibros,archivoComentarios);
 
             break;
         case 0:

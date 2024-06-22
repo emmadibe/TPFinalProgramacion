@@ -2,6 +2,7 @@
 #include <time.h> //Librería oficial de C que tiene la función random.
 #include <string.h>
 #include <stdio.h>
+#include <stddef.h>
 
 
 typedef struct {
@@ -27,6 +28,4 @@ void eliminarComentario(stComentario c[] , int pos, int idAux);
 
 stComentario cargaUnComentario(int idUsuario, int idLibro, char archivoComentarios[]);
 void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentarios[]);
-void imprimirUnComentarioAdmin(stComentario c, stLibro arregloLibros, int valLibros, usuario arregloUsuarios, int valUsuarios);
-void imprimirUnComentarioUsuario(stComentario c, stLibro arregloLibros, int valLibros, usuario arregloUsuarios, int valUsuarios);
-void imprimirArregloComentariosAdmin(stComentario arregloComents[], int valComents, stLibro arregloLibros[], int valLibros, usuario arregloUsuarios[], int valUsuarios);
+void intercambioComentariosArreglo(stComentario *a, stComentario *b);

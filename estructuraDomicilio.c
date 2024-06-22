@@ -1,5 +1,6 @@
 #include "estructuraDomicilio.h"
 
+
 stDomicilio cargarDomicilio()
 {
 

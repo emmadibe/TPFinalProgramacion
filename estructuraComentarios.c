@@ -1,6 +1,4 @@
 #include "estructuraComentarios.h"
-#include "funcionesGenerales.h"
-#include <stddef.h>
 
 
 void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int  *v, int d)
@@ -120,14 +118,14 @@ void ModificarComentarios(stComentario c[],int v)
     }
 }
 
-int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idAux)
+int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idBuscado)
 {
     int pos = -1;
     int i = 0;
 
     while(i < v && pos == -1 )
     {
-        if(c[i].idComentario == idAux)
+        if(c[i].idComentario == idBuscado)
         {
             pos = i;
         }
@@ -198,7 +196,7 @@ int buscaMayorIDComentario(char archivoComentario[])
     int val = 0;
     int mayorId = -1;
 
-    val = archivoToArrayComentario(archivoComentario,arregloComentarios,val,500);
+    archivoToArrayComentario(archivoComentario,arregloComentarios,&val,500);
 
     for(int i=0; i<val; i++)
     {
@@ -226,78 +224,17 @@ void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentari
     }
 }
 
-void imprimirUnComentarioAdmin(stComentario c, stLibro arregloLibros, int valLibros, usuario arregloUsuarios, int valUsuarios)
+
+
+void intercambioComentariosArreglo(stComentario *a, stComentario *b)
 {
-    stLibro libroAux;
-    usuario usuarioAux;
+    stComentario comenAux = *a;
 
-    libroAux = buscarLibroPorId(c.idLibro,arregloLibros,valLibros);
-    usuarioAux = buscarUsuarioPorId(c.idUsuario,arregloUsuarios,valUsuarios);
-
-    puts("------------------------------------------------");
-    printf("Comentario del libro: %s\n",libroAux.titulo);
-    puts("------------------------------------------------");
-    printf("Usuario: %s\n", usuarioAux.username);
-    printf("Titulo del comentario: %sn\n", c.tituloComentario);
-    printf("Comentario: \n\n%s\n\n", c.descripcion);
-    printf("Puntaje del usuario: %d\n", c.puntaje);
-    printf("Fecha: %s\n", c.fechaComentario);
-    printf("Fecha: %s\n", c.fechaComentario);
-    if(c.eliminado == 1)
-    {
-        printf("\nEstado:DESHABILITADO");
-    }
-    else if(c.eliminado == 0)
-    {
-        printf("\nEstado:HABILITADO");
-    }
-    puts("-------------------------------------\n");
+    *a = *b;
+    *b = comenAux;
 }
 
-void imprimirUnComentarioUsuario(stComentario c, stLibro arregloLibros, int valLibros, usuario arregloUsuarios, int valUsuarios)
-{
-    stLibro libroAux;
-    usuario usuarioAux;
 
-    libroAux = buscarLibroPorId(c.idLibro,arregloLibros,valLibros);
-    usuarioAux = buscarUsuarioPorId(c.idUsuario,arregloUsuarios,valUsuarios);
-    if(c.eliminado == 0)
-    {
-        puts("------------------------------------------------");
-        printf("Comentario del libro: %s\n",libroAux.titulo);
-        puts("------------------------------------------------");
-        printf("Usuario: %s\n", usuarioAux.username);
-        printf("Titulo del comentario: %sn\n", c.tituloComentario);
-        printf("Comentario: \n\n%s\n\n", c.descripcion);
-        printf("Puntaje del usuario: %d\n", c.puntaje);
-        printf("Fecha: %s\n", c.fechaComentario);
-        printf("Fecha: %s\n", c.fechaComentario);
-        puts("-------------------------------------\n");
-    }
-}
-
-void imprimirArregloComentariosAdmin(stComentario arregloComents[], int valComents, stLibro arregloLibros[], int valLibros, usuario arregloUsuarios[], int valUsuarios)
-{
-    int i = 0;
-
-    while(i < valComents)
-    {
-        imprimirUnComentarioAdmin(arregloComents[i],arregloLibros,valLibros,arregloUsuarios,valUsuarios);
-        i++;
-    }
-    printf("\n");
-}
-
-void imprimirArregloComentariosUser(stComentario arregloComents[], int valComents, stLibro arregloLibros[], int valLibros, usuario arregloUsuarios[], int valUsuarios)
-{
-    int i = 0;
-
-    while(i < valComents)
-    {
-        imprimirUnComentarioUsuario(arregloComents[i],arregloLibros,valLibros,arregloUsuarios,valUsuarios);
-        i++;
-    }
-    printf("\n");
 /*
 int archivoToArrayComenSegunIdLibro(char archivoComentarios[], stComentario arregloComent[], int v, int dim, int idLibro)
 {

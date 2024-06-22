@@ -876,11 +876,29 @@ void mostrarUnUsuario(usuario u)
     puts("---------------\n");
 }
 
-usuario buscarUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v)
+int buscarPosUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v)
 {
     int i = 0;
-    stUsuario userEncontrado;
-    char flag = 1;
+    int pos = -1;
+    int flag = 1;
+
+    while(i < v && flag == 1)
+    {
+        if(arregloUsuarios[i].id == idUsuarioBuscado)
+        {
+            pos = i;
+            flag = 0;
+        }
+        i++;
+    }
+    return pos;
+}
+
+usuario buscarUnUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v)
+{
+    int i = 0;
+    usuario userEncontrado;
+    int flag = 1;
 
     while(i < v && flag == 1)
     {

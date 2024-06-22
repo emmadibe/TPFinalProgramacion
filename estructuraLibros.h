@@ -3,9 +3,6 @@
 #include <string.h>
 #include <conio.h>
 #include <time.h>
-#include "estructuraUsuario.h"
-#include "estructuraComentarios.h"
-#include "funcionesGenerales.h"
 
 typedef struct{
 
@@ -25,14 +22,12 @@ void eligeCategoriaLibro(char categoria[]);
 int existeLibro(char nombreLibro[], char archivoLibros[]);
 void cargaLibrosAlArchivo(char archivoLibros[]);
 int existeIdArreglo(int id, int arregloId[], int val);
-int posRandomArray(int validos);
 int buscaMayorIDLibro(char archivoLibros[]);
 
 void muestraUnLibroAdmin(stLibro libro);
+void muestraUnLibroUsuario(stLibro libro);
 void muestraArchivoLibrosAdmins(char archivoLibros[]);
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros);
-void muestraLibrosFavoritosDeUsuario(int idUsuario, char archivoUsuarios[], char archivoLibros[]);
-void mostrarLibroComentAleatorio(char archivoLibros[],char archivoComentarios[]);
 void muestraArchivoLibrosUsuario(char archivoLibros[]);
 void muestraArregloLibrosUsuario(stLibro arregloLibros[], int vLibros);
 
@@ -41,7 +36,6 @@ int archivoToArrayLibrosSegunCategoria(char archivoLibros[], stLibro arregloLibr
 int archivoToArrayLibrosSegunAutor(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char autorBuscado[]);
 void arregloToArchivoLibros(stLibro arregloLibros[], int v, char archivoLibros[]);
 void intercambioLibrosArreglo(stLibro *a, stLibro *b);
-void intercambioComentariosArreglo(stComentario *a, stComentario *b);
 
 int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[]);
 stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v);
@@ -50,10 +44,3 @@ int buscaLibroPosicionEnArregloTitulo(stLibro arreglo[], int val, char titulo[])
 
 void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo);
 void modificaDatosLibro(stLibro arregloLibros[], int val);
-void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[]);
-void subMenuEliminaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[]);
-void subMenuEliminaLibrosAdmin(char archivoLibros[], char archivoUsuarios[], char archivoComentarios[]);
-void subMenuEliminaLibroDeFavs(int idLibroEliminado,char archivoUsuarios[]);
-void subMenuEliminaComentariosIdLibro(int idLibroEliminado, char archivoComentarios[]);
-void subMenuDeshabHabLibrosAdmin(char archivoLibros[], char archivoUsuarios[], char archivoComentarios[]);
-void subMenuDeshabHabComentarios(int idLibro, char archivoComentarios[], int accion);

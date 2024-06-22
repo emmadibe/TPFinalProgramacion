@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include <conio.h>
 #include "estructuraDomicilio.h"
-#include "funcionesGenerales.h"
-
 
 typedef struct
 {
@@ -50,11 +48,11 @@ int tienePuntoCom(char email[]);
 void mostrarUnUsuario(usuario u);
 void editarUsuario(char nombreArchivo[], int idUsuario);
 void arrayToArchivo(char nombreArchivo[], usuario u[], int v);
-int buscarUsuarioPorId(int idUsuario, usuario u[], int v);
+int buscarPosUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v);
 void eliminarUsuario(char nombreArchivo[], usuario admin);
 int enroqueArray(usuario u[], int v, int posicion);
 void imprimirUnRegistro(usuario u);
 void inhabilitarUsuario(char nombreArchivo[], int id);
 int corroborarPass(char pass[]);
 int buscarUltimoId(char nombreArchivo[]);
-usuario buscarUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v);
+usuario buscarUnUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v);
