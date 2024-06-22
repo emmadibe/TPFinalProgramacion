@@ -23,6 +23,8 @@ stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[]);
 void eligeCategoriaLibro(char categoria[]);
 int existeLibro(char nombreLibro[], char archivoLibros[]);
 void cargaLibrosAlArchivo(char archivoLibros[]);
+int existeIdArreglo(int id, int arregloId[], int val);
+
 
 void muestraUnLibroAdmin(stLibro libro);
 void muestraArchivoLibrosAdmins(char archivoLibros[]);
@@ -34,6 +36,8 @@ int archivoToArrayLibrosSegunCategoria(char archivoLibros[], stLibro arregloLibr
 int archivoToArrayLibrosSegunAutor(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char autorBuscado[]);
 void arregloToArchivoLibros(stLibro arregloLibros[], int v, char archivoLibros[]);
 void intercambioLibrosArreglo(stLibro *a, stLibro *b);
+void intercambioComentariosArreglo(stComentario *a, stComentario *b);
+
 
 int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[]);
 stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v);
@@ -45,3 +49,7 @@ void modificaDatosLibro(stLibro arregloLibros[], int val);
 void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[]);
 void subMenuEliminaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[]);
 void subMenuEliminaLibrosAdmin(char archivoLibros[], char archivoUsuarios[], char archivoComentarios[]);
+void subMenuEliminaLibroDeFavs(int idLibroEliminado,char archivoUsuarios[]);
+void subMenuEliminaComentariosIdLibro(int idLibroEliminado, char archivoComentarios[]);
+void subMenuDeshabHabLibrosAdmin(char archivoLibros[], char archivoUsuarios[], char archivoComentarios[]);
+void subMenuDeshabHabComentarios(int idLibro, char archivoComentarios[], int accion);

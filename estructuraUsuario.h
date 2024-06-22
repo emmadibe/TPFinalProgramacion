@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include "estructuraDomicilio.h"
+#include "funcionesGenerales.h"
 
 
 typedef struct

@@ -346,7 +346,7 @@ void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[])
             eliminarUsuario(archivoUsuarios, SESSION);
             break;
 
-        case 4: //Quitar el valor de eliminado de 0 y ponerle 1. 
+        case 4: //Quitar el valor de eliminado de 0 y ponerle 1.
 
             puts("inhabilitar un usuario.\n");
 
@@ -389,11 +389,15 @@ int opcionSubMenuLibrosAdmin()
     printf("\n 6-  Ver tus libros favoritos.");
     printf("\n 7-  Agregar un libro a tus favoritos.");
     printf("\n 8-  Quitar un libro a tus favoritos.");
-    printf("\n 9-  Elimina un libro."); /// Todavia incompleta
+    printf("\n 9-  Ver una recomendacion aleatoria.");
+    printf("\n10-  Inhabilitar/Habilitar un libro y sus comentarios.");
+    printf("\n11-  Elimina definitivamente un libro y sus comentarios.");
     printf("\n 0-  Volver al menu anterior.");
 
     printf("\n\n Ingresa una opcion:  ");
     scanf("%d", &opcion);
+    puts("\n");
+
 
     return opcion;
 }
@@ -425,12 +429,12 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
         switch (opcion)
         {
         case 1:
-            puts("Ver lista de libros guardados");
+            puts("\nVer lista de libros guardados\n");
             muestraArchivoLibrosAdmins(archivoLibros);
 
             break;
         case 2:
-            puts("\n\nVer libros de una categoria");
+            puts("\n\nVer libros de una categoria\n");
             puts("\n Que categoria quieres ver?");
             eligeCategoriaLibro(categoriaElegida);
 
@@ -447,7 +451,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
 
             break;
         case 3:
-            puts("\n\nVer libros de un autor");
+            puts("\n\nVer libros de un autor\n");
             puts("\n Ingresa el nombre del autor del cual quieres ver los libros: ");
             fflush(stdin);
             gets(autorBuscado);
@@ -456,7 +460,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
 
             if( valLibrosDelAutor == 0)
             {
-                puts("No se encontraron libros de ese autor en nuestros archivos.");
+                puts("\nNo se encontraron libros de ese autor en nuestros archivos\n");
             }
             else
             {
@@ -465,13 +469,13 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
 
             break;
         case 4:
-            puts("Agregar un libro nuevo");
+            puts("\nAgregar un libro nuevo\n");
             cargaLibrosAlArchivo(archivoLibros);
 
             break;
 
         case 5:
-            puts("Buscar un libro por titulo y modificarlo");
+            puts("\nBuscar un libro por titulo y modificarlo\n");
             valLibreriaCompleta = 0; // reinicio validos para escribir el arreglo desde el inicio
             valLibreriaCompleta = archivoToArrayLibros(archivoLibros,libreriaCompleta,valLibreriaCompleta,300);
 
@@ -485,18 +489,18 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
             }
             else
             {
-                puts("\n ERROR: El archivo está vacio o no funcionó la transferencia de datos al buffer");
+                puts("\n ERROR: El archivo está vacio o no funcionó la transferencia de datos al buffer\n");
             }
 
             break;
         case 6:
-            puts("Ver tus libros favoritos\n\n");
+            puts("\nVer tus libros favoritos\n\n");
 
             muestraLibrosFavoritosDeUsuario(SESSION.id, archivoUsuarios, archivoLibros);
 
             break;
         case 7:
-            puts("Agregar libros a tus favoritos");
+            puts("\nAgregar libros a tus favoritos\n");
             valArregloUsario = 0; // reinicio validos para escribir el arreglo desde el inicio
             valArregloUsario = archivoToArregloUsuario(archivoUsuarios, arregloDeUsuarios, valArregloUsario, 300);
 
@@ -509,7 +513,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
 
                 if(posUsuario == -1)
                 {
-                    puts("ERROR: No se pudo recuperar la informacion del usuario");
+                    puts("\nERROR: No se pudo recuperar la informacion del usuario\n");
                 }
                 else
                 {
@@ -524,7 +528,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
 
             break;
         case 8:
-            puts("Quitar libros de tus favoritos");
+            puts("\nQuitar libros de tus favoritos\n");
             valArregloUsario = 0; // reinicio validos para escribir el arreglo desde el inicio
             valArregloUsario = archivoToArregloUsuario(archivoUsuarios, arregloDeUsuarios, valArregloUsario, 300);
 
@@ -537,7 +541,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
 
                 if(posUsuario == -1)
                 {
-                    puts("ERROR: No se pudo recuperar la informacion del usuario");
+                    puts("ERROR: No se pudo recuperar la informacion del usuario\n");
                 }
                 else
                 {
@@ -545,15 +549,24 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
                     arrayToArchivo(archivoUsuarios,arregloDeUsuarios,valArregloUsario); //sobreescribo el archivo con las modificaciones
                 }
             }
-
             break;
         case 9:
-            puts("Elimina libros");
+            puts("\nVer una recomendacion aleatoria\n");
+
+            //mostrarLibroAleatorio(char archivoLibros[],char archivoComentarios[]);
+            break;
+        case 10:
+            puts("\nInhabilitar/Habilitar libros y sus comentarios\n");
+
+            subMenuDeshabHabLibrosAdmin(archivoLibros,archivoUsuarios,archivoComentarios);
+
+            break;
+        case 11:
+            puts("\nElimina definitivamente libros y sus comentarios\n");
 
             subMenuEliminaLibrosAdmin(archivoLibros, archivoUsuarios, archivoComentarios);
 
             break;
-
         case 0:
             break;
         default:

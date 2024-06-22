@@ -13,16 +13,15 @@ int corroborarPass(char pass[])
 
     while(pass[i] != '\0' && (mayus == 0 || min == 0)){ //El caracter especial null \0 identifica el fin del string en un string.
 
-        if(pass[i] > 'A' && pass[i] < 'Z'){
+        if(pass[i] >= 'A' && pass[i] <= 'Z'){
 
             mayus++;
 
-        }else if (pass[i] > 'a' && pass[i] < 'z'){
+        }else if (pass[i] >= 'a' && pass[i] <= 'z'){
 
             min++;
 
         }
-
         i++;
 
     }
@@ -199,9 +198,6 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
     char pass2[55];
     int longCadena;
     int v = 0, d = 222, posicion = 0;
-    char email[55];
-
-    char pass[55];
 
     int valPass;
 
@@ -271,7 +267,7 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
                 break;
 
             case 3:
-                
+
                 do
                 {
 
@@ -283,7 +279,7 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
                     longCadena = strlen(u[posicion].pass);
 
                     valPass = corroborarPass(u[posicion].pass);
-                    
+
                     if(valPass == 0){
 
                         puts("El pass debe tener un char minuscula; y otro,masucula.\n");
@@ -459,8 +455,6 @@ int crearUsuario(char archivo[])
 
             }
 
-            printf("ValidPass: %d\n", validPass);
-
         }while(longCadena < 5 || validPass == 0);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
 
         printf("\nConfirmar pass: \n");
@@ -477,6 +471,7 @@ int crearUsuario(char archivo[])
 
         printf("\nIngrese su genero: f, m o x\n");
         u.genero = getche();
+        puts("\n");
 
     }
     while(u.genero != 'f' && u.genero != 'm' && u.genero != 'x');
@@ -504,7 +499,7 @@ int crearUsuario(char archivo[])
 
         printf("\nIngrese el anio de nacimiento\n");
         scanf("%d", &anio);
-
+        puts("\n");
     }
     while(anio < 1940 || anio > 2024);
 
@@ -596,8 +591,8 @@ void imprimirUnRegistro(usuario u)
     puts("-----------\n");
     printf("ID: %d\n", u.id);
     printf("Nombre y apellido: %s\n", u.nombre);
-    printf("Nombre y apellido: %s\n", u.email);
-    printf("Nombre y apellido: %s\n", u.pass);
+    printf("Email: %s\n", u.email);
+    printf("Contrasenia: %s\n", u.pass);
     printf("Edad: %d\n", u.edad);
     printf("Genero: %c\n", u.genero);
     printf("Fecha de nacimiento: %s\n", u.fechaNacimiento);
@@ -609,7 +604,6 @@ void imprimirUnRegistro(usuario u)
     printf("Calle: %s\n", u.domicilio.calle);
     printf("Altura: %d\n", u.domicilio.altura);
     printf("Rol: %d\n", u.rol);
-    printf("Eliminado: %d\n", u.eliminado);
 
     if(u.eliminado == 0){
 
@@ -765,7 +759,7 @@ void imprimirArrayUsuario(usuario a[], int v)
 
         puts("----------------------------\n");
 
-        printf("Registro N %d\n", i);
+        printf("Registro N %d\n", i+1);
 
         printf("ID: %d\n", a[i].id);
         printf("Nombre: %s\n", a[i].nombre);
@@ -779,8 +773,11 @@ void imprimirArrayUsuario(usuario a[], int v)
         printf("Pais: %s\n", a[i].domicilio.pais);
         printf("Ciudad: %s\n", a[i].domicilio.ciudad);
         printf("Codigo Postal: %d\n", a[i].domicilio.cp);
-        printf("Eliminado: %d\n", a[i].eliminado);
-
+        if(a[i].eliminado == 0){
+            puts("Usuario habilitado.\n");
+        }else{
+            puts("Usuario no habilitado.\n");
+        }
         puts("----------------------------\n");
 
         i++;

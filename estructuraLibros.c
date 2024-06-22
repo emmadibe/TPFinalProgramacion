@@ -179,24 +179,35 @@ void muestraUnLibroAdmin(stLibro libro)
     printf("\n-----------------------------------------------\n");
     printf("Titulo: %s", libro.titulo);
     printf("\n-----------------------------------------------\n");
-    printf("ID Libro ............... %d", libro.idLibro);
+    printf("ID Libro ............. %d", libro.idLibro);
     printf("\nAutor ................ %s", libro.autor);
     printf("\nEditorial ............ %s", libro.editorial);
     printf("\nCategoria ............ %s", libro.categoria);
-    printf("\nValoracion promedio .. %.2f", libro.valoracion);
+    printf("\nValoracion promedio .. %.2f/5", libro.valoracion);
+    if(libro.eliminado == 1)
+    {
+        printf("\nEstado................ DESHABILITADO");
+    }
+    else if(libro.eliminado == 0)
+    {
+        printf("\nEstado................ HABILITADO");
+    }
     printf("\n-----------------------------------------------\n");
 }
 
 void muestraUnLibroUsuario(stLibro libro)
 {
-    printf("\n-----------------------------------------------\n");
-    printf("Titulo: %s", libro.titulo);
-    printf("\n-----------------------------------------------\n");
-    printf("\nAutor ................ %s", libro.autor);
-    printf("\nEditorial ............ %s", libro.editorial);
-    printf("\nCategoria ............ %s", libro.categoria);
-    printf("\nValoracion promedio .. %.2f", libro.valoracion);
-    printf("\n-----------------------------------------------\n");
+    if(libro.eliminado == 0)
+    {
+        printf("\n-----------------------------------------------\n");
+        printf("Titulo: %s", libro.titulo);
+        printf("\n-----------------------------------------------\n");
+        printf("Autor ................ %s", libro.autor);
+        printf("\nEditorial ............ %s", libro.editorial);
+        printf("\nCategoria ............ %s", libro.categoria);
+        printf("\nValoracion promedio .. %.2f/5", libro.valoracion);
+        printf("\n-----------------------------------------------\n");
+    }
 }
 
 void muestraArchivoLibrosAdmins(char archivoLibros[])
@@ -462,14 +473,14 @@ void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char arc
 
     do
     {
-        puts("Indica el titulo del libro que deseas agregar a tu lista de favoritos: ");
+        puts("\nIndica el titulo del libro que deseas agregar a tu lista de favoritos: \n");
         fflush(stdin);
         gets(tituloAux);
         idLibroAux = buscarIdLibroConTitulo(tituloAux, archivoLibros);
 
         if(idLibroAux == -1)
         {
-            puts("No pudimos encontrar el libro que buscas");
+            puts("\nNo pudimos encontrar el libro que buscas\n");
         }
         else if(idLibroAux >= 0)
         {
@@ -480,10 +491,10 @@ void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char arc
             }
             else
             {
-                puts("Tu lista de favoritos esta llena, elimina otro libro e intenta nuevamente");
+                puts("\nTu lista de favoritos esta llena, elimina otro libro e intenta nuevamente\n");
             }
         }
-        puts("Si quieres agregar otro libro presiona 1, para terminar presiona cualquier otra tecla");
+        puts("\nSi quieres agregar otro libro presiona 1, para terminar presiona cualquier otra tecla\n");
         scanf("%d", &control);
         system("cls");
     }
@@ -491,6 +502,14 @@ void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char arc
 
     usuarioAux.validosFavoritos = i; //almaceno los nuevos validos en la estructura
     arregloUsuarios[posUsuario] = usuarioAux; // sobreescribo el usuario con la nueva lista de favoritos y los validos
+}
+
+void intercambioLibrosArreglo(stLibro *a, stLibro *b)
+{
+    stLibro libroAux = *a;
+
+    *a = *b;
+    *b = libroAux;
 }
 
 void subMenuEliminaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[])
@@ -542,19 +561,13 @@ void subMenuEliminaLibrosAdmin(char archivoLibros[], char archivoUsuarios[], cha
     stLibro arregloLibros[500];
     int valArregloLibros = 0;
 
-    stLibro arregloUsuarios[500];
-    int valArregloUsuarios = 0;
-
-    stLibro arregloComentarios[500];
-    int valArregloComentarios = 0;
-
     char tituloAux[100];
     int posLibroArreglo = -1;
     stLibro libroEliminar;
 
     int control = 0;
 
-    // 1ro: paso los archivos a arreglos para trabajar en buffer
+    // 1ro: paso archivosa arreglo para trabajar en buffer
     valArregloLibros = archivoToArrayLibros(archivoLibros, arregloLibros, valArregloLibros, 500);
 
     do
@@ -568,7 +581,7 @@ void subMenuEliminaLibrosAdmin(char archivoLibros[], char archivoUsuarios[], cha
 
         if(posLibroArreglo == -1)
         {
-            puts("No pudimos encontrar el libro que buscas eliminar");
+            puts("No pudimos encontrar el libro que buscas eliminar, intenta nuevamente");
         }
         else if(posLibroArreglo >= 0)
         {
@@ -584,8 +597,8 @@ void subMenuEliminaLibrosAdmin(char archivoLibros[], char archivoUsuarios[], cha
 
                 //Elimino los cometarios del libro y elimino el libro de las listas de favoritos
 
-                ///subMenuEliminaComentarios(int idLibroEliminado, char archivoComentarios);
-                ///subMenuEliminaLibroDeFavs(int idLibroEliminado, char archivoUsuarios);
+                subMenuEliminaComentariosIdLibro(libroEliminar.idLibro,archivoComentarios);
+                subMenuEliminaLibroDeFavs(libroEliminar.idLibro,archivoUsuarios);
 
                 puts("\nLibro eliminado correctamente.\n");
             }
@@ -602,11 +615,169 @@ void subMenuEliminaLibrosAdmin(char archivoLibros[], char archivoUsuarios[], cha
     while(control == 1);
 }
 
-void intercambioLibrosArreglo(stLibro *a, stLibro *b)
+void subMenuEliminaLibroDeFavs(int idLibroEliminado,char archivoUsuarios[])
 {
-    stLibro libroAux = *a;
+    usuario arregloUsuarios[500];
+    int valArregloUsuarios = 0;
+    usuario aux;
+    int posIdLibro = -1;
+
+    valArregloUsuarios = archivoToArregloUsuario(archivoUsuarios,arregloUsuarios,valArregloUsuarios,500);
+
+    for(int i = 0; i<valArregloUsuarios; i++)
+    {
+        aux = arregloUsuarios[i];
+
+        posIdLibro = existeIdArreglo(idLibroEliminado, aux.librosFavoritos, aux.validosFavoritos);
+
+        if(posIdLibro > -1)
+        {
+            intercambioVariablesInt(&aux.librosFavoritos[posIdLibro],&aux.librosFavoritos[aux.validosFavoritos-1]);
+            aux.validosFavoritos--;
+
+            arregloUsuarios[i] = aux;
+        }
+    }
+
+    arrayToArchivo(archivoUsuarios, arregloUsuarios, valArregloUsuarios);
+}
+
+void subMenuEliminaComentariosIdLibro(int idLibroEliminado, char archivoComentarios[])
+{
+    stComentario arregloComentarios[500];
+    int valArregloComentarios = 0;
+
+    archivoToArrayComentario(archivoComentarios, arregloComentarios, &valArregloComentarios, 500);
+
+    for(int i = 0; i<valArregloComentarios; i++)
+    {
+        if(idLibroEliminado == arregloComentarios[i].idLibro)
+        {
+            intercambioComentariosArreglo(&arregloComentarios[i], &arregloComentarios[valArregloComentarios-1]);
+            valArregloComentarios--;
+        }
+    }
+
+    arrayToArchivoComentarios(arregloComentarios, valArregloComentarios, archivoComentarios);
+}
+
+void intercambioComentariosArreglo(stComentario *a, stComentario *b)
+{
+    stComentario comenAux = *a;
 
     *a = *b;
-    *b = libroAux;
+    *b = comenAux;
 }
+
+int existeIdArreglo(int id, int arregloId[], int val)
+{
+    int posicion = -1;
+    int i = 0;
+
+    while(i<val && posicion == -1)
+    {
+        if(id == arregloId[i])
+        {
+            posicion = i;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return posicion;
+}
+
+void subMenuDeshabHabLibrosAdmin(char archivoLibros[], char archivoUsuarios[], char archivoComentarios[])
+{
+    stLibro arregloLibros[500];
+    int valArregloLibros = 0;
+
+    char tituloAux[100];
+    int posLibroArreglo = -1;
+
+    int control = 0;
+    int accion = -1;
+
+    // 1ro: paso archivo a arreglo para trabajar en buffer
+    valArregloLibros = archivoToArrayLibros(archivoLibros, arregloLibros, valArregloLibros, 500);
+
+    do
+    {
+        puts("Indica el titulo del libro que deseas habilitar o deshabilitar del archivo: ");
+        fflush(stdin);
+        gets(tituloAux);
+
+        // 2do: busco posición del libro en el arreglo
+        posLibroArreglo = buscaLibroPosicionEnArregloTitulo(arregloLibros, valArregloLibros, tituloAux);
+
+        if(posLibroArreglo == -1)
+        {
+            puts("No pudimos encontrar el libro, intenta nuevamente");
+        }
+        else if(posLibroArreglo >= 0)
+        {
+            puts("LIBRO:");
+            muestraUnLibroAdmin(arregloLibros[posLibroArreglo]);
+
+            do
+            {
+                puts("\nPresiona 0 para habilitar el libro, o presiona 1 para deshabilitarlo.");
+                scanf("%d", &accion);
+
+                if(accion == 1)
+                {
+                    arregloLibros[posLibroArreglo].eliminado = 1; // se desabilita el libro
+                    subMenuEliminaLibroDeFavs(arregloLibros[posLibroArreglo].idLibro, archivoUsuarios);
+                    subMenuDeshabHabComentarios(arregloLibros[posLibroArreglo].idLibro, archivoComentarios, accion);
+                }
+                else if(accion == 0)
+                {
+                    arregloLibros[posLibroArreglo].eliminado = 0; // se habilita el libro
+                    subMenuDeshabHabComentarios(arregloLibros[posLibroArreglo].idLibro, archivoComentarios, accion);
+                }
+                else
+                {
+                    puts("OPCION INCORRECTA: intente nuevamente.");
+                }
+            }
+            while(accion != 1 && accion != 0);
+
+            arregloToArchivoLibros(arregloLibros, valArregloLibros, archivoLibros); // sobreescrivo el archivo con los cambios
+        }
+        puts("Si quieres habilitar/deshabilitar otro libro presiona 1, para terminar presiona cualquier otra tecla");
+        scanf("%d", &control);
+        system("cls");
+    }
+    while(control == 1);
+}
+
+void subMenuDeshabHabComentarios(int idLibro, char archivoComentarios[], int accion)
+{
+    stComentario arregloComentarios[500];
+    int valArregloComentarios = 0;
+
+    archivoToArrayComentario(archivoComentarios, arregloComentarios, &valArregloComentarios, 500);
+
+    for(int i = 0; i<valArregloComentarios; i++)
+    {
+        if(idLibro == arregloComentarios[i].idLibro)
+        {
+            arregloComentarios[i].eliminado = accion;
+        }
+    }
+
+    arrayToArchivoComentarios(arregloComentarios, valArregloComentarios, archivoComentarios);
+}
+
+/*void mostrarLibroAleatorio(char archivoLibros[],char archivoComentarios[])
+{
+
+}
+*/
+
+
+
+
+
 
