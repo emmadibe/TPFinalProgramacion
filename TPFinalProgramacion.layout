@@ -2,14 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="estructuraLibros.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1041" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="funcionesGenerales.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="funcionesGenerales.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="184" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="estructuraComentarios.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1617" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="estructuraDomicilio.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -17,55 +17,64 @@
 			<Cursor1 position="279" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="estructuraDomicilio.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="tpFinal.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="517" topLine="0" />
+			<Cursor1 position="20882" topLine="86" />
+		</Cursor>
+		<Folding>
+			<Collapse line="46" />
+			<Collapse line="66" />
+			<Collapse line="90" />
+			<Collapse line="174" />
+			<Collapse line="199" />
+			<Collapse line="222" />
+			<Collapse line="277" />
+			<Collapse line="297" />
+			<Collapse line="366" />
+			<Collapse line="395" />
+			<Collapse line="660" />
+			<Collapse line="680" />
+			<Collapse line="728" />
+			<Collapse line="755" />
+		</Folding>
+	</File>
+	<File name="funcionesGenerales.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="15913" topLine="425" />
 		</Cursor>
 	</File>
-	<File name="estructuraUsuario.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="estructuraLibros.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7628" topLine="268" />
+		</Cursor>
+	</File>
+	<File name="estructuraUsuario.c" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="8966" topLine="217" />
 		</Cursor>
 	</File>
-	<File name="estructuraComentarios.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="estructuraComentarios.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6088" topLine="190" />
-		</Cursor>
-	</File>
-	<File name="estructuraComentarios.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1231" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="tpFinal.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="28247" topLine="341" />
+			<Cursor1 position="6459" topLine="187" />
 		</Cursor>
 		<Folding>
-			<Collapse line="55" />
-			<Collapse line="75" />
-			<Collapse line="94" />
-			<Collapse line="183" />
-			<Collapse line="208" />
-			<Collapse line="231" />
-			<Collapse line="286" />
-			<Collapse line="375" />
-			<Collapse line="404" />
-			<Collapse line="584" />
-			<Collapse line="607" />
+			<Collapse line="40" />
+			<Collapse line="117" />
+			<Collapse line="198" />
+			<Collapse line="213" />
 		</Folding>
 	</File>
-	<File name="estructuraUsuario.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="estructuraUsuario.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="225" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="funcionesGenerales.c" open="1" top="1" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="estructuraDomicilio.c" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="306" topLine="0" />
+			<Cursor1 position="517" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="estructuraLibros.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="estructuraLibros.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="80" topLine="0" />
 		</Cursor>

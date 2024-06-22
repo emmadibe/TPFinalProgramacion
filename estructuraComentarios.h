@@ -17,15 +17,18 @@ typedef struct {
 }stComentario;
 
 void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int * v, int d);
-int buscarComentarioIdLibro(int idLibro, stComentario c[], int v);
+int buscarPosComentarioIdLibro(int idLibro, stComentario c[], int v);
 
 ///agregadas 21 de junio, NO APARECEN EN EL MAIN POR SI QUERES HACER MODIFICACIONES:
 void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[]);
 void ModificarComentarios(stComentario c[],int v);
-int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idAux);
-void eliminarComentario(stComentario c[] , int pos, int idAux);
+int buscaComentarioPosicionPorIdComent(stComentario c[], int v, int idAux);
 
 
 stComentario cargaUnComentario(int idUsuario, int idLibro, char archivoComentarios[]);
 void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentarios[]);
 void intercambioComentariosArreglo(stComentario *a, stComentario *b);
+int archivoToArrayComenSegunIdLibro(char archivoComentarios[], stComentario arregloComent[], int v, int dim, int idLibro);
+int archivoToArrayComenSegunIdUsuario(char archivoComentarios[], stComentario arregloComent[], int v, int dim, int idUsuario);
+int buscaMayorIDComentario(char archivoComentario[]);
+int cantElementosArchivo(char nombreArchivo[], int tamanioEstructura);

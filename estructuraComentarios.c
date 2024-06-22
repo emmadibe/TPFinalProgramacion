@@ -1,6 +1,7 @@
 #include "estructuraComentarios.h"
 
 
+
 void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int  *v, int d)
 {
     int cant = cantElementosArchivo(nombreArchivo, sizeof(stComentario));
@@ -18,7 +19,7 @@ void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int  *v, i
     }
 }
 
-int buscarComentarioIdLibro(int idLibro, stComentario c[], int v)
+int buscarPosComentarioIdLibro(int idLibro, stComentario c[], int v)
 {
     int i = 0;
     int posicion = -1;
@@ -52,6 +53,9 @@ void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[
 
 void ModificarComentarios(stComentario c[],int v)
 {
+/**yo usaria el titulo del libro para buscar el
+* idLibro y este idLibro para encontrar el comentario (Kari) */
+
     int idAux;
     int option2;
     int pos = -1;
@@ -59,9 +63,7 @@ void ModificarComentarios(stComentario c[],int v)
     printf("Que comentario queres modificar?\n");
     scanf("%d",&idAux);
 
-    ///o sino mostrar libros y seleccionar pero mayor costo?
-
-    pos = buscaComentarioPosicionIdEnArreglo(c,v,idAux);
+    pos = buscaComentarioPosicionPorIdComent(c,v,idAux);
 
     if(pos > -1)
     {
@@ -71,9 +73,7 @@ void ModificarComentarios(stComentario c[],int v)
             printf("1. Modificar Titulo del comentario\n");
             printf("2. Modificar Descripcion\n");
             printf("3. Modificar Puntaje");
-            printf("4. Eliminar comentario");
-            printf("5. Salir de EDITAR COMENTARIO");
-
+            printf("4. Salir de EDITAR COMENTARIO");
 
             scanf("%d",&option2);
 
@@ -99,16 +99,12 @@ void ModificarComentarios(stComentario c[],int v)
                 scanf("%d", &c[pos].puntaje);
                 printf("Se modifico correctamente\n");
                 break;
-
-            case 4:
-                eliminarComentario(c,pos,idAux);
-                printf("El comentario se ha eliminado correctamente\n");
-                break;
-
+            default:
+                printf("No existe esa opción. Quiere volver a intentar?\n");
+                scanf("%d", &option2);
             }
-
         }
-        while(option2 != 5);
+        while(option2 != 4);
 
     }
     else
@@ -118,7 +114,7 @@ void ModificarComentarios(stComentario c[],int v)
     }
 }
 
-int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idBuscado)
+int buscaComentarioPosicionPorIdComent(stComentario c[], int v, int idBuscado)
 {
     int pos = -1;
     int i = 0;
@@ -132,16 +128,6 @@ int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idBuscado)
         i++;
     }
     return pos;
-}
-
-void eliminarComentario(stComentario c[], int pos, int idAux)
-{
-    strcpy (c[pos].descripcion, " ");
-    strcpy (c[pos].puntaje, " ");
-    strcpy (c[pos].tituloComentario, " ");
-    strcpy (c[pos].fechaComentario, " ");
-    ///int eliminado; /// 0 si está activo - 1 si está eliminado
-
 }
 
 stComentario cargaUnComentario(int idUsuario, int idLibro, char archivoComentarios[])
@@ -224,8 +210,6 @@ void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentari
     }
 }
 
-
-
 void intercambioComentariosArreglo(stComentario *a, stComentario *b)
 {
     stComentario comenAux = *a;
@@ -234,8 +218,6 @@ void intercambioComentariosArreglo(stComentario *a, stComentario *b)
     *b = comenAux;
 }
 
-
-/*
 int archivoToArrayComenSegunIdLibro(char archivoComentarios[], stComentario arregloComent[], int v, int dim, int idLibro)
 {
     stComentario aux;
@@ -244,11 +226,11 @@ int archivoToArrayComenSegunIdLibro(char archivoComentarios[], stComentario arre
 
     if(archi)
     {
-        while( i < dim && fread(&aux, sizeof(stLibro), 1, archi) > 0)
+        while( i < dim && fread(&aux, sizeof(stComentario), 1, archi) > 0)
         {
-            if(strcmpi(autorBuscado, aux.autor) == 0)
+            if(aux.idLibro == idLibro)
             {
-                arregloLibros[i] = aux;
+                arregloComent[i] = aux;
                 i++;
             }
         }
@@ -256,4 +238,30 @@ int archivoToArrayComenSegunIdLibro(char archivoComentarios[], stComentario arre
     }
 
     return i; //retorna los validos
-}*/
+}
+
+int archivoToArrayComenSegunIdUsuario(char archivoComentarios[], stComentario arregloComent[], int v, int dim, int idUsuario)
+{
+    stComentario aux;
+    FILE * archi = fopen(archivoComentarios, "rb");
+    int i = v;
+
+    if(archi)
+    {
+        while( i < dim && fread(&aux, sizeof(stComentario), 1, archi) > 0)
+        {
+            if(aux.idUsuario == idUsuario)
+            {
+                arregloComent[i] = aux;
+                i++;
+            }
+        }
+        fclose(archi);
+    }
+
+    return i; //retorna los validos
+}
+
+
+
+

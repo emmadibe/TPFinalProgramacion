@@ -435,9 +435,34 @@ void imprimirArregloComentariosUser(stComentario arregloComents[], int valComent
     printf("\n");
 }
 
+/*          INCOMPLETA
+
+void subMenuAgregaComentNuevo(usuario sesion, char archivoComent[], char archivoLibros[])
+{
+    char tituloAux[100];
+    int idLibroAux = -1;
+
+    puts("Indica el titulo del lubro que deseas comentar: ");
+    fflush(stdin);
+    gets(tituloAux);
+
+    idLibroAux = buscarIdLibroConTitulo(tituloAux, archivoLibros);
+    if(idLibroAux == -1)
+    {
+        puts("No conocemos ese libro. Puedes ir a la seccion libros y agregarlo.");
+    }
+    else if(idLibroAux > -1)
+    {
+
+    }
 
 
 
+
+
+}
+
+*/
 
 
 

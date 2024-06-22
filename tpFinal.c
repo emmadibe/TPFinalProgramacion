@@ -580,13 +580,14 @@ int opcionSubMenuComentariosAdmin()
     printf("------------------------------------------------------\n");
     printf("   SECCION COMENTARIOS Y VALORACIONES ADMINISTRADOR  \n");
     printf("------------------------------------------------------\n");
-    printf("\n 1-  Ver valoracion y comentarios de un libro.");
-    printf("\n 2-  Puntuar un libro.");
-    printf("\n 3-  Modificar mi valoracion de un libro.");
-    printf("\n 4-  Comentar un libro.");
-    printf("\n 5-  Modificar mi comentario de un libro.");
-    printf("\n 6-  Eliminar mi comentario de un libro.");
-    printf("\n 7-  Eliminar comentarios de otros usuarios de un libro.");
+    printf("\n 1-  Comentar y puntuar un libro");
+    printf("\n 2-  Ver todos tus comentarios y puntuaciones");
+    printf("\n 3-  Modificar tus comentarios y puntuaciones");
+    printf("\n 4-  Eliminar un comentario y puntuacion propio");
+    printf("\n 5-  Ver comentarios y puntuaciones de un libro. Busca por titulo");
+    printf("\n 6-  Ver todos los comentarios y puntuaciones.");
+    printf("\n 7-  Habilitar/Deshabilitar comentarios y puntuaciones.");
+    printf("\n 8-  Eliminar comentarios y puntuaciones.");
     printf("\n 0-  Volver al menu anterior.");
 
     printf("\n\n Ingresa una opcion:  ");
@@ -606,36 +607,37 @@ void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[])
         switch (opcion)
         {
         case 1:
-            puts("Ver lista de libros guardados");
+            puts("\nComentar y puntuar un libro\n\n");
 
             break;
-
         case 2:
-            puts("Puntuar un libro");
+            puts("\nVer todos tus comentarios y puntuaciones\n\n");
 
             break;
-
         case 3:
-            puts("Modificar mi valoracion de un libro");
+            puts("\nModificar tus comentarios y puntuaciones\n\n");
 
             break;
         case 4:
-            puts("Comentar un libro");
+            puts("\nEliminar un comentario y puntuacion propio\n\n");
 
             break;
         case 5:
-            puts("Modificar mi comentario de un libro");
+            puts("\nVer comentarios y puntuaciones de un libro. Busca por titulo\n\n");
 
             break;
         case 6:
-            puts("Eliminar mi comentario de un libro");
+            puts("\nVer todos los comentarios y puntuaciones\n\n");
 
             break;
         case 7:
-            puts("Eliminar comentarios de otros usuarios de un libro");
+            puts("\nHabilitar/Deshabilitar comentarios y puntuaciones\n\n");
 
             break;
+        case 8:
+            puts("\nEliminar comentarios y puntuaciones\n\n");
 
+            break;
         case 0:
             break;
 
