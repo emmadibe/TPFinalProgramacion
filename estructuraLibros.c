@@ -10,7 +10,7 @@ stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[])
 
     /* Uso la funcion de contar la cantidad de elementos del archivo para asignarle
     * al libro el siguinte ID disponible y le sumo uno para que no exista el ID 0 */
-    libro.idLibro = buscaUltimoIDLibro(archivoLibros) + 1;
+    libro.idLibro = buscaMayorIDLibro(archivoLibros) + 1;
 
     strcpy(libro.titulo, tituloNuevoLibro);
 
@@ -37,16 +37,23 @@ stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[])
     return libro;
 }
 
-int buscaUltimoIDLibro(char archivoLibros[])
+int buscaMayorIDLibro(char archivoLibros[])
 {
     stLibro arregloLibros[500];
     int val = 0;
-    int ultimoId = -1;
+    int mayorId = -1;
 
     val = archivoToArrayLibros(archivoLibros,arregloLibros,val,500);
-    ultimoId = arregloLibros[val-1].idLibro;
 
-    return ultimoId;
+    for(int i=0; i<val; i++)
+    {
+        if(arregloLibros[i].idLibro>mayorId)
+        {
+            mayorId = arregloLibros[i].idLibro;
+        }
+    }
+
+    return mayorId;
 }
 
 

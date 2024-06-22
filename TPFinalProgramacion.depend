@@ -4,7 +4,7 @@
 	"funcionesGenerales.h"
 	<stddef.h>
 
-1719027559 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
+1719028715 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
 	"estructuraLibros.h"
 
 1719022562 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
@@ -36,7 +36,7 @@
 	<conio.h>
 	"estructuraLibros.h"
 
-1719027447 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
+1719028715 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
