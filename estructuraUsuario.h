@@ -57,3 +57,4 @@ void imprimirUnRegistro(usuario u);
 void inhabilitarUsuario(char nombreArchivo[], int id);
 int corroborarPass(char pass[]);
 int buscarUltimoId(char nombreArchivo[]);
+usuario buscarUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v);

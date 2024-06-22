@@ -10,7 +10,7 @@
 1719022562 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
 	"estructuraUsuario.h"
 
-1719022689 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
+1719074111 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
 	<stdlib.h>
 	<time.h>
 	<string.h>
@@ -19,7 +19,12 @@
 	"estructuraDomicilio.h"
 	"funcionesGenerales.h"
 
-1718980393 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.h
+1719074463 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.h
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+	<stddef.h>
 
 1718980393 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
 	<stdlib.h>
@@ -46,7 +51,7 @@
 	"estructuraComentarios.h"
 	"funcionesGenerales.h"
 
-1719025830 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
+1719074280 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
 	<stdlib.h>
 	<time.h>
 	<string.h>

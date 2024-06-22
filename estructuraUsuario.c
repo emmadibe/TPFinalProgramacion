@@ -391,7 +391,7 @@ int crearUsuario(char archivo[])
 
     stDomicilio d;
 
-    
+
     u.id = buscarUltimoId(archivo) + 1;
 
     printf("ID: %d\n", u.id);
@@ -485,6 +485,19 @@ int crearUsuario(char archivo[])
 
     }
     while(compararCadenas != 0);
+
+    do
+    {
+
+        printf("\nIngrese username entre 6 y 20 caracteres: \n");
+        fflush(stdin);
+        gets(u.username);
+
+        longCadena = strlen(u.nombre);
+
+    }
+    while(longCadena < 6 || longCadena > 20);
+
 
     do
     {
@@ -611,6 +624,7 @@ void imprimirUnRegistro(usuario u)
     puts("-----------\n");
     printf("ID: %d\n", u.id);
     printf("Nombre y apellido: %s\n", u.nombre);
+    printf("Username: %s\n", u.username);
     printf("Email: %s\n", u.email);
     printf("Contrasenia: %s\n", u.pass);
     printf("Edad: %d\n", u.edad);
@@ -783,6 +797,7 @@ void imprimirArrayUsuario(usuario a[], int v)
 
         printf("ID: %d\n", a[i].id);
         printf("Nombre: %s\n", a[i].nombre);
+        printf("Username: %s\n", a[i].username);
         printf("Email: %s\n", a[i].email);
         printf("Edad: %d\n", a[i].edad);
         printf("Rol: %d\n", a[i].rol);
@@ -852,10 +867,29 @@ void mostrarUnUsuario(usuario u)
     puts("-----------\n");
     printf("ID: %d\n", u.id);
     printf("Nombre y apellido: %s\n", u.nombre);
+    printf("Username: %s\n", u.username);
     printf("Email: %s\n", u.email);
     printf("Edad: %d\n", u.edad);
     printf("Genero: %c\n", u.genero);
     printf("Fecha de nacimiento: %s\n", u.fechaNacimiento);
     printf("Rol: %d\n", u.rol);
     puts("---------------\n");
+}
+
+usuario buscarUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v)
+{
+    int i = 0;
+    stUsuario userEncontrado;
+    char flag = 1;
+
+    while(i < v && flag == 1)
+    {
+        if(arregloUsuarios[i].id == idUsuarioBuscado)
+        {
+            userEncontrado = arregloUsuarios[i];
+            flag = 0;
+        }
+        i++;
+    }
+    return userEncontrado;
 }

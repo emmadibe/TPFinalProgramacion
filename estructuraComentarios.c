@@ -3,75 +3,9 @@
 #include <stddef.h>
 
 
-
-stComentario cargarComentarioNuevo(int idUsuario, int idLibro, char archivoComentarios[])
-{
-
-    stComentario comentario;
-    char descripcion[500];
-    char titulo[20];
-    comentario.idComentario = cantElementosArchivo(archivoComentarios, sizeof(stComentario));
-    int puntaje = 0;
-
-    /////////////////////////////////////////////OBTENGO LA FECHA ACTUAL :
-    time_t tiempo_actual;
-    struct tm* tiempo_local;
-    char fecha_actual[80];
-
-    // Obtener el tiempo actual
-    tiempo_actual = time(NULL);
-    tiempo_local = localtime(&tiempo_actual);
-
-    // Formatear la fecha actual como una cadena
-    strftime(fecha_actual, 80, "%d/%m/%Y", tiempo_local);
-
-    ///////////////////////////////////////FIN DE OBTENER LA FECHA ACTUAL
-
-    FILE * archi = fopen(archivoComentarios, "ab");
-
-    if(archi)
-    {
-
-        comentario.idUsuario = idUsuario;
-        comentario.idLibro = idLibro;
-        comentario.idComentario = cantElementosArchivo(archivoComentarios, sizeof(stComentario));
-
-        printf("Titulo del comentario: \n");
-        fflush(stdin);
-        gets(titulo);
-
-        strcpy(comentario.tituloComentario, titulo);
-        printf("Comente, en un maximo de 500 chars, que le parecio el libro.\n");
-        fflush(stdin);
-        gets(descripcion);
-
-        strcpy(comentario.descripcion, descripcion);
-
-        do{
-
-            printf("Ponele un puntaje del 0 al 5 al libro.\n");
-
-            scanf("%d", &puntaje);
-
-        }while(puntaje < 0 || puntaje > 5);
-
-            comentario.puntaje = puntaje;
-
-        strcpy(comentario.fechaComentario, fecha_actual); //Copio el contenido de fecha_actual en el campo fechaComentario.
-
-        fwrite(&comentario, sizeof(stComentario), 1, archi);
-        fclose(archi); //Debo cerrar el archivo para guardar los cambios
-
-    }
-
-    return comentario;
-}
-
 void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int  *v, int d)
 {
-
     int cant = cantElementosArchivo(nombreArchivo, sizeof(stComentario));
-
     int total = cant + *v;
 
     FILE *archi = fopen(nombreArchivo, "rb");
@@ -104,27 +38,6 @@ int buscarComentarioIdLibro(int idLibro, stComentario c[], int v)
     return posicion;
 }
 
-void imprimirUnComentarioDelArrayComentario(stComentario c[], int posicion, char tituloLibro[50])
-{
-
-    puts("-------------------------------------\n");
-
-    printf("Comentario del libro %s\n", tituloLibro);
-
-    printf("Titulo del comentario: %s\n", c[posicion].tituloComentario);
-    printf("Descripcion: %s\n", c[posicion].descripcion);
-    printf ("Puntaje: %d\n", c[posicion].puntaje);
-    printf ("Fecha: %s\n", c[posicion].fechaComentario);
-    ///como hacer para que aparezca el usuario que realizo el comentario?
-    ///esta bien poner lo siguiente?
-    printf ("Usuario %d\n", c[posicion].idUsuario);
-
-    puts("-------------------------------------\n");
-
-
-}
-
-
 void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[])
 {
     FILE * archi = fopen(archivoComentarios,"wb");
@@ -141,7 +54,6 @@ void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[
 
 void ModificarComentarios(stComentario c[],int v)
 {
-
     int idAux;
     int option2;
     int pos = -1;
@@ -206,13 +118,10 @@ void ModificarComentarios(stComentario c[],int v)
 
         printf("\n No existe comentario con ese id");
     }
-
-
 }
 
 int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idAux)
 {
-
     int pos = -1;
     int i = 0;
 
@@ -224,12 +133,10 @@ int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idAux)
         }
         i++;
     }
-
-
     return pos;
 }
 
-void eliminarComentario(stComentario c[] , int pos, int idAux)
+void eliminarComentario(stComentario c[], int pos, int idAux)
 {
     strcpy (c[pos].descripcion, " ");
     strcpy (c[pos].puntaje, " ");
@@ -239,3 +146,177 @@ void eliminarComentario(stComentario c[] , int pos, int idAux)
 
 }
 
+stComentario cargaUnComentario(int idUsuario, int idLibro, char archivoComentarios[])
+{
+    stComentario nuevoComentario;
+    int puntaje = -1;
+
+    //OBTENGO LA FECHA ACTUAL :
+    time_t tiempo_actual;
+    struct tm* tiempo_local;
+    char fecha_actual[80];
+
+    // Obtener el tiempo actual
+    tiempo_actual = time(NULL);
+    tiempo_local = localtime(&tiempo_actual);
+
+    // Formatear la fecha actual como una cadena
+    strftime(fecha_actual, 80, "%d/%m/%Y", tiempo_local);
+
+    nuevoComentario.idUsuario = idUsuario;
+    nuevoComentario.idLibro = idLibro;
+    nuevoComentario.idComentario = buscaMayorIDComentario(archivoComentarios) + 1;
+
+    printf("Titulo del comentario: \n");
+    fflush(stdin);
+    gets(nuevoComentario.tituloComentario);
+
+    printf("Comente, en un maximo de 500 caracteres, que le parecio el libro: \n");
+    fflush(stdin);
+    gets(nuevoComentario.descripcion);
+
+    do
+    {
+
+        printf("Ponele un puntaje del 0 al 5 al libro.\n");
+
+        scanf("%d", &puntaje);
+
+    }
+    while(puntaje < 0 || puntaje > 5);
+
+    nuevoComentario.puntaje = puntaje;
+
+    strcpy(nuevoComentario.fechaComentario, fecha_actual);
+
+    return nuevoComentario;
+}
+
+int buscaMayorIDComentario(char archivoComentario[])
+{
+    stComentario arregloComentarios[500];
+    int val = 0;
+    int mayorId = -1;
+
+    val = archivoToArrayComentario(archivoComentario,arregloComentarios,val,500);
+
+    for(int i=0; i<val; i++)
+    {
+        if(arregloComentarios[i].idComentario > mayorId)
+        {
+            mayorId = arregloComentarios[i].idComentario;
+        }
+    }
+
+    return mayorId;
+}
+
+void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentarios[])
+{
+    stComentario comentario;
+
+    FILE *archi = fopen(archivoComentarios, "ab");
+
+    if(archi)
+    {
+        comentario = cargaUnComentario(idUsuario,idLibro,archivoComentarios);
+        fwrite(&comentario, sizeof(stComentario), 1, archi);
+        fclose(archi); //Debo cerrar el archivo para guardar los cambios
+
+    }
+}
+
+void imprimirUnComentarioAdmin(stComentario c, stLibro arregloLibros, int valLibros, usuario arregloUsuarios, int valUsuarios)
+{
+    stLibro libroAux;
+    usuario usuarioAux;
+
+    libroAux = buscarLibroPorId(c.idLibro,arregloLibros,valLibros);
+    usuarioAux = buscarUsuarioPorId(c.idUsuario,arregloUsuarios,valUsuarios);
+
+    puts("------------------------------------------------");
+    printf("Comentario del libro: %s\n",libroAux.titulo);
+    puts("------------------------------------------------");
+    printf("Usuario: %s\n", usuarioAux.username);
+    printf("Titulo del comentario: %sn\n", c.tituloComentario);
+    printf("Comentario: \n\n%s\n\n", c.descripcion);
+    printf("Puntaje del usuario: %d\n", c.puntaje);
+    printf("Fecha: %s\n", c.fechaComentario);
+    printf("Fecha: %s\n", c.fechaComentario);
+    if(c.eliminado == 1)
+    {
+        printf("\nEstado:DESHABILITADO");
+    }
+    else if(c.eliminado == 0)
+    {
+        printf("\nEstado:HABILITADO");
+    }
+    puts("-------------------------------------\n");
+}
+
+void imprimirUnComentarioUsuario(stComentario c, stLibro arregloLibros, int valLibros, usuario arregloUsuarios, int valUsuarios)
+{
+    stLibro libroAux;
+    usuario usuarioAux;
+
+    libroAux = buscarLibroPorId(c.idLibro,arregloLibros,valLibros);
+    usuarioAux = buscarUsuarioPorId(c.idUsuario,arregloUsuarios,valUsuarios);
+    if(c.eliminado == 0)
+    {
+        puts("------------------------------------------------");
+        printf("Comentario del libro: %s\n",libroAux.titulo);
+        puts("------------------------------------------------");
+        printf("Usuario: %s\n", usuarioAux.username);
+        printf("Titulo del comentario: %sn\n", c.tituloComentario);
+        printf("Comentario: \n\n%s\n\n", c.descripcion);
+        printf("Puntaje del usuario: %d\n", c.puntaje);
+        printf("Fecha: %s\n", c.fechaComentario);
+        printf("Fecha: %s\n", c.fechaComentario);
+        puts("-------------------------------------\n");
+    }
+}
+
+void imprimirArregloComentariosAdmin(stComentario arregloComents[], int valComents, stLibro arregloLibros[], int valLibros, usuario arregloUsuarios[], int valUsuarios)
+{
+    int i = 0;
+
+    while(i < valComents)
+    {
+        imprimirUnComentarioAdmin(arregloComents[i],arregloLibros,valLibros,arregloUsuarios,valUsuarios);
+        i++;
+    }
+    printf("\n");
+}
+
+void imprimirArregloComentariosUser(stComentario arregloComents[], int valComents, stLibro arregloLibros[], int valLibros, usuario arregloUsuarios[], int valUsuarios)
+{
+    int i = 0;
+
+    while(i < valComents)
+    {
+        imprimirUnComentarioUsuario(arregloComents[i],arregloLibros,valLibros,arregloUsuarios,valUsuarios);
+        i++;
+    }
+    printf("\n");
+/*
+int archivoToArrayComenSegunIdLibro(char archivoComentarios[], stComentario arregloComent[], int v, int dim, int idLibro)
+{
+    stComentario aux;
+    FILE * archi = fopen(archivoComentarios, "rb");
+    int i = v;
+
+    if(archi)
+    {
+        while( i < dim && fread(&aux, sizeof(stLibro), 1, archi) > 0)
+        {
+            if(strcmpi(autorBuscado, aux.autor) == 0)
+            {
+                arregloLibros[i] = aux;
+                i++;
+            }
+        }
+        fclose(archi);
+    }
+
+    return i; //retorna los validos
+}*/

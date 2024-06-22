@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 
+
 typedef struct {
     int idComentario;  /// único, autoincremental
     int idLibro;
@@ -14,13 +15,18 @@ typedef struct {
     int eliminado; /// 0 si está activo - 1 si está eliminado
 }stComentario;
 
-stComentario cargarComentarioNuevo(int idUsuario, int idLibro, char archivoComentarios[]);
 void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int * v, int d);
 int buscarComentarioIdLibro(int idLibro, stComentario c[], int v);
-void imprimirUnComentarioDelArrayComentario(stComentario c[], int posicion, char tituloLibro[50]); ///mostrar
 
 ///agregadas 21 de junio, NO APARECEN EN EL MAIN POR SI QUERES HACER MODIFICACIONES:
 void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[]);
 void ModificarComentarios(stComentario c[],int v);
 int buscaComentarioPosicionIdEnArreglo(stComentario c[], int v, int idAux);
 void eliminarComentario(stComentario c[] , int pos, int idAux);
+
+
+stComentario cargaUnComentario(int idUsuario, int idLibro, char archivoComentarios[]);
+void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentarios[]);
+void imprimirUnComentarioAdmin(stComentario c, stLibro arregloLibros, int valLibros, usuario arregloUsuarios, int valUsuarios);
+void imprimirUnComentarioUsuario(stComentario c, stLibro arregloLibros, int valLibros, usuario arregloUsuarios, int valUsuarios);
+void imprimirArregloComentariosAdmin(stComentario arregloComents[], int valComents, stLibro arregloLibros[], int valLibros, usuario arregloUsuarios[], int valUsuarios);

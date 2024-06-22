@@ -365,6 +365,7 @@ int archivoToArrayLibrosSegunAutor(char archivoLibros[], stLibro arregloLibros[]
     }
     return i; //retorna los validos
 }
+
 void modificaDatosLibro(stLibro arregloLibros[], int val)
 {
     char tituloBuscado[100];
