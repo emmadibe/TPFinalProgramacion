@@ -56,3 +56,4 @@ void inhabilitarUsuario(char nombreArchivo[], int id);
 int corroborarPass(char pass[]);
 int buscarUltimoId(char nombreArchivo[]);
 usuario buscarUnUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v);
+int buscarMayorId(char nombreArchivo[]);

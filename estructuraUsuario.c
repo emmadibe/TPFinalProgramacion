@@ -1,5 +1,36 @@
 #include "estructuraUsuario.h"
 
+int buscarMayorId(char nombreArchivo[])
+{
+
+    usuario u[200];
+
+    int v = 0;
+
+    v = archivoToArregloUsuario(nombreArchivo, u, v, 200);
+
+    //Ahora buscaremos al id más alto del array
+
+    int i = 0;
+
+    int mayor = u[0].id; //Siempre, cuando busco el mayor, supongo que el primer elemento del array es el mayor.
+
+    while(i < v){
+
+        if(u[i].id > mayor){
+
+            mayor = u[i].id;
+
+        }
+
+        i++;
+
+    }
+
+    return mayor;
+
+}
+
 int buscarUltimoId(char nombreArchivo[])
 {
 
@@ -392,7 +423,7 @@ int crearUsuario(char archivo[])
     stDomicilio d;
 
 
-    u.id = buscarUltimoId(archivo) + 1;
+    u.id = buscarMayorId(archivo) + 1;
 
     printf("ID: %d\n", u.id);
 
