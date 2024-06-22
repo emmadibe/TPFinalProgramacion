@@ -10,7 +10,7 @@ stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[])
 
     /* Uso la funcion de contar la cantidad de elementos del archivo para asignarle
     * al libro el siguinte ID disponible y le sumo uno para que no exista el ID 0 */
-    libro.idLibro = (cantElementosArchivo(archivoLibros, sizeof(stLibro)) + 1);
+    libro.idLibro = buscaUltimoIDLibro(archivoLibros) + 1;
 
     strcpy(libro.titulo, tituloNuevoLibro);
 
@@ -36,6 +36,19 @@ stLibro cargaUnNuevoLibro(char tituloNuevoLibro[], char archivoLibros[])
 
     return libro;
 }
+
+int buscaUltimoIDLibro(char archivoLibros[])
+{
+    stLibro arregloLibros[500];
+    int val = 0;
+    int ultimoId = -1;
+
+    val = archivoToArrayLibros(archivoLibros,arregloLibros,val,500);
+    ultimoId = arregloLibros[val-1].idLibro;
+
+    return ultimoId;
+}
+
 
 void eligeCategoriaLibro(char categoria[])
 {
@@ -803,8 +816,8 @@ void mostrarLibroComentAleatorio(char archivoLibros[],char archivoComentarios[])
     int validosLibros = 0;
     int posLibro = -1;
 
-    stComentario arregloComentarios[500];
-    int valComentarios = 0;
+    //stComentario arregloComentarios[500];
+    //int valComentarios = 0;
 
     validosLibros = archivoToArrayLibros(archivoLibros,arregloLibros,validosLibros,500);
     posLibro = posRandomArray(validosLibros);

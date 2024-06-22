@@ -26,6 +26,7 @@ int existeLibro(char nombreLibro[], char archivoLibros[]);
 void cargaLibrosAlArchivo(char archivoLibros[]);
 int existeIdArreglo(int id, int arregloId[], int val);
 int posRandomArray(int validos);
+int buscaUltimoIDLibro(char archivoLibros[]);
 
 void muestraUnLibroAdmin(stLibro libro);
 void muestraArchivoLibrosAdmins(char archivoLibros[]);
