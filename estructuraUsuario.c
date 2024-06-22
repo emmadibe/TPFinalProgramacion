@@ -164,7 +164,7 @@ void eliminarUsuario(char nombreArchivo[], usuario admin) //Función para elimin
         if(posicion == -1)
         {
 
-            printf("No existe un usuaio con ese id\n");
+            printf("No existe un usuario con ese id\n");
 
         }else{
 

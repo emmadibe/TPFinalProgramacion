@@ -264,4 +264,59 @@ int archivoToArrayComenSegunIdUsuario(char archivoComentarios[], stComentario ar
 
 
 
+///eliminar comentario:
+void eliminarComentario(char archivoComentarios[])
+{
+
+        int v = 0;
+        int dimension = 300;
+        int idComenEliminar = 0;
+        int pos;
+
+        v = archivoToArrayComentario(archivoComentarios, c, &v, dimension);
+
+        printf("Ingresar el id del comentario que desea eliminar: \n");
+        scanf("%d", &idComenEliminar);
+
+        pos = buscaComentarioPosicionPorIdComent(c,v,idcomenEliminar);
+
+        if(pos == -1)
+        {
+
+            printf("No existe un comentario con ese id\n");
+
+        }else{
+
+
+            v = eliminarC(c, v, pos);
+
+            arrayToArchivoComentarios(c, v, archivoComentarios); //Guardo el array en el archivo de comentarios
+
+            printf("Comentario eliminado correctamente\n");
+
+            }
+
+        }
+
+
+
+int eliminarC(stComentario c[] , int v, int pos)
+{
+
+    c[pos].idComentario, c[v - 1].idComentario;
+    c[pos].idLibro,  c[v - 1].idLibro;
+    c[pos].idUsuario,  c[v - 1].idUsuario;
+    strcpy(c[pos].tituloComentario,  c[v - 1].tituloComentario);
+    strcpy(c[pos].descripcion =  c[v - 1].descripcion);
+    c[pos].puntaje =  c[v - 1].puntaje;
+    strcpy(c[pos].fechaComentario =  c[v - 1].fechaComentario);
+    c[pos].eliminado =  c[v - 1].eliminado;
+
+
+    return v - 1; //un comentario menos
+
+}
+
+
+
 
