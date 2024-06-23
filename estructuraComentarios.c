@@ -48,81 +48,8 @@ void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[
     }
 }
 
-///modificar y eliminar comentarios:
-
-/*
-void subMenuModificaComentarios(char archivoLibros[])
-{
-/**yo usaria el titulo del libro para buscar el
-* idLibro y este idLibro para encontrar el comentario (Kari)
-
-    int idAux;
-    int option2;
-    int pos = -1;
-
-    printf("Que comentario queres modificar? Indica el titulo del libro:\n");
-    scanf("%d",&idAux);
-
-    pos = buscaComentarioPosicionPorIdComent(c,v,idAux);
-
-    if(pos > -1)
-    {
-        do
-        {
-            printf("EDITAR COMENTARIO (marque opcion)\n");
-            printf("1. Modificar Titulo del comentario\n");
-            printf("2. Modificar Descripcion\n");
-            printf("3. Modificar Puntaje");
-            printf("4. Eliminar comentario");
-            printf("5. Salir de EDITAR COMENTARIO");
-
-            scanf("%d",&option2);
-
-            switch(option2)
-            {
-
-            case 1:
-                printf("Ingrese el nuevo titulo\n");
-                fflush(stdin);
-                gets(c[pos].tituloComentario);
-                printf("Se modifico correctamente \n");
-                break;
-
-            case 2:
-                printf("Ingrese la nueva descripcion \n");
-                fflush(stdin);
-                gets(c[pos].descripcion);
-                printf("Se modifico correctamente\n");
-                break;
-
-            case 3:
-                printf("Ingrese nuevo puntaje \n");
-                scanf("%d", &c[pos].puntaje);
-                printf("Se modifico correctamente\n");
-                break;
-            case 4:
-               /// eliminarComentario(c);
-                printf("Se elimino el comentario\n");
-               break;
-
-            default:
-                printf("No existe esa opción. Quiere volver a intentar?\n");
-                scanf("%d", &option2);
-            }
-        }
-        while(option2 != 5);
-    }
-    else
-    {
-        printf("\n No existe comentario con ese id");
-    }
-}
-*/
-
-
 void subMenuModificaComentario(stComentario c[], int pos)
 {
-    int option = 0;
     int option2 = 0;
 
     do
@@ -353,11 +280,11 @@ int cantPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int
     {
         if(arregloComent[i].idLibro == idLibro)
         {
-            cant = 1 + cantPuntuacionesRecursivoCondicion(arregloComent,val,i,idLibro);
+            cant = 1 + cantPuntuacionesRecursivoCondicion(arregloComent,val,i+1,idLibro);
         }
         else
         {
-            cant = cantPuntuacionesRecursivoCondicion(arregloComent,val,i,idLibro);
+            cant = cantPuntuacionesRecursivoCondicion(arregloComent,val,i+1,idLibro);
         }
     }
     return cant;

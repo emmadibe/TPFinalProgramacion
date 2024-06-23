@@ -382,7 +382,6 @@ void imprimirUnComentarioAdmin(stComentario c, stLibro arregloLibros[], int valL
     printf("Comentario: \n\n%s\n\n", c.descripcion);
     printf("Puntaje del usuario: %d\n", c.puntaje);
     printf("Fecha: %s\n", c.fechaComentario);
-    printf("Fecha: %s\n", c.fechaComentario);
     if(c.eliminado == 1)
     {
         printf("\nEstado:DESHABILITADO");
@@ -411,7 +410,6 @@ void imprimirUnComentarioUsuario(stComentario c, stLibro arregloLibros[], int va
         printf("Titulo del comentario: %sn\n", c.tituloComentario);
         printf("Comentario: \n\n%s\n\n", c.descripcion);
         printf("Puntaje del usuario: %d\n", c.puntaje);
-        printf("Fecha: %s\n", c.fechaComentario);
         printf("Fecha: %s\n", c.fechaComentario);
         puts("-------------------------------------\n");
     }
