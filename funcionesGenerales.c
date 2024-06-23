@@ -448,7 +448,7 @@ void subMenuAgregaComentNuevo(usuario sesion, char archivoComent[], char archivo
     int idLibroAux = -1;
     int comentarioExite = -1;
 
-    puts("Indica el titulo del lubro que deseas comentar: ");
+    puts("Indica el titulo del libro que deseas comentar: ");
     fflush(stdin);
     gets(tituloAux);
 
