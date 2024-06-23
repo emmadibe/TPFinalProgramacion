@@ -268,7 +268,10 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
         {
 
             printf("Seleccionar el campo a editar: \n");
-            printf("1)Nombre.\n 2)Email.\n 3)Pass.\n 4)Edad.\n 5)Genero.\n 6)Username.");
+            printf(" 1)Nombre.\n 2)Email.\n 3)Pass.\n 4)Edad.\n 5)Genero.\n 6)Username.\n 0)Salir de editar usuario.\n");
+
+            printf("\n\n Ingresa una opcion:  ");
+            fflush(stdin);
             scanf("%d", &opcion);
 
         }
@@ -395,7 +398,8 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
 
             }
             while(longCadena < 6 || longCadena > 20);
-
+            break;
+        case 0:
             break;
         }
 
@@ -572,6 +576,7 @@ int crearUsuario(char archivo[])
     {
 
         printf("\nIngresar el dia de nacimiento.\n");
+        fflush(stdin);
         scanf("%d", &dia);
 
     }
@@ -581,6 +586,7 @@ int crearUsuario(char archivo[])
     {
 
         printf("\nIngrese mes de nacimiento\n");
+        fflush(stdin);
         scanf("%d", &mes);
 
     }
@@ -590,6 +596,7 @@ int crearUsuario(char archivo[])
     {
 
         printf("\nIngrese el anio de nacimiento\n");
+        fflush(stdin);
         scanf("%d", &anio);
         puts("\n");
     }

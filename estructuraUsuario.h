@@ -57,3 +57,5 @@ int corroborarPass(char pass[]);
 int buscarUltimoId(char nombreArchivo[]);
 usuario buscarUnUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v);
 int buscarMayorId(char nombreArchivo[]);
+int buscarUsuarioPorId(int idUsuario, usuario u[], int v);
+int cantElementosArchivo(char nombreArchivo[], int tamanio);

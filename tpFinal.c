@@ -4,7 +4,6 @@
 #define AR_LIBROS "libros.bid"
 #define AR_COMENTARIOS "comentarios.bid"
 
-
 int opcionesMenuLogueo();
 void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
 usuario guardaVariablesDeSession(usuario SESSION, usuario u);
@@ -38,7 +37,6 @@ int main()
 
     menuLogueo(AR_USUARIOS,AR_LIBROS,AR_COMENTARIOS);
 
-    // mostrarUnUsuario(SESSION);  //Función para controlar los datos almacenados en SESSION
 }
 
 /// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------///
@@ -74,7 +72,7 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
 
     int crearNuevoUsuario = 0;
 
-    usuario a[100];
+    usuario a[200];
     int validosUsuario = 0;
 
     char email[50];
@@ -82,7 +80,7 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
 
     int posUsuarioLogueado = -3;
 
-    validosUsuario = archivoToArregloUsuario(archivoUsuarios, a, validosUsuario, 100);   /// se está pasando el archivo al arreglo dos veces (ver linea 116)
+    validosUsuario = archivoToArregloUsuario(archivoUsuarios, a, validosUsuario, 200);   /// se está pasando el archivo al arreglo dos veces (ver linea 116)
 
     int opcionMenu;
 
@@ -113,7 +111,7 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
 
             puts("LOGUEARTE\n");
 
-            validosUsuario = archivoToArregloUsuario(archivoUsuarios, a, validosUsuario, 100);
+            validosUsuario = archivoToArregloUsuario(archivoUsuarios, a, validosUsuario, 200);
 
             do
             {
@@ -178,6 +176,7 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
 usuario guardaVariablesDeSession(usuario SESSION, usuario u)
 {
     strcpy(SESSION.nombre, u.nombre);
+    strcpy(SESSION.username, u.username);
     strcpy(SESSION.email, u.email);
     strcpy(SESSION.pass, u.pass);
     strcpy(SESSION.fechaNacimiento, u.fechaNacimiento);
@@ -307,7 +306,7 @@ void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[])
     int opcion = -1;
 
     int validosUsuarios = 0;
-    usuario u[50];
+    usuario u[500];
 
     int id = 0;
 
@@ -321,7 +320,7 @@ void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[])
             puts("Ver lista de usuarios registrados.");
 
             validosUsuarios = 0; //Reinicio el válidos para que no haya repetición de usuarios.
-            validosUsuarios = archivoToArregloUsuario(archivoUsuarios, u, validosUsuarios, 50);
+            validosUsuarios = archivoToArregloUsuario(archivoUsuarios, u, validosUsuarios, 500);
             imprimirArrayUsuario(u, validosUsuarios);
 
 
