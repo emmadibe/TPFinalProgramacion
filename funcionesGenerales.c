@@ -435,12 +435,12 @@ void imprimirArregloComentariosUser(stComentario arregloComents[], int valComent
     printf("\n");
 }
 
-/*          INCOMPLETA
 
 void subMenuAgregaComentNuevo(usuario sesion, char archivoComent[], char archivoLibros[])
 {
     char tituloAux[100];
     int idLibroAux = -1;
+    int comentarioExite = -1;
 
     puts("Indica el titulo del lubro que deseas comentar: ");
     fflush(stdin);
@@ -453,17 +453,99 @@ void subMenuAgregaComentNuevo(usuario sesion, char archivoComent[], char archivo
     }
     else if(idLibroAux > -1)
     {
-
+        comentarioExite = usuarioYaComentoLibro(idLibroAux,sesion.id,archivoComent);
+        if(comentarioExite == 1)
+        {
+            puts("Ya comentaste este libro anteriormente.");
+        }
+        else
+        {
+            cargaComentariosAlArchivo(sesion.id,idLibroAux,archivoComent,archivoLibros);
+        }
     }
-
-
-
-
-
 }
 
-*/
+void subMenuImprimeComentariosAdministradores(stComentario arregloComent[], int valComent, char archivoLibros[], char archivoUsuarios[])
+{
 
+    stLibro arregloLibros[500];
+    int validosLibros = 0;
+
+    usuario arregloUsuarios[500];
+    int validosUsuarios = 0;
+
+    validosUsuarios = archivoToArregloUsuario(archivoUsuarios,arregloUsuarios,validosUsuarios,500);
+    validosLibros = archivoToArrayLibros(archivoLibros,arregloLibros,validosLibros,500);
+
+    imprimirArregloComentariosAdmin(arregloComent,valComent,arregloLibros,validosLibros,arregloUsuarios,validosUsuarios);
+}
+
+void subMenuImprimeComentariosDeUnLibro(char archivoLibros[], char archivoComentarios[],char archivoUsuarios[])
+{
+    char tituloAux[100];
+    int idLibroAux = -1;
+
+    int control = 0;
+
+    stComentario arregloComents[500];
+    int valComents = 0;
+
+    do{
+        puts("\nDe que libro quieres ver los comentarios? Ingresa el titulo completo: ");
+        fflush(stdin);
+        gets(tituloAux);
+
+        idLibroAux = buscarIdLibroConTitulo(tituloAux,archivoLibros);
+        if(idLibroAux == -1)
+        {
+            puts("No pudimos encontrar el libro. Si quieres volver a intentar presiona 1");
+            scanf("%d", &control);
+        }
+        else
+        {
+            valComents = archivoToArrayComenSegunIdLibro(archivoComentarios,arregloComents,valComents,500,idLibroAux);
+            subMenuImprimeComentariosAdministradores(arregloComents,valComents,archivoLibros,archivoUsuarios);
+        }
+
+    } while(control == 1);
+}
+
+void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentarios[], char archivoLibros[])
+{
+    stComentario comentario;
+
+    FILE *archi = fopen(archivoComentarios, "ab");
+
+    if(archi)
+    {
+        comentario = cargaUnComentario(idUsuario,idLibro,archivoComentarios);
+        fwrite(&comentario, sizeof(stComentario), 1, archi);
+        fclose(archi); //Debo cerrar el archivo para guardar los cambios
+    }
+    recalculoPuntuacionComentario(idLibro,archivoLibros,archivoComentarios);
+}
+
+void recalculoPuntuacionComentario(int idLibro, char archivoLibros[], char archivoComentarios[])
+{
+    stComentario arregloComent[500];
+    int valComentarios = 0;
+
+    stLibro arregloLibros[500];
+    int valLibros = 0;
+
+    float nuevaPuntuacion = 0;
+    int posicionLibro = -1;
+
+    archivoToArrayComentario(archivoComentarios,arregloComent,&valComentarios,500);
+    valLibros = archivoToArrayLibros(archivoLibros,arregloLibros,valLibros,500);
+
+    nuevaPuntuacion = promedioPuntuacion(arregloComent,valComentarios,idLibro);
+    posicionLibro = buscarPosArregloLibroConIdLibro(idLibro,arregloLibros,valLibros);
+
+    arregloLibros[posicionLibro].valoracion = nuevaPuntuacion;
+
+    arregloToArchivoLibros(arregloLibros,valLibros,archivoLibros);
+}
 
 
 

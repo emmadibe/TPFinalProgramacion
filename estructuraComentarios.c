@@ -73,7 +73,7 @@ void ModificarComentarios(stComentario c[],int v)
             printf("1. Modificar Titulo del comentario\n");
             printf("2. Modificar Descripcion\n");
             printf("3. Modificar Puntaje");
-//            printf("4. Eliminar comentario");
+            printf("4. Eliminar comentario");
             printf("5. Salir de EDITAR COMENTARIO");
 
             scanf("%d",&option2);
@@ -112,11 +112,9 @@ void ModificarComentarios(stComentario c[],int v)
             }
         }
         while(option2 != 5);
-
     }
     else
     {
-
         printf("\n No existe comentario con ese id");
     }
 }
@@ -202,20 +200,6 @@ int buscaMayorIDComentario(char archivoComentario[])
     return mayorId;
 }
 
-void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentarios[])
-{
-    stComentario comentario;
-
-    FILE *archi = fopen(archivoComentarios, "ab");
-
-    if(archi)
-    {
-        comentario = cargaUnComentario(idUsuario,idLibro,archivoComentarios);
-        fwrite(&comentario, sizeof(stComentario), 1, archi);
-        fclose(archi); //Debo cerrar el archivo para guardar los cambios
-
-    }
-}
 
 void intercambioComentariosArreglo(stComentario *a, stComentario *b)
 {
@@ -268,6 +252,81 @@ int archivoToArrayComenSegunIdUsuario(char archivoComentarios[], stComentario ar
 
     return i; //retorna los validos
 }
+
+int usuarioYaComentoLibro(int idLibro, int idUsuario, char archivoComentarios[])
+{
+    stComentario arrayComents[500];
+    int validos = 0, i = 0;
+    int flag = 0; // en un primcipio, suponemos que el comentario no existe en el archivo
+
+    validos = archivoToArrayComenSegunIdLibro(archivoComentarios,arrayComents,validos,500,idLibro);
+
+    while(i < validos && flag == 0)
+    {
+        if(idUsuario == arrayComents[i].idUsuario)  // comprueba, libro por libro, si el titulo ya está guardado en el archivo (no diferencia entre mayusculas y minusculas
+        {
+            flag = 1; // El libro ya existe en el archivo
+        }
+        i++;
+    }
+    return flag; // 1: el usuario ya comento, 0: el usuario todavia no comento
+}
+
+
+int sumaPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int i, int idLibro)
+{
+    int sumatoria;
+
+    if(i == val)
+    {
+        sumatoria = 0;
+    }
+    else
+    {
+        if(arregloComent[i].idLibro == idLibro)
+        {
+            sumatoria = (arregloComent[i].puntaje) + (sumaPuntuacionesRecursivoCondicion(arregloComent,val,i+1,idLibro));
+        }
+        else
+        {
+            sumatoria = sumaPuntuacionesRecursivoCondicion(arregloComent,val,i+1,idLibro);
+        }
+    }
+    return sumatoria;
+}
+
+int cantPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int i, int idLibro)
+{
+    int cant;
+
+    if(i == val)
+    {
+        cant = 0;
+    }
+    else
+    {
+        if(arregloComent[i].idLibro == idLibro)
+        {
+            cant = 1 + cantPuntuacionesRecursivoCondicion(arregloComent,val,i,idLibro);
+        }
+        else
+        {
+            cant = cantPuntuacionesRecursivoCondicion(arregloComent,val,i,idLibro);
+        }
+    }
+    return cant;
+}
+
+float promedioPuntuacion(stComentario arregloComent[], int val, int idLibro)
+{
+
+    return (float) sumaPuntuacionesRecursivoCondicion(arregloComent,val,0,idLibro)/cantPuntuacionesRecursivoCondicion(arregloComent,val,0,idLibro);
+}
+
+
+
+
+
 
 
 //

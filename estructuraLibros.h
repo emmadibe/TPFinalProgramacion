@@ -41,6 +41,7 @@ int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[]);
 stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v);
 int buscaLibroConTituloEnArreglo(stLibro arregloLibros[], int val);
 int buscaLibroPosicionEnArregloTitulo(stLibro arreglo[], int val, char titulo[]);
+int buscarPosArregloLibroConIdLibro(int idLibroBuscado, stLibro libros[], int v);
 
 void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo);
 void modificaDatosLibro(stLibro arregloLibros[], int val);

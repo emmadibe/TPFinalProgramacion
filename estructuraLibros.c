@@ -513,6 +513,23 @@ int existeIdArreglo(int id, int arregloId[], int val)
     return posicion;
 }
 
+int buscarPosArregloLibroConIdLibro(int idLibroBuscado, stLibro libros[], int v)
+{
+    int i = 0;
+    int posicion = -1;
+    char flag = 't';
+
+    while(i < v && flag == 't')
+    {
+        if(libros[i].idLibro == idLibroBuscado)
+        {
+            posicion = i;
+            flag = 'f';
+        }
+        i++;
+    }
+    return posicion;
+}
 
 
 

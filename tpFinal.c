@@ -16,7 +16,7 @@ void subMenuUsuariosAdmin(usuario SESSION, char archivoUsuarios[]);
 int opcionSubMenuLibrosAdmin();
 void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuarios[], char archivoComentarios[]);
 int opcionSubMenuComentariosAdmin();
-void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[]);
+void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[],char archivoLibros[], char archivoUsuarios[]);
 
 int opcionesMenuUsuario();
 void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
@@ -171,7 +171,7 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
     while(opcionMenu != 0);
 }
 
-usuario guardaVariablesDeSession(usuario SESSION, usuario u)  /// se puede reemplazar poniendo en el menu " SESSION = u "
+usuario guardaVariablesDeSession(usuario SESSION, usuario u)
 {
     strcpy(SESSION.nombre, u.nombre);
     strcpy(SESSION.email, u.email);
@@ -234,7 +234,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
         {
         case 1: //Ir a SECCION COMENTARIOS
 
-            subMenuComentariosAdmin(SESSION, archivoComentarios);
+            subMenuComentariosAdmin(SESSION, archivoComentarios, archivoLibros, archivoUsuarios);
 
             break;
         case 2: //Ir a SECCION LIBROS
@@ -582,12 +582,11 @@ int opcionSubMenuComentariosAdmin()
     printf("------------------------------------------------------\n");
     printf("\n 1-  Comentar y puntuar un libro");
     printf("\n 2-  Ver todos tus comentarios y puntuaciones");
-    printf("\n 3-  Modificar tus comentarios y puntuaciones");
-    printf("\n 4-  Eliminar un comentario y puntuacion propio");
-    printf("\n 5-  Ver comentarios y puntuaciones de un libro. Busca por titulo");
-    printf("\n 6-  Ver todos los comentarios y puntuaciones.");
-    printf("\n 7-  Habilitar/Deshabilitar comentarios y puntuaciones.");
-    printf("\n 8-  Eliminar comentarios y puntuaciones.");
+    printf("\n 3-  Modificar/Eliminar tus comentarios y puntuaciones");
+    printf("\n 4-  Ver comentarios y puntuaciones de un libro. Busca por titulo");
+    printf("\n 5-  Ver todos los comentarios y puntuaciones.");
+    printf("\n 6-  Habilitar/Deshabilitar comentarios y puntuaciones.");
+    printf("\n 7-  Eliminar comentarios y puntuaciones de otros usuarios.");
     printf("\n 0-  Volver al menu anterior.");
 
     printf("\n\n Ingresa una opcion:  ");
@@ -596,9 +595,13 @@ int opcionSubMenuComentariosAdmin()
     return opcion;
 }
 
-void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[])
+void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[],char archivoLibros[], char archivoUsuarios[])
 {
     int opcion = -1;
+
+    stComentario arregloComentarios[500];
+    int validosComentarios = 0;
+
 
     do
     {
@@ -608,35 +611,42 @@ void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[])
         {
         case 1:
             puts("\nComentar y puntuar un libro\n\n");
-/// cargaUnComentario(idUsuario, idLibro, archivoComentarios);
+
+            subMenuAgregaComentNuevo(SESSION,archivoComentarios,archivoLibros);
+
             break;
         case 2:
             puts("\nVer todos tus comentarios y puntuaciones\n\n");
-///imprimirArregloComentariosAdmin(arregloComents, valComents, arregloLibros, valLibros, arregloUsuarios, valUsuarios)
+
+            validosComentarios = 0; // reinicio validos para escribir el arreglo desde el inicio
+            validosComentarios = archivoToArrayComenSegunIdUsuario(archivoComentarios,arregloComentarios,validosComentarios,500,SESSION.id);
+            subMenuImprimeComentariosAdministradores(arregloComentarios,validosComentarios,archivoLibros,archivoUsuarios);
 
             break;
         case 3:
-            puts("\nModificar tus comentarios y puntuaciones\n\n");
+            puts("\nModificar/Eliminar tus comentarios y puntuaciones\n\n");
 ///ModificarComentarios(c, v);
             break;
         case 4:
-            puts("\nEliminar un comentario y puntuacion propio\n\n");
+            puts("\nVer comentarios y puntuaciones de un libro. Busca por titulo\n\n");
+
+            subMenuImprimeComentariosDeUnLibro(archivoLibros, archivoComentarios, archivoUsuarios);
 
             break;
         case 5:
-            puts("\nVer comentarios y puntuaciones de un libro. Busca por titulo\n\n");
+            puts("\nVer todos los comentarios y puntuaciones\n\n");
+
+            validosComentarios = 0; // reinicio validos para escribir el arreglo desde el inicio
+            archivoToArrayComentario(archivoComentarios,arregloComentarios,&validosComentarios,500);
+            subMenuImprimeComentariosAdministradores(arregloComentarios,validosComentarios,archivoLibros,archivoUsuarios);
 
             break;
         case 6:
-            puts("\nVer todos los comentarios y puntuaciones\n\n");
-
-            break;
-        case 7:
             puts("\nHabilitar/Deshabilitar comentarios y puntuaciones\n\n");
 
             break;
-        case 8:
-            puts("\nEliminar comentarios y puntuaciones\n\n");
+        case 7:
+            puts("\nEliminar comentarios y puntuaciones de otros usuarios\n\n");
 
             break;
         case 0:

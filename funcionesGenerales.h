@@ -19,3 +19,8 @@ void imprimirUnComentarioAdmin(stComentario c, stLibro arregloLibros[], int valL
 void imprimirUnComentarioUsuario(stComentario c, stLibro arregloLibros[], int valLibros, usuario arregloUsuarios[], int valUsuarios);
 void imprimirArregloComentariosAdmin(stComentario arregloComents[], int valComents, stLibro arregloLibros[], int valLibros, usuario arregloUsuarios[], int valUsuarios);
 void imprimirArregloComentariosUser(stComentario arregloComents[], int valComents, stLibro arregloLibros[], int valLibros, usuario arregloUsuarios[], int valUsuarios);
+void subMenuAgregaComentNuevo(usuario sesion, char archivoComent[], char archivoLibros[]);
+void subMenuImprimeComentariosAdministradores(stComentario arregloComent[], int valComent, char archivoLibros[], char archivoUsuarios[]);
+void subMenuImprimeComentariosDeUnLibro(char archivoLibros[], char archivoComentarios[],char archivoUsuarios[]);
+void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentarios[], char archivoLibros[]);
+void recalculoPuntuacionComentario(int idLibro, char archivoLibros[], char archivoComentarios[]);

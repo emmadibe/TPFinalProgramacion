@@ -26,9 +26,14 @@ int buscaComentarioPosicionPorIdComent(stComentario c[], int v, int idAux);
 
 
 stComentario cargaUnComentario(int idUsuario, int idLibro, char archivoComentarios[]);
-void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentarios[]);
 void intercambioComentariosArreglo(stComentario *a, stComentario *b);
 int archivoToArrayComenSegunIdLibro(char archivoComentarios[], stComentario arregloComent[], int v, int dim, int idLibro);
 int archivoToArrayComenSegunIdUsuario(char archivoComentarios[], stComentario arregloComent[], int v, int dim, int idUsuario);
 int buscaMayorIDComentario(char archivoComentario[]);
 int cantElementosArchivo(char nombreArchivo[], int tamanioEstructura);
+int usuarioYaComentoLibro(int idLibro, int idUsuario, char archivoComentarios[]);
+int sumaPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int i, int idLibro);
+int cantPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int i, int idLibro);
+float promedioPuntuacion(stComentario arregloComent[], int val, int idLibro);
+
+
