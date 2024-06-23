@@ -608,15 +608,16 @@ void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[])
         {
         case 1:
             puts("\nComentar y puntuar un libro\n\n");
-
+/// cargaUnComentario(idUsuario, idLibro, archivoComentarios);
             break;
         case 2:
             puts("\nVer todos tus comentarios y puntuaciones\n\n");
+///imprimirArregloComentariosAdmin(arregloComents, valComents, arregloLibros, valLibros, arregloUsuarios, valUsuarios)
 
             break;
         case 3:
             puts("\nModificar tus comentarios y puntuaciones\n\n");
-
+///ModificarComentarios(c, v);
             break;
         case 4:
             puts("\nEliminar un comentario y puntuacion propio\n\n");
