@@ -60,7 +60,9 @@ int opcionesMenuLogueo()
     printf("\n 0-  Cerrar programa");
 
     printf("\n\n Ingresa una opcion:  ");
+    fflush(stdin);
     scanf("%d", &eleccion);
+    printf("\n");
 
     return eleccion;
 }
@@ -216,7 +218,9 @@ int opcionesMenuAdmin()
     printf("\n 0-  Cerrar sesion");
 
     printf("\n\n Ingresa una opcion:  ");
+    fflush(stdin);
     scanf("%d", &eleccion);
+    printf("\n");
 
     return eleccion;
 }
@@ -291,7 +295,9 @@ int opcionSubMenuUsuariosAdmin()
     printf("\n 0-  Volver al menu anterior.");
 
     printf("\n\n Ingresa una opcion:  ");
+    fflush(stdin);
     scanf("%d", &opcion);
+    printf("\n");
 
     return opcion;
 }
@@ -387,9 +393,9 @@ int opcionSubMenuLibrosAdmin()
     printf("\n 0-  Volver al menu anterior.");
 
     printf("\n\n Ingresa una opcion:  ");
+    fflush(stdin);
     scanf("%d", &opcion);
     puts("\n");
-
 
     return opcion;
 }
@@ -593,7 +599,9 @@ int opcionSubMenuComentariosAdmin()
     printf("\n 0-  Volver al menu anterior.");
 
     printf("\n\n Ingresa una opcion:  ");
+    fflush(stdin);
     scanf("%d", &opcion);
+    printf("\n");
 
     return opcion;
 }
@@ -715,7 +723,9 @@ int opcionesMenuUsuario()
     printf("\n 0-  Cerrar sesion");
 
     printf("\n\n Ingresa una opcion:  ");
+    fflush(stdin);
     scanf("%d", &eleccion);
+    printf("\n");
 
     return eleccion;
 }
@@ -788,9 +798,9 @@ int opcionSubMenuLibrosUsuario()
     printf("\n 0-  Volver al menu anterior.");
 
     printf("\n\n Ingresa una opcion:  ");
+    fflush(stdin);
     scanf("%d", &opcion);
     puts("\n");
-
 
     return opcion;
 }
@@ -979,7 +989,9 @@ int opcionSubMenuComentariosUsuario()
     printf("\n 0-  Volver al menu anterior.");
 
     printf("\n\n Ingresa una opcion:  ");
+    fflush(stdin);
     scanf("%d", &opcion);
+    printf("\n");
 
     return opcion;
 }
