@@ -57,8 +57,8 @@ void subMenuModificaComentario(stComentario c[], int pos)
         printf("Cual campo queres modificar?\n");
         printf("1. Modificar Titulo del comentario\n");
         printf("2. Modificar Descripcion\n");
-        printf("3. Modificar Puntaje");
-        printf("0. Salir de EDITAR COMENTARIO");
+        printf("3. Modificar Puntaje\n");
+        printf("0. Salir de EDITAR COMENTARIO\n");
 
         scanf("%d",&option2);
 
