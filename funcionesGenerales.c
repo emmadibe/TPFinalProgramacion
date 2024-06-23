@@ -72,20 +72,26 @@ void muestraLibrosFavoritosDeUsuario(int idUsuario, char archivoUsuarios[], char
     }
 }
 
-void muestraLibroComentAleatorio(char archivoLibros[],char archivoComentarios[])
+void muestraLibroComentAleatorio(char archivoLibros[],char archivoComentarios[], char archivoUsuarios[])
 {
     stLibro arregloLibros[500];
     int validosLibros = 0;
     int posLibro = -1;
 
-    //stComentario arregloComentarios[500];
-    //int valComentarios = 0;
+    stComentario arregloComentarios[500];
+    int valComentarios = 0;
+
+    usuario arregloUsuario[500];
+    int valUsuarios = 0;
 
     validosLibros = archivoToArrayLibros(archivoLibros,arregloLibros,validosLibros,500);
     posLibro = posRandomArray(validosLibros);
 
+    valComentarios = archivoToArrayComenSegunIdLibro(archivoComentarios,arregloComentarios,valComentarios,500,arregloLibros[posLibro].idLibro);
+    valUsuarios = archivoToArregloUsuario(archivoUsuarios,arregloUsuario,valUsuarios,500);
+
     muestraUnLibroUsuario(arregloLibros[posLibro]);
-    /// funcion de muestra de los comentarios del libro
+    imprimirArregloComentariosUser(arregloComentarios,valComentarios,arregloLibros,validosLibros,arregloUsuario,valUsuarios);
 }
 
 void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[])
@@ -480,6 +486,20 @@ void subMenuImprimeComentariosAdministradores(stComentario arregloComent[], int 
     imprimirArregloComentariosAdmin(arregloComent,valComent,arregloLibros,validosLibros,arregloUsuarios,validosUsuarios);
 }
 
+void subMenuImprimeComentariosUsuarios(stComentario arregloComent[], int valComent, char archivoLibros[], char archivoUsuarios[])
+{
+    stLibro arregloLibros[500];
+    int validosLibros = 0;
+
+    usuario arregloUsuarios[500];
+    int validosUsuarios = 0;
+
+    validosUsuarios = archivoToArregloUsuario(archivoUsuarios,arregloUsuarios,validosUsuarios,500);
+    validosLibros = archivoToArrayLibros(archivoLibros,arregloLibros,validosLibros,500);
+
+    imprimirArregloComentariosUser(arregloComent,valComent,arregloLibros,validosLibros,arregloUsuarios,validosUsuarios);
+}
+
 void subMenuImprimeComentariosDeUnLibro(char archivoLibros[], char archivoComentarios[],char archivoUsuarios[])
 {
     char tituloAux[100];
@@ -504,7 +524,7 @@ void subMenuImprimeComentariosDeUnLibro(char archivoLibros[], char archivoComent
         else
         {
             valComents = archivoToArrayComenSegunIdLibro(archivoComentarios,arregloComents,valComents,500,idLibroAux);
-            subMenuImprimeComentariosAdministradores(arregloComents,valComents,archivoLibros,archivoUsuarios);
+            subMenuImprimeComentariosUsuarios(arregloComents,valComents,archivoLibros,archivoUsuarios);
         }
 
     } while(control == 1);
@@ -522,10 +542,10 @@ void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentari
         fwrite(&comentario, sizeof(stComentario), 1, archi);
         fclose(archi); //Debo cerrar el archivo para guardar los cambios
     }
-    recalculoPuntuacionComentario(idLibro,archivoLibros,archivoComentarios);
+    recalculoPuntuacionLibro(idLibro,archivoLibros,archivoComentarios);
 }
 
-void recalculoPuntuacionComentario(int idLibro, char archivoLibros[], char archivoComentarios[])
+void recalculoPuntuacionLibro(int idLibro, char archivoLibros[], char archivoComentarios[])
 {
     stComentario arregloComent[500];
     int valComentarios = 0;
@@ -543,12 +563,90 @@ void recalculoPuntuacionComentario(int idLibro, char archivoLibros[], char archi
     posicionLibro = buscarPosArregloLibroConIdLibro(idLibro,arregloLibros,valLibros);
 
     arregloLibros[posicionLibro].valoracion = nuevaPuntuacion;
-
     arregloToArchivoLibros(arregloLibros,valLibros,archivoLibros);
 }
 
+void modificaComentarioLibro(stLibro arregloLibros[], int valLibros, stComentario arregloComentarios[], int valComentarios, char archivoLibros[],char archivoComentarios[], int idUsuario)
+{
+    char tituloBuscado[100];
+    int flag = 0;
+    int opcion1 = -1;
+    int idLibro = -1;
+    int existeComentario = 1; //suponemos que existe
+    int posEnArreglo = -1;
+
+    do
+    {
+        puts("Ingrese el titulo del libro del cual desea modificar su comentario:");
+        fflush(stdin);
+        gets(tituloBuscado);
+
+        idLibro = buscarIdLibroConTitulo(tituloBuscado,archivoLibros);
+
+        existeComentario = usuarioYaComentoLibro(idLibro,idUsuario,archivoComentarios);
+        posEnArreglo = buscarPosComentarioIdLibro(idLibro,arregloComentarios,valComentarios);
+
+        if(existeComentario == 1)
+        {
+            subMenuModificaComentario(arregloComentarios,posEnArreglo);
+            flag = 1;
+            opcion1 = 0;
+            recalculoPuntuacionLibro(idLibro,archivoLibros,archivoComentarios);  // recalculo por si el usuario modificó la puntuación
+        }
+        else
+        {
+            puts("\nNo realizaste ningún comentario de ese libro.");
+            puts("\nIngrese 1 para volver a intentar con otro libro o 0 para salir.");
+            scanf("%d", &opcion1);
+        }
+    }
+    while(flag == 0 && opcion1 != 0);
+}
 
 
+void subMenuEliminaComentarioPropio(char archivoLibros[], char archivoComentarios[], int idUsuario)
+{
+    stComentario arregloComent[500];
+    int valComent = 0;
+
+    char tituloAux[100];
+    int posEnArreglo = -1;
+
+    int control = 0;
+    int existeComentario = -1;
+    int idLibro = -1;
+
+    // 1ro: paso archivo a arreglo para trabajar en buffer
+    archivoToArrayComentario(archivoComentarios,arregloComent,&valComent,500);
+
+    do
+    {
+        puts("Ingrese el titulo del libro del cual desea modificar su comentario:");
+        fflush(stdin);
+        gets(tituloAux);
+
+        idLibro = buscarIdLibroConTitulo(tituloAux,archivoLibros);
+
+        existeComentario = usuarioYaComentoLibro(idLibro,idUsuario,archivoComentarios);
+        posEnArreglo = buscarPosComentarioIdLibro(idLibro,arregloComent,valComent);
+
+        if(existeComentario == 0)
+        {
+            puts("No pudimos encontrar el comentario que buscas eliminar, intenta nuevamente");
+        }
+        else if(existeComentario == -1)
+        {
+            intercambioComentariosArreglo(&arregloComent[posEnArreglo],&arregloComent[valComent]);
+            valComent--;
+            arrayToArchivoComentarios(arregloComent,valComent,archivoComentarios); // sobreescrivo el archivo con los cambios
+            recalculoPuntuacionLibro(idLibro,archivoLibros,archivoComentarios); //recalculo puntuacion promedio libro
+        }
+        puts("Si quieres eliminar otro comentario presiona 1, para terminar presiona cualquier otra tecla");
+        scanf("%d", &control);
+        system("cls");
+    }
+    while(control == 1);
+}
 
 
 

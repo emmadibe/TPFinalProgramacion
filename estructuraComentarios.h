@@ -21,7 +21,6 @@ int buscarPosComentarioIdLibro(int idLibro, stComentario c[], int v);
 
 ///agregadas 21 de junio, NO APARECEN EN EL MAIN POR SI QUERES HACER MODIFICACIONES:
 void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[]);
-void ModificarComentarios(stComentario c[],int v);
 int buscaComentarioPosicionPorIdComent(stComentario c[], int v, int idAux);
 
 
@@ -35,5 +34,5 @@ int usuarioYaComentoLibro(int idLibro, int idUsuario, char archivoComentarios[])
 int sumaPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int i, int idLibro);
 int cantPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int i, int idLibro);
 float promedioPuntuacion(stComentario arregloComent[], int val, int idLibro);
-
+void subMenuModificaComentario(stComentario c[], int pos);
 

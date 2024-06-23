@@ -50,17 +50,17 @@ void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[
 
 ///modificar y eliminar comentarios:
 
-
-void ModificarComentarios(stComentario c[],int v)
+/*
+void subMenuModificaComentarios(char archivoLibros[])
 {
 /**yo usaria el titulo del libro para buscar el
-* idLibro y este idLibro para encontrar el comentario (Kari) */
+* idLibro y este idLibro para encontrar el comentario (Kari)
 
     int idAux;
     int option2;
     int pos = -1;
 
-    printf("Que comentario queres modificar?\n");
+    printf("Que comentario queres modificar? Indica el titulo del libro:\n");
     scanf("%d",&idAux);
 
     pos = buscaComentarioPosicionPorIdComent(c,v,idAux);
@@ -100,11 +100,10 @@ void ModificarComentarios(stComentario c[],int v)
                 scanf("%d", &c[pos].puntaje);
                 printf("Se modifico correctamente\n");
                 break;
-//
-//            case 4:
-//                eliminarComentario(c);
-//                printf("Se elimino el comentario\n");
-//                break;
+            case 4:
+               /// eliminarComentario(c);
+                printf("Se elimino el comentario\n");
+               break;
 
             default:
                 printf("No existe esa opción. Quiere volver a intentar?\n");
@@ -118,6 +117,54 @@ void ModificarComentarios(stComentario c[],int v)
         printf("\n No existe comentario con ese id");
     }
 }
+*/
+
+
+void subMenuModificaComentario(stComentario c[], int pos)
+{
+    int option = 0;
+    int option2 = 0;
+
+    do
+    {
+        printf("Cual campo queres modificar?\n");
+        printf("1. Modificar Titulo del comentario\n");
+        printf("2. Modificar Descripcion\n");
+        printf("3. Modificar Puntaje");
+        printf("0. Salir de EDITAR COMENTARIO");
+
+        scanf("%d",&option2);
+
+        switch(option2)
+        {
+        case 1:
+            printf("Ingrese el nuevo titulo\n");
+            fflush(stdin);
+            gets(c[pos].tituloComentario);
+            printf("Se modifico correctamente \n");
+            break;
+        case 2:
+            printf("Ingrese la nueva descripcion \n");
+            fflush(stdin);
+            gets(c[pos].descripcion);
+            printf("Se modifico correctamente\n");
+            break;
+        case 3:
+            printf("Ingrese nuevo puntaje \n");
+            scanf("%d", &c[pos].puntaje);
+            printf("Se modifico correctamente\n");
+            break;
+        case 0:
+            break;
+        default:
+            printf("No existe esa opción. Quiere volver a intentar? Presione 1.\n");
+            scanf("%d", &option2);
+        }
+        system("cls");
+    }
+    while (option2 == 1);
+}
+
 
 int buscaComentarioPosicionPorIdComent(stComentario c[], int v, int idBuscado)
 {
@@ -272,7 +319,6 @@ int usuarioYaComentoLibro(int idLibro, int idUsuario, char archivoComentarios[])
     return flag; // 1: el usuario ya comento, 0: el usuario todavia no comento
 }
 
-
 int sumaPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int i, int idLibro)
 {
     int sumatoria;
@@ -319,7 +365,6 @@ int cantPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int
 
 float promedioPuntuacion(stComentario arregloComent[], int val, int idLibro)
 {
-
     return (float) sumaPuntuacionesRecursivoCondicion(arregloComent,val,0,idLibro)/cantPuntuacionesRecursivoCondicion(arregloComent,val,0,idLibro);
 }
 

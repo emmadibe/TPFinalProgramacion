@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1719109941 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
+1719113561 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
 	"estructuraComentarios.h"
 
 1719109688 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
@@ -16,15 +16,15 @@
 	<conio.h>
 	"estructuraDomicilio.h"
 
-1719109994 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.h
+1719115273 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.h
 	"estructuraUsuario.h"
 	"estructuraLibros.h"
 	"estructuraComentarios.h"
 
-1719106620 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
+1719115456 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
 	"funcionesGenerales.h"
 
-1719109688 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
+1719115273 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
 	"funcionesGenerales.h"
 
 1719109688 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
@@ -34,7 +34,7 @@
 	<conio.h>
 	<time.h>
 
-1719109688 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
+1719113566 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
 	<stdlib.h>
 	<time.h>
 	<string.h>

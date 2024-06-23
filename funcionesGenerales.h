@@ -7,7 +7,7 @@ int buscaPosicionEnArregloEntero(int arreglo[], int val, int entero);
 void intercambioVariablesInt(int *a, int *b);
 int posRandomArray(int validos);
 void muestraLibrosFavoritosDeUsuario(int idUsuario, char archivoUsuarios[], char archivoLibros[]);
-void muestraLibroComentAleatorio(char archivoLibros[],char archivoComentarios[]);
+void muestraLibroComentAleatorio(char archivoLibros[],char archivoComentarios[], char archivoUsuarios[]);
 void subMenuAgregaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[]);
 void subMenuEliminaFavsDeUser(int posUsuario, usuario arregloUsuarios[], char archivoLibros[]);
 void subMenuEliminaLibrosAdmin(char archivoLibros[], char archivoUsuarios[], char archivoComentarios[]);
@@ -23,4 +23,7 @@ void subMenuAgregaComentNuevo(usuario sesion, char archivoComent[], char archivo
 void subMenuImprimeComentariosAdministradores(stComentario arregloComent[], int valComent, char archivoLibros[], char archivoUsuarios[]);
 void subMenuImprimeComentariosDeUnLibro(char archivoLibros[], char archivoComentarios[],char archivoUsuarios[]);
 void cargaComentariosAlArchivo(int idUsuario, int idLibro, char archivoComentarios[], char archivoLibros[]);
-void recalculoPuntuacionComentario(int idLibro, char archivoLibros[], char archivoComentarios[]);
+void recalculoPuntuacionLibro(int idLibro, char archivoLibros[], char archivoComentarios[]);
+void subMenuImprimeComentariosUsuarios(stComentario arregloComent[], int valComent, char archivoLibros[], char archivoUsuarios[]);
+void modificaComentarioLibro(stLibro arregloLibros[], int valLibros, stComentario arregloComentarios[], int valComentarios, char archivoLibros[],char archivoComentarios[], int idUsuario);
+void subMenuEliminaComentarioPropio(char archivoLibros[], char archivoComentarios[], int idUsuario);
