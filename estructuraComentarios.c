@@ -77,8 +77,15 @@ void subMenuModificaComentario(stComentario c[], int pos)
             printf("Se modifico correctamente\n");
             break;
         case 3:
-            printf("Ingrese nuevo puntaje \n");
-            scanf("%d", &c[pos].puntaje);
+
+            do
+            {
+                printf("Ingrese nuevo puntaje del 0 al 5 al libro.\n");
+                fflush(stdin);
+                scanf("%d", &c[pos].puntaje);
+            }
+            while(c[pos].puntaje < 0 || c[pos].puntaje > 5);
+
             printf("Se modifico correctamente\n");
             break;
         case 0:
@@ -142,7 +149,7 @@ stComentario cargaUnComentario(int idUsuario, int idLibro, char archivoComentari
     {
 
         printf("Ponele un puntaje del 0 al 5 al libro.\n");
-
+        fflush(stdin);
         scanf("%d", &puntaje);
 
     }

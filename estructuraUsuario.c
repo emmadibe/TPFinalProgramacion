@@ -266,14 +266,12 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
 
         do
         {
-
             printf("Seleccionar el campo a editar: \n");
             printf(" 1)Nombre.\n 2)Email.\n 3)Pass.\n 4)Edad.\n 5)Genero.\n 6)Username.\n 0)Salir de editar usuario.\n");
 
             printf("\n\n Ingresa una opcion:  ");
             fflush(stdin);
             scanf("%d", &opcion);
-
         }
         while (opcion < 1 && opcion > 6);
 
