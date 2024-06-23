@@ -15,9 +15,11 @@ int buscarMayorId(char nombreArchivo[])
 
     int mayor = u[0].id; //Siempre, cuando busco el mayor, supongo que el primer elemento del array es el mayor.
 
-    while(i < v){
+    while(i < v)
+    {
 
-        if(u[i].id > mayor){
+        if(u[i].id > mayor)
+        {
 
             mayor = u[i].id;
 
@@ -28,23 +30,6 @@ int buscarMayorId(char nombreArchivo[])
     }
 
     return mayor;
-
-}
-
-int buscarUltimoId(char nombreArchivo[])
-{
-
-   usuario u[200];
-
-   int v = 0;
-
-    v = archivoToArregloUsuario(nombreArchivo, u, v, 200);
-
-    int i = 0;
-
-    int id = u[v - 1].id;
-
-    return id;
 
 }
 
@@ -59,13 +44,17 @@ int corroborarPass(char pass[])
 
     int validacion = 0;
 
-    while(pass[i] != '\0' && (mayus == 0 || min == 0)){ //El caracter especial null \0 identifica el fin del string en un string.
+    while(pass[i] != '\0' && (mayus == 0 || min == 0))  //El caracter especial null \0 identifica el fin del string en un string.
+    {
 
-        if(pass[i] >= 'A' && pass[i] <= 'Z'){
+        if(pass[i] >= 'A' && pass[i] <= 'Z')
+        {
 
             mayus++;
 
-        }else if (pass[i] >= 'a' && pass[i] <= 'z'){
+        }
+        else if (pass[i] >= 'a' && pass[i] <= 'z')
+        {
 
             min++;
 
@@ -74,7 +63,8 @@ int corroborarPass(char pass[])
 
     }
 
-    if( mayus != 0 && min != 0){
+    if( mayus != 0 && min != 0)
+    {
 
         validacion = 1;
 
@@ -97,15 +87,20 @@ void inhabilitarUsuario(char nombreArchivo[], int id)
 
     int flag = 0;
 
-    while(i < v && flag == 0){
+    while(i < v && flag == 0)
+    {
 
-        if(u[i].id == id){
+        if(u[i].id == id)
+        {
 
-            if(u[i].rol == 2){ //Un administrador no debe poder inhabilitar a otro administrador.
+            if(u[i].rol == 2)  //Un administrador no debe poder inhabilitar a otro administrador.
+            {
 
                 flag = 2;
 
-            }else{
+            }
+            else
+            {
 
                 u[i].eliminado = 1;
 
@@ -113,7 +108,8 @@ void inhabilitarUsuario(char nombreArchivo[], int id)
 
                 FILE *archi = fopen(nombreArchivo, "wb");
 
-                if(archi){
+                if(archi)
+                {
 
                     fwrite(&u, sizeof(usuario), v, archi);
 
@@ -129,15 +125,20 @@ void inhabilitarUsuario(char nombreArchivo[], int id)
 
     }
 
-    if(flag == 0){
+    if(flag == 0)
+    {
 
         puts("No existe un usuario con ese id.\n");
 
-    }else if (flag == 1){
+    }
+    else if (flag == 1)
+    {
 
         printf("El usuario %s ha sido inhabilitado.\n", u[i - 1].nombre);
 
-    }else{
+    }
+    else
+    {
 
         puts("NO PODES INHABILITAR A OTRO ADMINISTRADOR!\n");
 
@@ -148,28 +149,30 @@ void inhabilitarUsuario(char nombreArchivo[], int id)
 void eliminarUsuario(char nombreArchivo[], usuario admin) //Función para eliminar al usuario del todo: del archivo y del array. Para inhabilitarlo utilizo la función inhabilitar usuario().
 {
 
-        int validos = 0;
-        int dimension = 300;
-        int idUsuarioEliminar = 0;
-        int posicion;
-        usuario u[300];
+    int validos = 0;
+    int dimension = 300;
+    int idUsuarioEliminar = 0;
+    int posicion;
+    usuario u[300];
 
-        validos = archivoToArregloUsuario(nombreArchivo, u, validos, dimension); //Siempre trabajo desde el array. Por eso, antes que nada debo pasar todos los datos que tengo en mi archivo a un arreglo. Desde ahí, haré lo que sea necesario: imprimir los datos, editarlos o borrarlos.
+    validos = archivoToArregloUsuario(nombreArchivo, u, validos, dimension); //Siempre trabajo desde el array. Por eso, antes que nada debo pasar todos los datos que tengo en mi archivo a un arreglo. Desde ahí, haré lo que sea necesario: imprimir los datos, editarlos o borrarlos.
 
-        printf("Hola, %s. Ingresar el id del usuario que desea eliminar: \n", admin.nombre);
-        scanf("%d", &idUsuarioEliminar);
+    printf("Hola, %s. Ingresar el id del usuario que desea eliminar: \n", admin.nombre);
+    scanf("%d", &idUsuarioEliminar);
 
-        posicion = buscarUsuarioPorId(idUsuarioEliminar, u, validos);
+    posicion = buscarUsuarioPorId(idUsuarioEliminar, u, validos);
 
-        if(posicion == -1)
+    if(posicion == -1)
+    {
+
+        printf("No existe un usuario con ese id\n");
+
+    }
+    else
+    {
+
+        if(u[posicion].rol == 1)
         {
-
-            printf("No existe un usuario con ese id\n");
-
-        }else{
-
-            if(u[posicion].rol == 1)
-            {
 
             ////////////////////Borro el usuario que está en la posicion posicion del array:
 
@@ -181,14 +184,16 @@ void eliminarUsuario(char nombreArchivo[], usuario admin) //Función para elimin
 
             printf("Usuario eliminado correctamente\n");
 
-            }else{
+        }
+        else
+        {
 
-                printf("Un administrador no puede eliminar a otro administrador!\n");
-
-            }
-
+            printf("Un administrador no puede eliminar a otro administrador!\n");
 
         }
+
+
+    }
 
 
 }
@@ -197,19 +202,14 @@ int enroqueArray(usuario u[], int v, int posicion)
 {
     ///////////////////////En posicion, voy a poner lo que hay al final del array.
 
-    strcpy(u[posicion].nombre, u[v - 1].nombre);
-    strcpy(u[posicion].email,  u[v - 1].email);
-    strcpy(u[posicion].pass,  u[v - 1].pass);
-    strcpy(u[posicion].fechaNacimiento,  u[v - 1].fechaNacimiento);
-    u[posicion].edad =  u[v - 1].edad;
-    u[posicion].id =  u[v - 1].id;
-    u[posicion].rol =  u[v - 1].rol;
-    u[posicion].genero =  u[v - 1].genero;
+    usuario usuarioAux = u[posicion];
+
+    u[posicion] = u[v];
+    u[v] = usuarioAux;
 
     /////////////////////////////////////////////
 
     return v - 1; //Le quito un valor a validos porque ahora hay un usuario menos.
-
 }
 
 int buscarUsuarioPorId(int idUsuario, usuario u[], int v)
@@ -255,69 +255,77 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
 
     posicion = buscarUsuarioPorId(idUsuario, u, v); //Ya tengo la posición del usuario en el array.
 
-    if(posicion == -1){
+    if(posicion == -1)
+    {
 
         puts("No existe un usuario con ese id.\n");
 
-    }else{
+    }
+    else
+    {
 
         do
         {
 
             printf("Seleccionar el campo a editar: \n");
-            printf("1) Nombre.\n 2)Email.\n 3) Pass.\n 4)Edad.\n 5) Genero.\n");
+            printf("1)Nombre.\n 2)Email.\n 3)Pass.\n 4)Edad.\n 5)Genero.\n 6)Username.");
             scanf("%d", &opcion);
 
-        } while (opcion < 1 && opcion > 5);
+        }
+        while (opcion < 1 && opcion > 6);
 
         switch (opcion)
         {
-            case 1:
+        case 1:
 
-                do{
+            do
+            {
 
-                    printf("\nIngrese nombre y apellido entre 6 y 30 caracteres: \n");
-                    fflush(stdin);
-                    gets(u[posicion].nombre);
+                printf("\nIngrese nombre y apellido entre 6 y 30 caracteres: \n");
+                fflush(stdin);
+                gets(u[posicion].nombre);
 
-                    longCadena = strlen(u[posicion].nombre);
+                longCadena = strlen(u[posicion].nombre);
 
-                }while(longCadena < 6 || longCadena > 30);
+            }
+            while(longCadena < 6 || longCadena > 30);
 
-                break;
+            break;
 
-            case 2:
+        case 2:
 
-                do
+            do
+            {
+
+                printf("\nIngrese su email: \n");
+                fflush(stdin);
+                gets(u[posicion].email);
+
+                verificaEmail = comprobarEmail(u[posicion].email);
+
+                //printf("%d", verificaEmail);  //Control de funcion
+
+                if(verificaEmail == 1)
                 {
 
-                    printf("\nIngrese su email: \n");
-                    fflush(stdin);
-                    gets(u[posicion].email);
+                    puts("UN EMAIL DEBE TENER UN ARROBA Y TERMINAR EN .COM!\n");
 
-                    verificaEmail = comprobarEmail(u[posicion].email);
-
-                    //printf("%d", verificaEmail);  //Control de funcion
-
-                    if(verificaEmail == 1)
-                    {
-
-                        puts("UN EMAIL DEBE TENER UN ARROBA Y TERMINAR EN .COM!\n");
-
-                    }
-                    else if(verificaEmail == -9)
-                    {
-
-                        puts("EL EMAIL YA EXISTEª ELIJA OTRO.\n");
-
-                    }}while(verificaEmail != 0);
-
-                break;
-
-            case 3:
-
-                do
+                }
+                else if(verificaEmail == -9)
                 {
+
+                    puts("EL EMAIL YA EXISTEª ELIJA OTRO.\n");
+
+                }
+            }
+            while(verificaEmail != 0);
+
+            break;
+
+        case 3:
+
+            do
+            {
 
                 do
                 {
@@ -328,7 +336,8 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
 
                     valPass = corroborarPass(u[posicion].pass);
 
-                    if(valPass == 0){
+                    if(valPass == 0)
+                    {
 
                         puts("El pass debe tener un char minuscula; y otro,masucula.\n");
 
@@ -342,35 +351,52 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
 
                 compararCadenas = strcmp(u[posicion].pass, pass2);
 
-                }while(compararCadenas != 0);
+            }
+            while(compararCadenas != 0);
 
-                break;
+            break;
 
-            case 4:
+        case 4:
 
-                do
-                {
+            do
+            {
 
-                    printf("\nIngrese una edad del 1 al 100: \n");
-                    scanf("%d", &u[posicion].edad);
+                printf("\nIngrese una edad del 1 al 100: \n");
+                scanf("%d", &u[posicion].edad);
 
 
-                }while(u[posicion].edad < 1 || u[posicion].edad > 100 );
+            }
+            while(u[posicion].edad < 1 || u[posicion].edad > 100 );
 
-                break;
+            break;
 
-            case 5:
+        case 5:
 
-                 do
-                {
+            do
+            {
 
-                    printf("\nIngrese su genero: f, m o x\n");
-                    u[posicion].genero = getch();
+                printf("\nIngrese su genero: f, m o x\n");
+                u[posicion].genero = getch();
 
-                }while(u[posicion].genero != 'f' && u[posicion].genero != 'm' && u[posicion].genero != 'x');
+            }
+            while(u[posicion].genero != 'f' && u[posicion].genero != 'm' && u[posicion].genero != 'x');
 
-                break;
+            break;
+        case 6:
 
+            do
+            {
+
+                printf("\nIngrese username entre 6 y 20 caracteres: \n");
+                fflush(stdin);
+                gets(u[posicion].username);
+
+                longCadena = strlen(u[posicion].username);
+
+            }
+            while(longCadena < 6 || longCadena > 20);
+
+            break;
         }
 
         arrayToArchivo(nombreArchivo, u, v);
@@ -500,13 +526,15 @@ int crearUsuario(char archivo[])
             longCadena = strlen(u.pass);
             validPass = corroborarPass(u.pass);
 
-            if(validPass != 1){
+            if(validPass != 1)
+            {
 
                 puts("El pass debe poseer, al menos, una letra minuscula y otra mayucula.\n");
 
             }
 
-        }while(longCadena < 5 || validPass == 0);  //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
+        }
+        while(longCadena < 5 || validPass == 0);   //obligo al usuario a ingresar ua contraseña de, como minimo, 5 caracteres.
 
         printf("\nConfirmar pass: \n");
         fflush(stdin);
@@ -524,7 +552,7 @@ int crearUsuario(char archivo[])
         fflush(stdin);
         gets(u.username);
 
-        longCadena = strlen(u.nombre);
+        longCadena = strlen(u.username);
 
     }
     while(longCadena < 6 || longCadena > 20);
@@ -574,23 +602,28 @@ int crearUsuario(char archivo[])
 
     sprintf(u.fechaNacimiento, "%s %s %s %s %s", diaStr, "|", mesStr, "|", anioStr); // COn la función sprintf puedo agregar varios string a un string. Por eso, me sirve esta función y no strcpy().
 
-    do{
+    do
+    {
 
         puts("Ingrese su numero de DNI:\n");
         fflush(stdin);
         gets(dni);
 
-        if(strlen(dni) >= 8){
+        if(strlen(dni) >= 8)
+        {
 
             strcpy(u.dni, dni);
 
-        }else{
+        }
+        else
+        {
 
             puts("DNI invalido.\n");
 
         }
 
-    }while(strlen(dni) < 8);
+    }
+    while(strlen(dni) < 8);
 
     d = cargarDomicilio();
 
@@ -670,21 +703,27 @@ void imprimirUnRegistro(usuario u)
     printf("Altura: %d\n", u.domicilio.altura);
     printf("Rol: %d\n", u.rol);
 
-    if(u.eliminado == 0){
+    if(u.eliminado == 0)
+    {
 
         puts("Usuario habilitado.\n");
 
-    }else{
+    }
+    else
+    {
 
         puts("Usuario no habilitado.\n");
 
     }
 
-    if(u.rol == 2){
+    if(u.rol == 2)
+    {
 
         puts("Es un administrador\n");
 
-    }else{
+    }
+    else
+    {
 
         puts("Es un usuario.\n");
 
@@ -839,9 +878,12 @@ void imprimirArrayUsuario(usuario a[], int v)
         printf("Pais: %s\n", a[i].domicilio.pais);
         printf("Ciudad: %s\n", a[i].domicilio.ciudad);
         printf("Codigo Postal: %d\n", a[i].domicilio.cp);
-        if(a[i].eliminado == 0){
+        if(a[i].eliminado == 0)
+        {
             puts("Usuario habilitado.\n");
-        }else{
+        }
+        else
+        {
             puts("Usuario no habilitado.\n");
         }
         puts("----------------------------\n");
@@ -865,14 +907,17 @@ int buscarUsuario(usuario a[], int v, char email[], char pass[])
         if(strcmpi(a[i].email, email) == 0)
         {
 
-            if(strcmpi(a[i].pass, pass) == 0)
+            if(strcmp(a[i].pass, pass) == 0)
             {
 
-                if(a[i].eliminado == 0){
+                if(a[i].eliminado == 0)
+                {
 
                     control = i; //Retorno la posición del usuario. Así, me será muy sencillo acceder a todos sus datos.
 
-                }else{
+                }
+                else
+                {
 
                     control = 33;
 

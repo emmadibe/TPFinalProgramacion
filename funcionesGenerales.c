@@ -379,9 +379,9 @@ void imprimirUnComentarioAdmin(stComentario c, stLibro arregloLibros[], int valL
     puts("------------------------------------------------");
     printf("Usuario: %s\n", usuarioAux.username);
     printf("Titulo del comentario: %sn\n", c.tituloComentario);
-    printf("Comentario: \n\n%s\n\n", c.descripcion);
     printf("Puntaje del usuario: %d\n", c.puntaje);
     printf("Fecha: %s\n", c.fechaComentario);
+    printf("Comentario: \n\n%s\n\n", c.descripcion);
     if(c.eliminado == 1)
     {
         printf("\nEstado:DESHABILITADO");
@@ -390,7 +390,7 @@ void imprimirUnComentarioAdmin(stComentario c, stLibro arregloLibros[], int valL
     {
         printf("\nEstado:HABILITADO");
     }
-    puts("-------------------------------------\n");
+    puts("\n-------------------------------------\n");
 }
 
 
@@ -408,10 +408,10 @@ void imprimirUnComentarioUsuario(stComentario c, stLibro arregloLibros[], int va
         puts("------------------------------------------------");
         printf("Usuario: %s\n", usuarioAux.username);
         printf("Titulo del comentario: %sn\n", c.tituloComentario);
-        printf("Comentario: \n\n%s\n\n", c.descripcion);
         printf("Puntaje del usuario: %d\n", c.puntaje);
         printf("Fecha: %s\n", c.fechaComentario);
-        puts("-------------------------------------\n");
+        printf("Comentario: \n\n%s\n\n", c.descripcion);
+        puts("\n-------------------------------------\n");
     }
 }
 
@@ -575,7 +575,7 @@ void modificaComentarioLibro(stLibro arregloLibros[], int valLibros, stComentari
 
     do
     {
-        puts("Ingrese el titulo del libro del cual desea modificar su comentario:");
+        puts("Ingrese el titulo del libro del cual deseas eliminar su comentario:");
         fflush(stdin);
         gets(tituloBuscado);
 
@@ -614,7 +614,6 @@ void subMenuEliminaComentarioPropio(char archivoLibros[], char archivoComentario
     int existeComentario = -1;
     int idLibro = -1;
 
-    // 1ro: paso archivo a arreglo para trabajar en buffer
     archivoToArrayComentario(archivoComentarios,arregloComent,&valComent,500);
 
     do
@@ -632,12 +631,13 @@ void subMenuEliminaComentarioPropio(char archivoLibros[], char archivoComentario
         {
             puts("No pudimos encontrar el comentario que buscas eliminar, intenta nuevamente");
         }
-        else if(existeComentario == -1)
+        else if(existeComentario == 1)
         {
             intercambioComentariosArreglo(&arregloComent[posEnArreglo],&arregloComent[valComent]);
             valComent--;
             arrayToArchivoComentarios(arregloComent,valComent,archivoComentarios); // sobreescrivo el archivo con los cambios
             recalculoPuntuacionLibro(idLibro,archivoLibros,archivoComentarios); //recalculo puntuacion promedio libro
+            printf("\nComentario eliminado correctamente\n");
         }
         puts("Si quieres eliminar otro comentario presiona 1, para terminar presiona cualquier otra tecla");
         scanf("%d", &control);

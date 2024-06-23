@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1719113561 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
+1719161934 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
 	"estructuraComentarios.h"
 
 1719109688 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
 	"estructuraLibros.h"
 
-1719103464 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
+1719164703 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
 	"estructuraUsuario.h"
 
 1719103464 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
@@ -21,7 +21,7 @@
 	"estructuraLibros.h"
 	"estructuraComentarios.h"
 
-1719161924 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
+1719164024 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
 	"funcionesGenerales.h"
 
 1719115899 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
