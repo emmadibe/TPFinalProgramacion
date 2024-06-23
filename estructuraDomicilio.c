@@ -20,7 +20,7 @@ stDomicilio cargarDomicilio()
     gets(d.ciudad);
     puts("\n");
 
-    printf("Localidad:\n");
+    printf("Provincia:\n");
     fflush(stdin);
     gets(d.localidad);
     puts("\n");

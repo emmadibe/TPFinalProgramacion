@@ -584,7 +584,7 @@ int opcionSubMenuComentariosAdmin()
     printf("------------------------------------------------------\n");
     printf("\n 1-  Comentar y puntuar un libro");
     printf("\n 2-  Ver todos tus comentarios y puntuaciones");
-    printf("\n 3-  Modificar/Eliminar tus comentarios y puntuaciones");
+    printf("\n 3-  Modificar tus comentarios y puntuaciones");
     printf("\n 4-  Eliminar tus comentarios y puntuaciones");
     printf("\n 5-  Ver comentarios y puntuaciones de un libro. Busca por titulo");
     printf("\n 6-  Ver todos los comentarios y puntuaciones.");
