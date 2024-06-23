@@ -22,6 +22,8 @@ int opcionesMenuUsuario();
 void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION, char archivoUsuarios[], char archivoLibros[], char archivoComentarios[]);
 int opcionSubMenuLibrosUsuario();
 void subMenuLibrosUsuario(usuario SESSION, char archivoLibros[], char archivoUsuarios[], char archivoComentarios[]);
+int opcionSubMenuComentariosUsuario();
+void subMenuComentariosUsuario(usuario SESSION, char archivoComentarios[],char archivoLibros[], char archivoUsuarios[]);
 
 /**
 *VARIABLE DE SESSION. En esta variable vamos a almacenar los valores de los campos del usuario que se logueo
@@ -732,7 +734,7 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
         switch(opcionMenu)
         {
         case 1: //Ir a SECCION COMENTARIOS
-
+            subMenuComentariosUsuario(SESSION,archivoComentarios,archivoLibros,archivoUsuarios);
 
             break;
         case 2: //Ir a SECCION LIBROS
@@ -961,6 +963,104 @@ void subMenuLibrosUsuario(usuario SESSION, char archivoLibros[], char archivoUsu
     while(opcion != 0);
 }
 
+int opcionSubMenuComentariosUsuario()
+{
+    int opcion = -1;
+
+    system("color 75");
+    printf("------------------------------------------------------\n");
+    printf("          SECCION COMENTARIOS Y VALORACIONES   \n");
+    printf("------------------------------------------------------\n");
+    printf("\n 1-  Comentar y puntuar un libro");
+    printf("\n 2-  Ver todos tus comentarios y puntuaciones");
+    printf("\n 3-  Modificar/Eliminar tus comentarios y puntuaciones");
+    printf("\n 4-  Eliminar tus comentarios y puntuaciones");
+    printf("\n 5-  Ver comentarios y puntuaciones de un libro. Busca por titulo");
+    printf("\n 0-  Volver al menu anterior.");
+
+    printf("\n\n Ingresa una opcion:  ");
+    scanf("%d", &opcion);
+
+    return opcion;
+}
+
+void subMenuComentariosUsuario(usuario SESSION, char archivoComentarios[],char archivoLibros[], char archivoUsuarios[])
+{
+    int opcion = -1;
+
+    stComentario arregloComentarios[500];
+    int validosComentarios = 0;
+
+    stLibro arregloLibros[500];
+    int valLibros = 0;
+
+
+    do
+    {
+        opcion = opcionSubMenuComentariosUsuario();
+
+        switch (opcion)
+        {
+        case 1:
+            puts("\nComentar y puntuar un libro\n\n");
+
+            subMenuAgregaComentNuevo(SESSION,archivoComentarios,archivoLibros);
+
+            break;
+        case 2:
+            puts("\nVer todos tus comentarios y puntuaciones\n\n");
+
+            validosComentarios = 0; // reinicio validos para escribir el arreglo desde el inicio
+            validosComentarios = archivoToArrayComenSegunIdUsuario(archivoComentarios,arregloComentarios,validosComentarios,500,SESSION.id);
+            subMenuImprimeComentariosUsuarios(arregloComentarios,validosComentarios,archivoLibros,archivoUsuarios);
+
+            break;
+        case 3:
+            puts("\nModificar tus comentarios y puntuaciones\n\n");
+
+            validosComentarios = 0; // reinicio validos para escribir el arreglo desde el inicio
+            valLibros = 0; // reinicio validos para escribir el arreglo desde el inicio
+            archivoToArrayComentario(archivoComentarios,arregloComentarios,&validosComentarios,500);
+            valLibros = archivoToArrayLibros(archivoLibros,arregloLibros,valLibros,500);
+
+            if (validosComentarios > 0)
+            {
+                /* funcion de control para evitar sobreescribir el archivo vacio
+                si hubo algun error al pasar los datos del archivo al array*/
+
+                modificaComentarioLibro(arregloLibros,valLibros,arregloComentarios,validosComentarios,archivoLibros,archivoComentarios,SESSION.id);
+                arrayToArchivoComentarios(arregloComentarios,validosComentarios,archivoComentarios);
+            }
+            else
+            {
+                puts("\n ERROR: El archivo está vacio o no funcionó la transferencia de datos al buffer\n");
+            }
+            break;
+        case 4:
+            puts("\nEliminar tus comentarios y puntuaciones\n\n");
+
+            subMenuEliminaComentarioPropio(archivoLibros,archivoComentarios,SESSION.id);
+
+            break;
+        case 5:
+            puts("\nVer comentarios y puntuaciones de un libro. Busca por titulo\n\n");
+
+            subMenuImprimeComentariosDeUnLibro(archivoLibros, archivoComentarios, archivoUsuarios);
+
+            break;
+        case 0:
+            break;
+        default:
+            system("color 74");
+            printf("\nOPCION INVALIDA\n");
+        }
+        puts("\n\n");
+        system("PAUSE");
+        system("cls");
+        system("color 75");
+    }
+    while(opcion != 0);
+}
 
 
 
