@@ -575,7 +575,7 @@ void modificaComentarioLibro(stLibro arregloLibros[], int valLibros, stComentari
 
     do
     {
-        puts("Ingrese el titulo del libro del cual deseas eliminar su comentario:");
+        puts("Ingrese el titulo del libro del cual deseas modificar su comentario:");
         fflush(stdin);
         gets(tituloBuscado);
 
@@ -618,7 +618,7 @@ void subMenuEliminaComentarioPropio(char archivoLibros[], char archivoComentario
 
     do
     {
-        puts("Ingrese el titulo del libro del cual desea modificar su comentario:");
+        puts("Ingrese el titulo del libro del cual desea eliminar su comentario:");
         fflush(stdin);
         gets(tituloAux);
 
