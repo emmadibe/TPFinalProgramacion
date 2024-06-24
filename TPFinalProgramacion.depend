@@ -1,4 +1,14 @@
 # depslib dependency file v1.0
+1719262437 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
+	"estructuraComentarios.h"
+
+1719262437 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+	<stddef.h>
+
 1719177610 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.c
 	"estructuraDomicilio.h"
 
@@ -18,26 +28,16 @@
 	<conio.h>
 	<time.h>
 
-1719182468 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
+1719267193 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
 	"estructuraUsuario.h"
 
-1719182006 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
+1719267133 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
 	<stdlib.h>
 	<time.h>
 	<string.h>
 	<stdio.h>
 	<conio.h>
 	"estructuraDomicilio.h"
-
-1719262437 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
-	"estructuraComentarios.h"
-
-1719262437 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
-	<stdlib.h>
-	<time.h>
-	<string.h>
-	<stdio.h>
-	<stddef.h>
 
 1719262191 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
 	"funcionesGenerales.h"
@@ -47,6 +47,6 @@
 	"estructuraLibros.h"
 	"estructuraComentarios.h"
 
-1719262476 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
+1719267103 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
 	"funcionesGenerales.h"
 

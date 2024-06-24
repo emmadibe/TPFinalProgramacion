@@ -46,7 +46,7 @@ int buscarUsuario(usuario a[], int v, char email[], char pass[]);
 int existeEmail(char email[]);
 int tienePuntoCom(char email[]);
 void mostrarUnUsuario(usuario u);
-void editarUsuario(char nombreArchivo[], int idUsuario);
+usuario editarUsuario(char nombreArchivo[], int idUsuario);
 void arrayToArchivo(char nombreArchivo[], usuario u[], int v);
 int buscarPosUsuarioPorId(int idUsuarioBuscado, usuario arregloUsuarios[], int v);
 void eliminarUsuario(char nombreArchivo[], usuario admin);

@@ -260,7 +260,7 @@ void menuAdmins(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSION,
             break;
         case 5: //editar mi perfil
 
-            editarUsuario(archivoUsuarios, SESSION.id);
+            SESSION = editarUsuario(AR_USUARIOS, SESSION.id);
 
             break;
         case 0:
@@ -767,7 +767,7 @@ void menuUsuarios(usuario arregloUsuarios[], int usuarioLogueado, usuario SESSIO
             break;
         case 4: //editar mi perfil
 
-            editarUsuario(archivoUsuarios, SESSION.id);
+            SESSION = editarUsuario(archivoUsuarios, SESSION.id);
 
             break;
         case 0:

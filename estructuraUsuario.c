@@ -236,7 +236,7 @@ int buscarUsuarioPorId(int idUsuario, usuario u[], int v)
 
 }
 
-void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo el archivo, todos los usuarios, a un array y editar al usuario DESDE el array, Luego, sobreescribo el archivo con los datos del array. Para ello, debo abrir el archivo en modo wb.
+usuario editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo el archivo, todos los usuarios, a un array y editar al usuario DESDE el array, Luego, sobreescribo el archivo con los datos del array. Para ello, debo abrir el archivo en modo wb.
 {
 
     int opcion = 0;
@@ -273,7 +273,7 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
             fflush(stdin);
             scanf("%d", &opcion);
         }
-        while (opcion < 1 && opcion > 6);
+        while (opcion < 0 && opcion > 6);
 
         switch (opcion)
         {
@@ -393,7 +393,6 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
                 gets(u[posicion].username);
 
                 longCadena = strlen(u[posicion].username);
-
             }
             while(longCadena < 6 || longCadena > 20);
             break;
@@ -403,10 +402,10 @@ void editarUsuario(char nombreArchivo[], int idUsuario) //La idea es pasar todo 
 
         arrayToArchivo(nombreArchivo, u, v);
 
+
     }
 
-
-
+    return u[posicion];
 }
 
 void arrayToArchivo(char nombreArchivo[], usuario u[], int v)
