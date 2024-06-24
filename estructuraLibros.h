@@ -23,25 +23,21 @@ int existeLibro(char nombreLibro[], char archivoLibros[]);
 void cargaLibrosAlArchivo(char archivoLibros[]);
 int existeIdArreglo(int id, int arregloId[], int val);
 int buscaMayorIDLibro(char archivoLibros[]);
-
 void muestraUnLibroAdmin(stLibro libro);
 void muestraUnLibroUsuario(stLibro libro);
 void muestraArchivoLibrosAdmins(char archivoLibros[]);
 void muestraArregloLibrosAdmin(stLibro arregloLibros[], int vLibros);
 void muestraArchivoLibrosUsuario(char archivoLibros[]);
 void muestraArregloLibrosUsuario(stLibro arregloLibros[], int vLibros);
-
 int archivoToArrayLibros(char nombreArchivo[], stLibro libros[], int v, int dim);
 int archivoToArrayLibrosSegunCategoria(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char categoria[]);
 int archivoToArrayLibrosSegunAutor(char archivoLibros[], stLibro arregloLibros[], int v, int dim, char autorBuscado[]);
 void arregloToArchivoLibros(stLibro arregloLibros[], int v, char archivoLibros[]);
 void intercambioLibrosArreglo(stLibro *a, stLibro *b);
-
 int buscarIdLibroConTitulo(char tituloLibro[], char archivoLibros[]);
 stLibro buscarLibroPorId(int idLibroBuscado, stLibro arregloLibros[], int v);
 int buscaLibroConTituloEnArreglo(stLibro arregloLibros[], int val);
 int buscaLibroPosicionEnArregloTitulo(stLibro arreglo[], int val, char titulo[]);
 int buscarPosArregloLibroConIdLibro(int idLibroBuscado, stLibro libros[], int v);
-
 void subMenuModificaArregloDatosLibro(stLibro arrayLibros[], int posEnArreglo);
 void modificaDatosLibro(stLibro arregloLibros[], int val);

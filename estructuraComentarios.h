@@ -18,12 +18,8 @@ typedef struct {
 
 void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int * v, int d);
 int buscarPosComentarioIdLibro(int idLibro, stComentario c[], int v);
-
-///agregadas 21 de junio, NO APARECEN EN EL MAIN POR SI QUERES HACER MODIFICACIONES:
 void arrayToArchivoComentarios(stComentario c[], int v, char archivoComentarios[]);
 int buscaComentarioPosicionPorIdComent(stComentario c[], int v, int idAux);
-
-
 stComentario cargaUnComentario(int idUsuario, int idLibro, char archivoComentarios[]);
 void intercambioComentariosArreglo(stComentario *a, stComentario *b);
 int archivoToArrayComenSegunIdLibro(char archivoComentarios[], stComentario arregloComent[], int v, int dim, int idLibro);

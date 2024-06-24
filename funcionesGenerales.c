@@ -374,25 +374,25 @@ void imprimirUnComentarioAdmin(stComentario c, stLibro arregloLibros[], int valL
     libroAux = buscarLibroPorId(c.idLibro,arregloLibros,valLibros);
     usuarioAux = buscarUnUsuarioPorId(c.idUsuario,arregloUsuarios,valUsuarios);
 
-    puts("------------------------------------------------");
+    puts("-----------------------*------------------------");
     printf("Comentario del libro: %s\n",libroAux.titulo);
     puts("------------------------------------------------");
-    printf("Usuario que agregó el libro: %s\n", usuarioAux.username);
+    printf("Comentario de: %s\n", usuarioAux.username);
     printf("Titulo del comentario: %s\n", c.tituloComentario);
     printf("ID del comentario: %d\n", c.idComentario);
     printf("Habilitado: %d\n", c.eliminado);
     printf("Puntaje del usuario: %d\n", c.puntaje);
     printf("Fecha: %s\n", c.fechaComentario);
-    printf("Comentario: \n\n%s\n\n", c.descripcion);
+    printf("Comentario: \n\n%s\n", c.descripcion);
     if(c.eliminado == 1)
     {
-        printf("\nEstado:DESHABILITADO");
+        printf("Estado:DESHABILITADO");
     }
     else if(c.eliminado == 0)
     {
-        printf("\nEstado:HABILITADO");
+        printf("Estado:HABILITADO");
     }
-    puts("\n-------------------------------------\n");
+    puts("\n-----------------------*------------------------\n");
 }
 
 
@@ -408,11 +408,11 @@ void imprimirUnComentarioUsuario(stComentario c, stLibro arregloLibros[], int va
         puts("------------------------------------------------");
         printf("Comentario del libro: %s\n",libroAux.titulo);
         puts("------------------------------------------------");
-        printf("Usuario: %s\n", usuarioAux.username);
+        printf("Comentario de: %s\n", usuarioAux.username);
         printf("Titulo del comentario: %s\n", c.tituloComentario);
         printf("Puntaje del usuario: %d\n", c.puntaje);
         printf("Fecha: %s\n", c.fechaComentario);
-        printf("Comentario: \n\n%s\n\n", c.descripcion);
+        printf("Comentario: \n\n%s\n", c.descripcion);
         puts("\n-------------------------------------\n");
     }
 }

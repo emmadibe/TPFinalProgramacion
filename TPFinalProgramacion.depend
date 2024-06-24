@@ -1,11 +1,24 @@
 # depslib dependency file v1.0
-1719177610 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
-	"estructuraComentarios.h"
+1719177610 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.c
+	"estructuraDomicilio.h"
+
+1719262437 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.h
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
 
 1719109688 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.c
 	"estructuraLibros.h"
 
-1719181882 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
+1719262437 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<conio.h>
+	<time.h>
+
+1719182468 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.c
 	"estructuraUsuario.h"
 
 1719182006 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructurausuario.h
@@ -16,88 +29,24 @@
 	<conio.h>
 	"estructuraDomicilio.h"
 
+1719262437 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.c
+	"estructuraComentarios.h"
+
+1719262437 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
+	<stdlib.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+	<stddef.h>
+
+1719262191 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
+	"funcionesGenerales.h"
+
 1719115273 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.h
 	"estructuraUsuario.h"
 	"estructuraLibros.h"
 	"estructuraComentarios.h"
 
-1719177610 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\funcionesgenerales.c
+1719262476 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
 	"funcionesGenerales.h"
-
-1719181669 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\tpfinal.c
-	"funcionesGenerales.h"
-
-1719109688 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuralibros.h
-	<stdlib.h>
-	<stdio.h>
-	<string.h>
-	<conio.h>
-	<time.h>
-
-1719113566 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuracomentarios.h
-	<stdlib.h>
-	<time.h>
-	<string.h>
-	<stdio.h>
-	<stddef.h>
-
-1719177610 source:c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.c
-	"estructuraDomicilio.h"
-
-1719081338 c:\users\usuario\onedrive\documentos\utn\programación i\tpfinalprogramacion\estructuradomicilio.h
-	<stdlib.h>
-	<time.h>
-	<string.h>
-	<stdio.h>
-
-1719165576 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuradomicilio.c
-	"estructuraDomicilio.h"
-
-1719165576 c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuradomicilio.h
-	<stdlib.h>
-	<time.h>
-	<string.h>
-	<stdio.h>
-
-1719165576 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuralibros.c
-	"estructuraLibros.h"
-
-1719165576 c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuralibros.h
-	<stdlib.h>
-	<stdio.h>
-	<string.h>
-	<conio.h>
-	<time.h>
-
-1719165576 c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructurausuario.h
-	<stdlib.h>
-	<time.h>
-	<string.h>
-	<stdio.h>
-	<conio.h>
-	"estructuraDomicilio.h"
-
-1719165576 c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\funcionesgenerales.h
-	"estructuraUsuario.h"
-	"estructuraLibros.h"
-	"estructuraComentarios.h"
-
-1719165576 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructurausuario.c
-	"estructuraUsuario.h"
-
-1719170504 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\funcionesgenerales.c
-	"funcionesGenerales.h"
-
-1719170381 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\tpfinal.c
-	"funcionesGenerales.h"
-
-1719165576 c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuracomentarios.h
-	<stdlib.h>
-	<time.h>
-	<string.h>
-	<stdio.h>
-	<stddef.h>
-
-1719170381 source:c:\users\marco\desktop\utn\programacion 1\github_tp_final\tpfinalprogramacion\estructuracomentarios.c
-	"estructuraComentarios.h"
 

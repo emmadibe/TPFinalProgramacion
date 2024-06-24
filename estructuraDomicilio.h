@@ -9,7 +9,7 @@ typedef struct
     int altura;
     int cp;
     char ciudad[100];
-    char localidad[50];
+    char localidad[50]; ///provincia
     char pais[100];
 
 } stDomicilio;

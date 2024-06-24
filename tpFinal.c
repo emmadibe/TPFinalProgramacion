@@ -115,11 +115,11 @@ void menuLogueo(char archivoUsuarios[], char archivoLibros[], char archivoComent
 
             do
             {
-                printf("INGRESE SU EMAIL: \n");
+                printf("\nINGRESE SU EMAIL: \n\n");
                 fflush(stdin);
                 gets(email);
 
-                printf("INGRESE SU PASS: \n");
+                printf("\nINGRESE SU PASS: \n\n");
                 fflush(stdin);
                 gets(pass);
 
