@@ -35,4 +35,7 @@ int sumaPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int
 int cantPuntuacionesRecursivoCondicion(stComentario arregloComent[],int val, int i, int idLibro);
 float promedioPuntuacion(stComentario arregloComent[], int val, int idLibro);
 void subMenuModificaComentario(stComentario c[], int pos);
+void inhabilitarComentario(char nombreArchivo[], int id);
+void eliminarComentarioDelArchivo(char nombreArchivo[], int id);
+void enroqueComentarios(stComentario c[], int v, int pos);
 

@@ -467,7 +467,7 @@ void subMenuLibrosAdmin(usuario SESSION, char archivoLibros[], char archivoUsuar
             break;
         case 4:
             puts("\nAgregar un libro nuevo\n");
-            cargaLibrosAlArchivo(archivoLibros);
+            cargaLibrosAlArchivo(AR_LIBROS);
 
             break;
 
@@ -615,6 +615,7 @@ void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[],char arc
     stLibro arregloLibros[500];
     int valLibros = 0;
 
+    int idComentario = 0;
 
     do
     {
@@ -680,13 +681,21 @@ void subMenuComentariosAdmin(usuario SESSION, char archivoComentarios[],char arc
         case 7:
             puts("\nHabilitar/Deshabilitar comentarios y puntuaciones\n\n");
 
+            printf("Seleccionar el id del comentario que desea inhabiliat: \n");
 
+            scanf("%d", &idComentario);
+
+            inhabilitarComentario(AR_COMENTARIOS, idComentario);
 
             break;
         case 8:
             puts("\nEliminar comentarios y puntuaciones de otros usuarios\n\n");
 
+            printf("Seleccionar el id del comentario que deseas eliminar del archivo: \n");
 
+            scanf("%d", &idComentario);
+
+            eliminarComentarioDelArchivo(AR_COMENTARIOS, idComentario);
 
             break;
         case 0:

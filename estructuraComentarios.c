@@ -2,6 +2,101 @@
 
 
 
+void enroqueComentarios(stComentario c[], int v, int pos)
+{
+
+    stComentario aux;
+
+    aux = c[pos];
+
+    c[pos] = c[v - 1];
+
+    c[v - 1] = aux;
+
+}
+
+void eliminarComentarioDelArchivo(char nombreArchivo[], int id)
+{
+
+    int validos = 0;
+    
+    stComentario c[200];
+
+    archivoToArrayComentario(nombreArchivo, c, &validos, 200);
+
+    int posicion = buscaComentarioPosicionPorIdComent(c, validos, id);
+
+    if(posicion != -1){
+
+        enroqueComentarios(c, validos, posicion);
+
+        validos = validos - 1;
+
+        FILE *archi = fopen(nombreArchivo, "wb");
+
+        if(archi){
+
+            fwrite(&c, sizeof(stComentario), validos, archi);
+
+            fclose(archi);
+
+        }
+
+    }else{
+
+        printf("NO EXISTSE UN COMENTARIO CON ESE IDÂª\n");
+
+    }
+
+}
+
+void inhabilitarComentario(char nombreArchivo[], int id)
+{
+
+    int validos = 0;
+
+    stComentario c[200];
+
+    archivoToArrayComentario(nombreArchivo, c, &validos, 200);
+
+    int i = 0;
+
+    char flag = 't';
+
+    while(i < validos && flag == 't'){
+
+        if(c[i].idComentario == id){
+
+            c[i].eliminado = 1;
+
+            flag = 'f';
+
+        }
+
+        i++;
+
+    }
+
+    if(flag != 't'){
+
+        FILE *archi = fopen(nombreArchivo, "wb");
+
+        if(archi){
+
+            fwrite(&c, sizeof(stComentario), validos, archi);
+
+            fclose(archi);
+
+        }
+
+    }else{
+
+        printf("NO EXISTE UN COMENTARIO CON ESE ID!\n");
+
+    }
+
+}
+
 void archivoToArrayComentario(char nombreArchivo[], stComentario c[], int  *v, int d)
 {
     int cant = cantElementosArchivo(nombreArchivo, sizeof(stComentario));
@@ -91,7 +186,7 @@ void subMenuModificaComentario(stComentario c[], int pos)
         case 0:
             break;
         default:
-            printf("No existe esa opción. Quiere volver a intentar? Presione 1.\n");
+            printf("No existe esa opciï¿½n. Quiere volver a intentar? Presione 1.\n");
             scanf("%d", &option2);
         }
         system("cls");
@@ -244,7 +339,7 @@ int usuarioYaComentoLibro(int idLibro, int idUsuario, char archivoComentarios[])
 
     while(i < validos && flag == 0)
     {
-        if(idUsuario == arrayComents[i].idUsuario)  // comprueba, libro por libro, si el titulo ya está guardado en el archivo (no diferencia entre mayusculas y minusculas
+        if(idUsuario == arrayComents[i].idUsuario)  // comprueba, libro por libro, si el titulo ya estï¿½ guardado en el archivo (no diferencia entre mayusculas y minusculas
         {
             flag = 1; // El libro ya existe en el archivo
         }

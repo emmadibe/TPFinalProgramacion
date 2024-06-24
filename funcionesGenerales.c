@@ -377,8 +377,10 @@ void imprimirUnComentarioAdmin(stComentario c, stLibro arregloLibros[], int valL
     puts("------------------------------------------------");
     printf("Comentario del libro: %s\n",libroAux.titulo);
     puts("------------------------------------------------");
-    printf("Usuario: %s\n", usuarioAux.username);
+    printf("Usuario que agregó el libro: %s\n", usuarioAux.username);
     printf("Titulo del comentario: %s\n", c.tituloComentario);
+    printf("ID del comentario: %d\n", c.idComentario);
+    printf("Habilitado: %d\n", c.eliminado);
     printf("Puntaje del usuario: %d\n", c.puntaje);
     printf("Fecha: %s\n", c.fechaComentario);
     printf("Comentario: \n\n%s\n\n", c.descripcion);
